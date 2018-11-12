@@ -1,0 +1,294 @@
+<html>
+<head>
+    <meta name="Generator" content="tpshop" />
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>商品列表-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/group_buy.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/lvhai.css">
+    <link rel="stylesheet" href="integralMall.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <style>
+        .jffw{
+            width: 100vw;
+            height: 70px;
+            font-size: 12px;
+        }
+        #range{
+            width: 617px;
+            height: 30px;
+            background: #F0F0EE;
+            font-size: 12px;
+            padding: 5px 12px;
+
+        }
+        #range input{
+            width: 80px;
+            height: 20px;
+        }
+        #selectBtn{
+            margin-left: 8px;
+            width: 30px;
+            height: 25px;
+            font-size: 12px;
+            -webkit-appearance: button;
+        }
+        .poi{
+            height: 30px;
+            padding: 0 10px;
+        }
+        .jfdhsp li{
+            height: 110px;
+            padding: 13px;
+            border: 1px solid #ddd;
+            margin-bottom: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+        .for{
+            height: 110px;
+            padding: 13px;
+            margin-bottom: 10px;
+            position: relative;
+        }
+        .url{
+            width: 100px;
+            height: 110px;
+            position: absolute;
+            top: 13px;
+            left: 13px;
+        }
+        .url img{
+            display: block;
+            width: 110px;
+            height: 110px;
+            float: left;
+        }
+        .p1{
+            width: 110px;
+            height: 110px;
+            float: left;
+        }
+        .p2{
+            float: left;
+            margin-left: 10px;
+        }
+        .p4{
+            float: left;
+            margin-left: 10px;
+        }
+        .p4 span{
+            font-size: 12px;
+            color: red;
+        }
+        .p4{
+            font-size: 12px;
+            color: red;
+            height: 15px;
+        }
+        .info_wrap{
+            height: 18px;
+            overflow: hidden;
+            color: #666;
+            font-size: 15px;
+            line-height: 18px;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            display: -webkit-box;
+            margin-left: 10px;
+        }
+        .div, .button {
+            background-color: #fa6c2c; /* Green */
+            border: none;
+            color: white;
+            padding: 5px 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            float: left;
+            margin-left: 10px;
+        }
+        .button a{
+            font-size: 12px;
+            color: white;
+        }
+
+        .mnb{
+            float: left;
+            margin-left: 10px;
+        }
+        .poi span, .poi select{
+            float: left;
+        }
+        .poi select{
+            margin-top: 5px;
+        }
+        @media (max-width: 400px){
+            .mnb{
+                width: 100%;
+                float: left;
+                word-wrap: break-word;
+                word-break: normal;
+                margin-left: 0px;
+                margin-top: -10px;
+            }
+            ul{
+                margin-top: 20px;
+            }
+        }
+
+    </style>
+</head>
+<body style="background:#FFF;">
+<div class="tab_nav">
+    <div class="header">
+        <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+        <div class="h-mid">积分商城</div>
+        <div class="h-right">
+            <aside class="top_bar">
+                <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<include file="Public/menu"/>
+<div class="jffw">
+    <div id="range" style="display:inline-block;">
+        积分范围：
+        <input type="text" class="bt_" name="minValue" id="minValue" value="{$_GET['minValue']}"cla> -
+        <input type="text" class="bt_" name="maxValue" id="maxValue" value="{$_GET['maxValue']}">
+        <button type="button" id="selectBtn" onclick="search();" class="btn btn-default"><i class="btn btn-default"></i>查找</button>
+    </div>
+    <div class="poi">
+    <span>
+    兑换方式：</span>
+        <select name="brandType" id="brandType">
+            <option value="0">全部</option>
+            <option value="1" <if condition="$_GET['brandType'] eq 1">selected="selected"</if>>积分+金额</option>
+            <option value="2" <if condition="$_GET['brandType'] eq 2">selected="selected"</if>>全积分</option>
+        </select>　
+        　
+        <div class="mnb">  <input name="is_new" type="checkbox"  class="cla" <if condition="$_GET['is_new'] eq 1">checked="checked"</if> value="1" id="is_new"> 新品　　
+            <input name="exchange" type="checkbox"  class="cla"  <if condition="$_GET['exchange'] eq 1">checked="checked"</if> value="" id="exchange"> 我能兑换的商品　</div>　
+    </div>
+    <!--<input name="" type="checkbox" value="" id="memberShip"> 会员专享-->
+    <input name="cat_id" id="cat_id" value="{$_GET['id']}" type="hidden" />　
+
+</div>
+<div class="jfxq">
+    <ul id="goods_ul">
+        <volist name="goods_list" id="goods">
+            <li class="for">
+                <p class="p1">
+                    <a target="_blank" class="url" href="{:U('mobile/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">
+                        <img width="auto" height="auto" src="{$goods['goods_id']|goods_thum_images=200,200}">
+                    </a>
+                </p>
+                <div class="p2 info_wrap">
+                    {$goods['goods_name']}
+                </div>
+                <br>
+                <div class="p4">
+                    ¥ {$goods['shop_price']-$goods['exchange_integral']/$point_rate}+ {$goods['exchange_integral']}积分
+                </div>
+                <br>
+                <button class="button"> <a target="_blank" href="{:U('mobile/Goods/goodsInfo',array('id'=>$goods['goods_id']))}">立即兑换</a></button>
+            </li>
+
+        </volist>
+    </ul>
+</div>
+<div class="djs">
+    {$page}
+</div>
+<script>
+    function goTop(){
+        $('html,body').animate({'scrollTop':0},600);
+    }
+</script>
+<a href="javascript:goTop();" class="gotop"><img width="auto" height="auto" src="__STATIC__/images/topup.png"></a>
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+</body>
+<script>
+    $(document).ready(function(){
+        //切换兑换方式
+        $('#brandType').change(function(){
+            search();
+        });
+        //选中新品
+        $("#is_new").bind("click", function () {
+            search();
+        });
+        //用户能买的商品
+        $("#exchange").bind("click", function () {
+            search();
+        });
+    })
+
+    //搜索
+    function search() {
+        var minValue = parseInt($('#minValue').val());//积分起始范围
+        var maxValue = parseInt($('#maxValue').val());//积分截止范围
+        var cat_id = $('#cat_id').val();//商品分类id
+        var brandType = $('#brandType').find("option:selected").val();
+        var url = "/index.php?m=mobile&c=goods&a=integralMall";
+
+        if($('#minValue').val() != ''){
+            if(!isPositiveNum(minValue)){
+                layer.alert('范围有误', {icon: 2});
+                return false;
+            }else{
+                url += "&minValue="+minValue;
+            }
+        }
+
+        if($('#maxValue').val() != ''){
+            if(!isPositiveNum(maxValue)){
+                layer.alert('范围有误', {icon: 2});
+                return false;
+            }else{
+                url += "&maxValue="+maxValue;
+            }
+        }
+
+        if($('#minValue').val() != '' && $('#maxValue').val() != '' && maxValue < minValue){
+            layer.alert('范围有误', {icon: 2});
+            return false;
+        }
+
+        if(cat_id!=0 && cat_id!=''){
+            url += "&id="+cat_id;
+        }
+
+        if(brandType!=''){
+            url += "&brandType="+brandType;
+        }
+
+        if($("#is_new").is(":checked")){
+            url += "&is_new="+1;
+        }
+        if($("#exchange").is(":checked")){
+            url += "&exchange="+1;
+        }
+
+        window.location.href=url;
+    }
+
+    //检查是否为正整数
+    function isPositiveNum(s)
+    {
+        var re = /^\d+$/;
+        return re.test(s);
+    }
+
+</script>
+</html>

@@ -1,0 +1,9 @@
+<foreach name="article" item="vo" key="k">
+    <li class="clearfix">
+        <a href="{:U('Mobile/Markets/details',array('id'=>$vo['article_id']))}" class="l-left"><img src="{$vo.article_id|hqarticle_thum_images=260,200}" width="auto" height="auto "></a>
+        <div class="l-right">
+            <h5><a href="{:U('Mobile/Markets/details',array('id'=>$vo['article_id']))}">{$vo[title]}</a></h5>
+            <p>{$vo[content]}</p>
+        </div>
+    </li>
+</foreach>

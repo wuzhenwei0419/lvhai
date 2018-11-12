@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-language" content="zh-cn" />
+  <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+  <meta http-equiv="Cache-control" content="public" max-age="no-cache" />
+  <link rel="shortcut icon"  href="__STATIC__/images/favicon.ico" />
+  <title>详情-{$tpshop_config['shop_info_store_title']}</title>
+  <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+  <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/help.css"/>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/market.css">
+
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/ie9.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+  <![endif]-->
+</head>
+<body class="page-hq">
+  <!--------头部开始-------------->
+  <include file="Public/min-header"/>
+  <!--------头部结束-------------->
+
+  <!--E头部-->
+  <div style="clear: both; height:20px"></div>
+  <div id="pageContent" class="pageContent clearfix">
+    <div class="hc-warp" id="page">
+      <div class="hq-left">
+        <h2 class="node-title">{$article[0].title}</h2>
+        <div class="node-release">发布时间：{$article[0].publish_time|date="Y-m-d",###}      </div>
+        <div class="node-content">
+          <table class="table">
+            <tr>
+              <th>品种</th>
+              <th>品名</th>
+              <th>产地</th>
+              <th>规格</th>
+              <th>单位</th>
+              <th>净重</th>
+              <th>毛重</th>
+              <th>最高价</th>
+              <th>最低价</th>
+              <th>均价</th>
+              <th>涨跌</th>
+            </tr>
+            <foreach name="market" item="v" >
+              <tr>
+                <td>{$v[hq_name]}</td>
+                <td>{$v[hq_variety]}</td>
+                <td>{$v[hq_address]}</td>
+                <td>{$v[spec]}</td>
+                <td>{$v[hq_unit]}</td>
+                <td>{$v[suttle]}</td>
+                <td>{$v[gross]}</td>
+                <td>{$v[hprice]}</td>
+                <td>{$v[lprice]}</td>
+                <td>{$v[eprice]}</td>
+                <td>
+                 <if condition="$v[hq_up] gt 0">
+                  <span class="glyphicon glyphicon-arrow-up up-down" aria-hidden="true"></span>{$v[hq_up]}
+                  <elseif condition="$v[hq_up] lt 0" />
+                  <span class="glyphicon glyphicon-arrow-down up-down" aria-hidden="true"></span>{$v[hq_up]|substr=1}
+                  <else />
+                  <span class="glyphicon up-down" aria-hidden="true"></span>{$v[hq_up]}
+                </if>
+              </td>
+              </tr>
+            </foreach>
+          </table>
+          <p><strong>特别提示：</strong>本信息仅供参考。请谨慎采用，风险自负。</p>
+          <div class="node-nav">
+            <a class="nav-left" href="{:U('Home/Markets/details',array('id'=>$articledown))}"><i><</i>上一篇</a>
+            <a class="nav-middle" href="{:U('Home/Markets/index')}"><i class="iconbar"></i><i class="iconbar"></i><i class="iconbar"></i></a>
+            <a class="nav-right" href="{:U('Home/Markets/details',array('id'=>$articleup))}">下一篇<i>></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="hq-right">
+        <img width="auto" height="auto"src="__STATIC__/images/lvhai/hq-r.png" alt="">
+        <div class="bottom">
+          <ul>
+           <foreach name="articlelist" item="vo" >
+            <li>
+              <a href="{:U('Home/Markets/details',array('id'=>$vo['article_id']))}">{$vo[title]}</a>
+            </li>
+           </foreach>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear: both; height:20px"></div>
+  <include file="Public/footer"/>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<div class="fn-cms-footer">
+  <div class="m-footer-g">
+    <div class="footer-map">
+      <ul class="fn-clear">
+        <li class="map"><i class="iconlvhai icon icon-menu"></i><strong class="tit">品类丰富</strong><br/>
+          <span class="desc">近万种商品 一站式购买</span>
+        </li>
+        <li class="map"><i class="iconlvhai icon icon-truck"></i><strong class="tit">送货上门</strong><br/>
+          <span class="desc">专职配送 准时送达</span>
+        </li>
+        <li class="map"><i class="iconlvhai icon icon-location"></i><strong class="tit">源头直采</strong><br/>
+          <span class="desc">坚守源头 严格优选</span>
+        </li>
+        <li class="map"><i class="iconlvhai icon icon-cart"></i><strong class="tit">新鲜低价</strong><br/>
+          <span class="desc">新鲜品质 每天节省36%</span>
+        </li>
+      </ul>
+    </div>
+    <div class="server-list">
+      <ul class="fn-clear">
+      <tpshop sql="select * from `__PREFIX__article_cat` where cat_id in(1,2,3,4,7)" key="k" item='v'>
+         <li><i class="iconlvhai icon icon{$k+1}"></i>
+          <dl class="list-item">
+            <dt>{$v[cat_name]}</dt>
+            <tpshop sql="select * from `__PREFIX__article` where cat_id = $v[cat_id]  and is_open=1" key="k2" item='v2'>
+              <dd><a href="{:U('Home/Article/detail',array('article_id'=>$v2[article_id]))}">{$v2[title]}</a></dd>
+            </tpshop>
+          </dl>
+        </li>
+    </tpshop>
+      </ul>
+    </div>
+    <div class="site-info">
+      <div class="foot-nav">
+        <a href="http://lvhailife.com/partner.html" target="_blank">城市合伙人</a>| 
+        <a href="http://lvhailife.com/supplier.html" target="_blank">供应商合作</a>| 
+        <a href="http://lvhailife.com/company.html" target="_blank">企业介绍</a>| 
+        <a href="http://lvhailife.com/news.html" target="_blank">新闻资讯</a>| 
+        <a href="http://lvhailife.com/recruit.html" target="_blank">中果招聘</a>| 
+        <a href="" style="cursor:default;text-decoration:none;">客服热线 {$tpshop_config['shop_info_phone']}</a>
+    </div>
+      <div class="link">
+        <p>
+        Copyright © 2018-2015 {$tpshop_config['shop_info_store_name']}  版权所有 保留一切权利 备案号:{$tpshop_config['shop_info_record_no']} 
+        </p>        
+      </div>
+      <div class="inline-box logowall"><a href="" class="item shgs" target="_blank"></a><a href="" class="item shwl" target="_blank"></a><a href="" class="item cxwz" target="_blank"></a><a href="" class="item kxwz" target="_blank"></a><a href="" class="item hyyz" target="_blank"></a></div>
+    </div>
+  </div>
+</div>
+<div class="kf">
+  <div class="kf-header"></div>
+  <div class="kf-content">
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3135142870&amp;Site=中果国际&amp;Menu=yes"><img  width="auto" height="auto"src="__STATIC__/images/lvhai/2.gif"><span>客服橙子</span></a>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3135142870&amp;Site=中果国际&amp;Menu=yes"><img width="auto" height="auto" src="__STATIC__/images/lvhai/2.gif"><span>客服香梨</span></a>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3135142870&amp;Site=中果国际&amp;Menu=yes"><img  width="auto" height="auto"src="__STATIC__/images/lvhai/2.gif"><span>客服提子</span></a>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3135142870&amp;Site=中果国际&amp;Menu=yes"><img  width="auto" height="auto"src="__STATIC__/images/lvhai/2.gif"><span>客服榴莲</span></a>
+    <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&amp;uin=3135142870&amp;Site=中果国际&amp;Menu=yes"><img width="auto" height="auto" src="__STATIC__/images/lvhai/2.gif"><span>客服山竹</span></a>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.kf-header').click(function() {
+      $(this).parent().hide();
+    });
+  });
+// 判断是否手机浏览器
+function isMobileBrowser()
+{
+    var sUserAgent = navigator.userAgent.toLowerCase();    
+    var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";    
+    var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";    
+    var bIsMidp = sUserAgent.match(/midp/i) == "midp";    
+    var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";    
+    var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";    
+    var bIsAndroid = sUserAgent.match(/android/i) == "android";    
+    var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";    
+    var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";    
+    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM ){    
+        return true;
+    }else 
+      return false;
+}  
+  if(isMobileBrowser()) {
+    var url = window.location.pathname;
+    if (url.indexOf('/Home') >= 0) {
+      url = url.replace('/Home', '/Mobile');
+      location.href = url;
+    }
+    else if (url.indexOf('m=Home') >= 0) {
+      url = url.replace('m=Home', 'm=Mobile');
+      location.href = url;
+    }
+    else {
+      location.href = '/index.php/Mobile/Index/index.html';
+    }
+  }
+</script>

@@ -1,0 +1,27 @@
+/*=========index-top========*/
+
+/*分类页面css*/
+.container{ width:100%; padding:0; overflow:hidden; margin:auto;}
+
+.category-box{ height:100%; width:100%; overflow:hidden}
+.category1{ background-color:#fff;}
+.category1 ul{width:100%; overflow:hidden;position: fixed;z-index: 999; display: none;}
+.category1 li{ width:33.33%; float: left; height:40px;line-height:40px;background-color: #fff;font-size: 14px; overflow:hidden; text-align:center; border-bottom: 2px solid #fff;}
+.category1 li.cur{color:#DE3535; border-bottom-color: #52ab44;}
+
+.category2 {background: #f4f4f4; padding: 5px;}
+.category2 * {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+.category2 li{ width:33.33%; float: left; padding: 5px;}
+.category2 li a{padding: 5px; background: #fff; display: block;text-align: center;}
+.category2 li img {max-width: 100%; width: auto;}
+.category2 li a h5 {font-size: 14px; font-weight: normal;color: #666; line-height: 1; margin-top: 10px; margin-bottom: 5px;}
+
+.fenimg{ width:100%; overflow:hidden;}
+.fen_img{width:33.3%; overflow:hidden;float: left; margin:0px; margin-bottom:5px;}
+.fen_img a{ display:block; width:90%;height:110px; margin:auto;overflow:hidden; background:#FFF; padding-top:3px;}
+.fen_img a span{ display:block; width:100%; height:70px;}
+.fen_img a span img{ display:block; width:70px;height:70px; margin:auto;}
+.fen_img a em{ display:block; width:90%; height:30px; margin:auto; text-align:center;font-size:14px; color:#999; line-height:30px;}
+
+.fen{width:33.3%;float:left; overflow:hidden;text-align:left; }
+.fen a{display:block; width:90%; height:35px; line-height:35px; border:1px solid #e5e5e5;margin-bottom:5px; text-align:center;font-size:14px; color:#999; background:#FFF}

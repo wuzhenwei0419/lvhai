@@ -1,0 +1,343 @@
+<!DOCTYPE html >
+<html>
+<head>
+    <meta name="Generator" content="TPshop v1.1" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>首页-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/index.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/lvhai.css">
+    <link rel="stylesheet" href="__STATIC__/css/new-index.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/TouchSlide.1.1.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/jquery.json.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <meta name="baidu-site-verification" content="3HwKFSIamS" />
+</head>
+<body class="front" >
+<div id="page" class="showpage">
+    <div style="background:white ">
+        <header id="header" style="background-color: white">
+            <div id="fake-search" class="index_search">
+                <div class="index_search_mid" style="border-radius: 20px; height: auto;width: 100%">
+                    <i class="iconlvhai icon icon-search"></i>
+                    <input  type="text" id="search_text" class="search_text" value="请输入您所搜索的商品" style="border-radius: 20px;border: 1px solid #666666"/>
+                </div>
+            </div>
+        </header>
+        <div id="scrollimg" class="scrollimg" style="width: 100%;padding-left: 0;padding-top: 0;">
+            <div class="bd">
+                <ul>
+                    <adv pid ="2" limit="5" item="v">
+                        <li><a href="{$v.ad_link}" <if condition="$v['target'] eq 1">target="_blank"</if> ><img width="auto" height="auto"src="{$v[ad_code]}" title="{$v[title]}"width="100%" style="{$v[style]}"/></a></li>
+                    </adv>
+                </ul>
+            </div>
+            <div class="hd">
+                <ul></ul>
+            </div>
+        </div>
+        <script type="text/javascript">
+            TouchSlide({
+                slideCell:"#scrollimg",
+                titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                mainCell:".bd ul",
+                effect:"leftLoop",
+                autoPage:true,//自动分页
+                autoPlay:true, //自动播放
+                interTime:5000
+            });
+        </script>
+        <!-- <div class="entry-list clearfix">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/index.php/Mobile/Goods/goodsList/id/859.html">
+                            <i class="iconlvhai icon icon-fruit"></i>
+                            <span>一件代发</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('Activity/group_list')}">
+                            <i class="iconlvhai icon icon-strawberry"></i>
+                            <span>拼单</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{:U('Markets/index')}">
+                            <i class="iconlvhai icon icon-market"></i>
+                            <span>水果行情</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/index.php/Mobile/Index/promoteList.html">
+                            <i class="iconlvhai icon icon-shopping"></i>
+                            <span>抢货</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/index.php/Mobile/Goods/integralMall.html">
+                            <i class="iconlvhai icon icon-integral"></i>
+                            <span>积分商城</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div> -->
+        <section class="index_floor">
+            <div class="floor_body">
+                <div class="jing">精品推荐
+                    <div class="lvhai">LVHAI</div>
+                </div>
+                <div class=""></div>
+                <div id="scroll_best" class="scroll_hot">
+                    <div class="bd">
+                        <ul>
+                            <assign name="fl" value="1"/>
+                            <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+                                <li>
+                                    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                                        <div class="index_pro">
+                                            <div class="products_kuang">
+                                                <img  width="auto" height="auto"src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                                            <div class="goods_name">{$v.goods_name}</div>
+                                            <div class="price">
+                                                <!--<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">+</a>-->
+                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+                        </tpshop>
+                    </ul>
+                    </div>
+                    <div class="hd">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            TouchSlide({
+                slideCell:"#scroll_best",
+                titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                effect:"leftLoop",
+                autoPage:true, //自动分页
+                //switchLoad:"_src" //切换加载，真实图片路径为"_src"
+            });
+        </script>
+        <section class="index_floor">
+            <div class="floor_body" >
+                <div class="jing">新品上市
+                    <div class="lvhai">LVHAI</div>
+                </div>
+                <div id="scroll_new" class="scroll_hot">
+                    <div class="bd">
+                        <ul>
+                            <assign name="fl" value="1"/>
+                            <tpshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
+                                <li>
+                                    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                                        <div class="index_pro">
+                                            <div class="products_kuang">
+                                                <img width="auto" height="auto" src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                                            <div class="goods_name">{$v.goods_name}</div>
+                                            <div class="price">
+                                                <!--<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">+</a>-->
+                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+                        </tpshop></ul>
+                    </div>
+                    <div class="hd">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            TouchSlide({
+                slideCell:"#scroll_new",
+                titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                effect:"leftLoop",
+                autoPage:true, //自动分页
+                //switchLoad:"_src" //切换加载，真实图片路径为"_src"
+            });
+        </script>
+        <section class="index_floor">
+            <div class="floor_body" >
+                <div class="jing">热销商品
+                    <div class="lvhai">LVHAI</div>
+                </div>
+                <div id="scroll_hot" class="scroll_hot">
+                    <div class="bd">
+                        <ul>
+                            <assign name="fl" value="1"/>
+                            <tpshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+                                <li>
+                                    <a href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                                        <div class="index_pro">
+                                            <div class="products_kuang">
+                                                <img width="auto" height="auto" src="{$v.goods_id|goods_thum_images=400,400}"></div>
+                                            <div class="goods_name">{$v.goods_name}</div>
+                                            <div class="price">
+                                                <!--<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">+</a>-->
+                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <if condition="($fl++%3 eq 0) && ($fl lt 9)"></ul><ul></if>
+                        </tpshop></ul>
+                    </div>
+                    <div class="hd">
+                        <ul></ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <script type="text/javascript">
+            TouchSlide({
+                slideCell:"#scroll_hot",
+                titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+                effect:"leftLoop",
+                autoPage:true, //自动分页
+                //switchLoad:"_src" //切换加载，真实图片路径为"_src"
+            });
+        </script>
+
+        <script type="text/javascript">
+            var url = "index.php?m=Mobile&c=Index&a=ajaxGetMore";
+
+
+            var page = 1;
+        </script>
+        <!--<div class="floor_body2" >-->
+            <!--<h2>————&nbsp;<i class="iconlvhai icon icon-about"></i>猜你喜欢&nbsp;————</h2>-->
+            <!--<div id="J_ItemList">-->
+                <!--<ul class="product single_item info">-->
+                <!--</ul>-->
+                <!--<a href="javascript:;" class="get_more" style="text-align:center; display:block;"></a>-->
+            <!--</div>-->
+            <!--<div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem;">-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <include file="Public/footer"/>
+        <script>
+            function goTop(){
+                $('html,body').animate({'scrollTop':0},600);
+            }
+        </script>
+        <a href="javascript:goTop();" class="gotop"><img width="auto" height="auto" src="__STATIC__/images/topup.png"></a>
+    </div>
+    <div id="J_demo" style="display:none"></div>
+    <div id="search_hide" class="search_hide">
+        <div id="mallSearch" class="search_mid">
+            <div class="searchdotm">
+                <form class="set_ip"name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
+                    <div class="mallSearch-input">
+                        <div id="s-combobox-135">
+                            <input class="s-combobox-input" name="q" id="q"  placeholder="请输入关键词"  type="text" value="<?php echo I('q'); ?>" />
+                        </div>
+                        <input type="button" value="" class="button"  onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();" />
+                    </div>
+                </form>
+                <span class="close">取消</span>
+            </div>
+        </div>
+        <section class="mix_recently_search"><h3>热门搜索</h3>
+            <ul>
+                <foreach name="tpshop_config.hot_keywords" item="wd" key="k">
+                    <li><a href="{:U('Goods/search',array('q'=>$wd))}" <if condition="$k eq 0">class="ht"</if>>{$wd}</a></li>
+                </foreach>
+            </ul>
+        </section>
+    </div>
+
+</div>
+<include file="Public/footer_nav"/>
+
+<script type="text/javascript">
+    $(function() {
+        $('#search_text').click(function(){
+            $(".showpage").children('div').hide();
+            $("#search_hide").css('position','relative').css('top','0px').css('width','100%').css('z-index','999').show();
+        })
+        $('#get_search_box').click(function(){
+            $(".showpage").children('div').hide();
+            $("#search_hide").css('position','relative').css('top','0px').css('width','100%').css('z-index','999').show();
+        })
+        $("#search_hide .close").click(function(){
+            $(".showpage").children('div').show();
+            $("#search_hide").hide();
+        })
+    });
+    //下拉加载
+    //获取滚动条当前的位置
+    function getScrollTop() {
+        var scrollTop = 0;
+        if(document.documentElement && document.documentElement.scrollTop) {
+            scrollTop = document.documentElement.scrollTop;
+        } else if(document.body) {
+            scrollTop = document.body.scrollTop;
+        }
+        return scrollTop;
+    }
+    //获取当前可视范围的高度
+    function getClientHeight() {
+        var innerHeight =  window.innerHeight; //window的高度，即手机的高度
+        return innerHeight
+    }
+    //获取文档完整的高度
+    function getScrollHeight() {
+        return $("body").height()
+    }
+    //滚动事件触发
+    window.onscroll = function() {
+
+        if(getScrollTop() + getClientHeight() ===getScrollHeight()) {
+            $.ajax({
+                type : "get",
+                url:"/index.php?m=Mobile&c=Index&a=ajaxGetMore&p=" +page,
+                dataType:'html',
+                success: function(data)
+                {
+                    if(data){
+                        $("#J_ItemList>ul").append(data);
+                        page++
+                        $('.get_more').hide();
+                    }else{
+                        $('.get_more').hide();
+                        $('#getmore').remove();
+                    }
+                }
+            });
+
+
+        }
+    }
+    var wrapTop =document.getElementById('scrollWrap')
+</script>
+<script>
+    $('.search-type li').click(function() {
+        $(this).addClass('cur').siblings().removeClass('cur');
+        $('#searchtype').val($(this).attr('num'));
+    });
+    $('#searchtype').val($(this).attr('0'));
+</script>
+<script src="__PUBLIC__/js/jqueryUrlGet.js"></script><!--获取get参数插件-->
+<script> set_first_leader(); //设置推荐人 </script>
+</body>
+</html>

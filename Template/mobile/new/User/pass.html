@@ -1,0 +1,368 @@
+<include file="Public/header"/>
+<style>
+    #distribut_form .tx_cash{
+        padding-bottom:30px ;
+    }
+    .Wallet{
+        border: 0;
+    }
+    .bb1{
+        border: 0;
+    }
+    .cash_num{
+        text-align: left;
+    }
+    .Wallet{
+        border: 0;
+    }
+    .bb1{
+        border: 0;
+    }
+    .cash_num p{
+        padding-bottom: 30px;
+    }
+    .cen{
+        width: 207px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+    .cen img{
+        float: left;
+        padding-right: 15px;
+        padding-top: 40px;
+    }
+    .right{
+        float: left;
+        line-height: 24px;
+        padding-top: 19px;
+
+    }
+    .cash_num p{
+        font-size: 15px;
+        color: black;
+        padding: 0;
+    }
+    .Congratulations{
+        line-height: 5rem;
+        margin-left: 1.01rem;
+    }
+    .dotto{
+        float: left;
+        padding-left: 59px;
+    }
+    .dotto p{
+        font-weight: 600;
+        color: #939393;
+    }
+    .cen img{
+        width: 42px;
+    }
+    .cha{
+        width: auto;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .btn{
+        width: 104px;
+        height: 29px;
+        background: #fa6c2c;
+        font-size: 12px;
+        color: white;
+        text-align: center;
+        line-height: 29px;
+        border-radius: 5px;
+        outline: none;
+        border-width: 0;
+    }
+    .xia{
+        margin-top: 10px;
+    }
+    .xi{
+        margin-top: -20px;
+    }
+    .cen .fea{
+        padding-right: 0;
+    }
+    .sorry{
+        margin-left:0;
+    }
+    .pad{
+        padding-left: 56px;
+    }
+    .tx_cash .over{
+        width: 63%;
+        height: 30%;
+    }
+    .tx_cash img{
+        margin-top: 0;
+    }
+</style>
+<body>
+<header>
+
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">代理商</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+    <div class="user_com">
+        <if condition="$pass eq ''">
+            <div class="Wallet withdrawals">
+                <div class="cash_num bb1">
+
+                    <!-- <input type="hidden" name="MAX_FILE_SIZE" value='176942' /> -->
+                    <!-- <input type="file" name="myFile"  accept="image/jpeg,image/gif,image/png"/><br /> -->
+
+                    <form action="" method="post" enctype="multipart/form-data" name="distribut_form" id="distribut_form">
+                        <p class="tx_cash"><span>姓名：</span><input type="text" id="user_name" name="user_name" placeholder="请输入姓名" value="{$user_name}"/></p>
+                        <p class="tx_cash"><span>身份证：</span><input type="text" id="idcard" name="idcard" placeholder="请输入身份证号码" value="{$idcard}" /></p>
+                        <p class="tx_cash" onclick="fileSele('file')"><span>正面：</span>
+                            <span class="over">
+                            <img width="auto" height="auto" class="img1" id="portrait" src="__STATIC__/images/1110_03.png"  style="display: block;width: 100%;border: 1px solid #dedede;height: 20vh"></span>
+                            <input type="file" name='img1' id="file" style="display: none" />
+                            <input type="hidden" class="input-sm" name="img1" id="img1" value="{$img1}">
+                        </p>
+                        <p class="tx_cash" onclick="fileSel('fil')"><span>反面：</span>
+                            <span class="over">
+                            <img width="auto" height="auto" class="img2" id="portrai" src="__STATIC__/images/1110_03.png"  style="display: block;width: 100%;border: 1px solid #dedede;height: 20vh"></span>
+                            <input type="file" name='img2' id="fil" style="display: none" value="{$img2}" />
+                            <input type="hidden" class="input-sm" name="img2" id="img2" value="{$img2}">
+                        </p>
+                        <p class="tx_cash"><span>手机：</span><input type="text" id="phone_num" name="phone_num" placeholder="请输入手机号码" value="{$phone_num}" disabled="disabled"/></p>
+                        <p class="tx_cash"><span>邮箱：</span><input type="text" id="email" name="email" placeholder="请输入邮箱" value="{$email}"/></p>
+                        <p class="tx_cash"><span>地址：</span><input type="text" id="address" name="address" placeholder="请输入地址" value="{$address}"/></p>
+                        <p class="tx_cash"><span>验证码：</span>
+                            <input type="text" name="verify_code" id="verify_code" placeholder="请输入下面的验证码" />
+                            <img class="po-ab to0" id="verify_code_img" width="100" height="30" src="{:U('User/verify',array('type'=>'withdrawals'))}"  onclick="verify(this)" />
+                        </p>
+                        <div class="cha"><a id="cash_submit"  onClick="checkSubmit();"  href="javascript:void(0);">确定提交</a></div>
+                    </form>
+                </div>
+
+            </div>
+            <elseif condition="$pass eq 1"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/jing.png" alt="">
+                                <div class="right xia">
+                                    <p>您已提交申请
+                                    </p>
+                                    <p>正在审核中请等待</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <elseif condition="$pass eq 2"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/ok.jpg" alt="" class="fea">
+                                <div class="right">
+                                    <p  class="Congratulations">恭喜您，申请成功</p>
+                                </div>
+                                <div class="dotto xi">
+                                    <p>账号：{$phone_num}</p>
+                                    <p>密码：123456</p>
+
+                                </div>
+                                <div class="dotto pad">
+                                    <a href="{:U('Admin/Admin/login')}" target="_blank">
+                                        <button type="button" class="btn"  >后台登陆</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <elseif condition="$pass eq 3"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/278212038171987408.png" alt="">
+                                <div class="right">
+                                    <p  class="Congratulations sorry">很遗憾，申请失败</p>
+                                </div>
+                                <div class="dotto pad">
+                                    <button type="button" class="btn" onclick="del_pass()" >重新申请</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </if>
+
+    </div>
+    <include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+<script>
+
+    function fileSele(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#file").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrait").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Mobile/User/pass_img1')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrait\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrait, #img1').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    function fileSel(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#fil").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrai").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Mobile/User/pass_img2')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrai\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrai, #img2').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    // 表单验证提交
+    function checkSubmit(){
+        var num=document.querySelector("#phone_num")
+        num.removeAttribute('disabled');
+        var money = $.trim($('#user_name').val());
+        var bank_name = $.trim($('#phone_num').val());
+        var account_bank = $.trim($('#email').val());
+        var account_name = $.trim($('#address').val());
+        var verify_code=$.trim($('#verify_code').val());
+        if(money == '')
+        {
+            alert('请填写姓名');
+            return false;
+        }
+        if(bank_name == '')
+        {
+            alert('请填写手机号码');
+            return false;
+        }
+        if(account_bank == '')
+        {
+            alert('请填写邮箱');
+            return false;
+        }
+        if(account_name == '')
+        {
+            alert('请填写地址');
+            return false;
+        }
+        if(verify_code == '')
+        {
+            alert('请填写验证码');
+            return false;
+        }
+        $('#distribut_form').submit(
+            $.ajax({
+                type: "POST",
+                url: "{:U('Mobile/User/add_pass')}" ,
+                data: $('#distribut_form').serialize(),
+                success: function (result) {
+                    var dataJSON = JSON.parse(result);
+                    console.log(dataJSON)
+                    if(dataJSON.status !== 1){
+                        alert("验证码错误");
+                    }else{
+                        location.reload();
+                        alert("操作成功");
+                    }
+
+                },
+                error : function() {
+                    alert("提交失败！");
+                }
+            })
+        );
+
+    }
+
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Home&c=User&a=pass_verify&r='+Math.random());
+    }
+    function del_pass() {
+        $.ajax({
+            url:"{:U('User/del_pass')}",
+            type:"post",
+            success: function (result) {
+                location.reload();
+            },
+            error : function() {
+            }
+        })
+    }
+</script>
+</html>

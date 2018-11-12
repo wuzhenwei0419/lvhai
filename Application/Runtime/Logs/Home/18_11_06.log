@@ -1,0 +1,15 @@
+[ 2018-11-06T09:42:54+08:00 ] ::1 /index.php?m=Home&c=Cart&a=header_cart_list
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tpshop.tp_cart' doesn't exist
+
+[ 2018-11-06T09:42:58+08:00 ] ::1 /index.php/Home/Goods/goodsInfo/id/426
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tpshop.tp_goods' doesn't exist
+
+[ 2018-11-06T09:43:00+08:00 ] ::1 /index.php?m=Home&c=Cart&a=header_cart_list
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tpshop.tp_cart' doesn't exist
+
+[ 2018-11-06T09:43:06+08:00 ] ::1 /index.php/Home/Goods/goodsList/id/3
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tpshop.tp_goods_category' doesn't exist
+
+[ 2018-11-06T09:43:09+08:00 ] ::1 /index.php?m=Home&c=Cart&a=header_cart_list
+ERR: SQLSTATE[42S02]: Base table or view not found: 1146 Table 'tpshop.tp_cart' doesn't exist
+

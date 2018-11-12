@@ -1,0 +1,1 @@
+a:7:{i:0;s:6:"dis_id";i:1;s:6:"nummin";i:2;s:6:"nummax";i:3;s:8:"discount";i:4;s:7:"is_show";s:3:"_pk";s:6:"dis_id";s:5:"_type";a:5:{s:6:"dis_id";s:20:"smallint(4) unsigned";s:6:"nummin";s:7:"int(11)";s:6:"nummax";s:7:"int(11)";s:8:"discount";s:11:"smallint(4)";s:7:"is_show";s:6:"int(2)";}}

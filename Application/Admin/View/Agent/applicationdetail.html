@@ -1,0 +1,100 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content ">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回管理员列表"><i class="fa fa-reply"></i></a>
+                <a href="javascript:;" class="btn btn-default" data-url="http://www.tp-shop.cn/Doc/Index/article/id/1001/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 审查代理商</h3>
+                </div>
+                <div class="panel-body ">
+                    <!--表单数据-->
+                        <!--通用信息-->
+                        <div class="tab-content col-md-10">
+                            <div class="tab-pane active" id="tab_tongyong">
+                                <table class="table table-bordered">
+                                    <tbody>
+                                    <tr>
+                                        <td class="col-sm-2">id：</td>
+                                        <td class="col-sm-8">
+                                            {$list[0].user_id}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-2">姓名：</td>
+                                        <td class="col-sm-8">
+                                            {$list[0].user_name}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-2">身份证号：</td>
+                                        <td class="col-sm-8">
+                                            {$list[0].idcard}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-2">正面：</td>
+                                        <td class="col-sm-8">
+                                            <img src="/{$list[0].img1}" alt="" style="width: 20vw;height: 20vh">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="col-sm-2">反面：</td>
+                                        <td class="col-sm-8">
+                                            <img src="/{$list[0].img2}" alt=""style="width: 20vw;height: 20vh">
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Email地址：</td>
+                                        <td >
+                                            {$list[0].email}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>地址：</td>
+                                        <td >
+                                            {$list[0].address}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>电话：</td>
+                                        <td >
+                                            {$list[0].phone_num}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>申请时间：</td>
+                                        <td>
+                                            {$list[0].add_time|date='Y-m-d H:i:s',###}
+                                        </td>
+                                    </tr>
+                                    
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <td class="text-right">
+                                        </td>
+
+                                        <td class="text-right"><a href="{:U('Agent/add_application',array('user_id'=>$list[0]['user_id']))}" data-toggle="tooltip" title="" class="btn btn-danger">通过</a>
+                                            <a href="{:U('Agent/del_application',array('user_id'=>$list[0]['user_id']))}" data-toggle="tooltip" title="" class="btn btn-primary">不通过</a>
+                                        </td>
+
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>

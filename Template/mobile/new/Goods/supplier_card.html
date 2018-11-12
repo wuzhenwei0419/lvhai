@@ -1,0 +1,174 @@
+<html>
+<head>
+    <meta name="Generator" content="tpshop" />
+    <meta charset="utf-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>商品列表-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/css/group_buy.css"/>
+    <link rel="stylesheet" href="__STATIC__/css/lvhai.css">
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <style>
+        .business_card{
+            width: 95%;
+            height: 80%;
+            margin: 0 auto;
+            margin-top: 30px;
+        }
+        .box{
+            width: 85%;
+            height: auto;
+            border: #dcdcdc 1px solid;
+            margin: 0 auto;
+            border-radius: 5px;
+           margin-bottom: 25px;
+        }
+        #suppliers_name{
+            text-align: center;
+            color: #8e938f;
+
+        }
+        .name{
+             float: right;
+            margin-right: 80px;
+            color:#8e938f;
+        }
+        .box1{
+            width: 100%;
+            height: 50px;
+            float: left;
+        }
+        .box1 p{
+            width: 33%;
+            height: auto;
+            background: white;
+            font-size: 12px;
+            color: #8e938f;
+            margin-top: 10px;
+            float: left;
+        }
+        .box1 p img{
+            margin-left: 30px;
+            width: 14px;
+            height: 14px;
+        }
+        .main{
+            width: 100%;
+            height: auto;
+            background: #dcdcdc;
+
+        }
+        .main span{
+            font-size: 15px;
+            color: #8e938f;
+            text-align: center;
+            margin-left: 28px;
+        }
+        .bot{
+            width: 100%;
+            height: 60px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body style="background:#FFF;">
+<div class="tab_nav">
+    <div class="header">
+        <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+        <div class="h-mid">供应商</div>
+        <div class="h-right">
+            <aside class="top_bar">
+                <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+            </aside>
+        </div>
+    </div>
+</div>
+<include file="Public/menu"/>
+<div class="business_card">
+    <volist name="supplier_list" id="vo" >
+    <div class="box">
+        <h3 id="suppliers_name">{$vo['suppliers_name']}</h3>
+        <div class="name">{$vo['suppliers_contacts']}</div>
+        <div class="box1">
+            <p>
+                <img src="__STATIC__/images/gong1.png" alt="">&nbsp &nbsp
+                {$vo['suppliers_phone']}
+
+            </p>
+            <p>
+                <img src="__STATIC__/images/fang.jpg" alt="">&nbsp &nbsp
+                {$vo['nature']}
+
+            </p>
+            <p>
+                <img src="__STATIC__/images/gong3.png" alt="">&nbsp &nbsp
+                {$vo['suppliers_address']}
+
+            </p>
+        </div>
+        <div class="main">
+            <span>主营:{$vo['suppliers_desc']}</span>
+        </div>
+    </div>
+    </volist>
+</div>
+<!--<ul class="product_list" id="good_list">-->
+    <!--<foreach name="list" item="v" key="k" >-->
+        <!--<li>-->
+            <!--<a class="url" href="{:U('Activity/group',array('id'=>$v[goods_id]))}">-->
+                <!--<img  width="auto" height="auto" src="{$v.goods_id|goods_thum_images=200,200}">   </a>-->
+            <!--<a href="{:U('Activity/group',array('id'=>$v[goods_id]))}"  class="info_wrap">-->
+                <!--<div class="fn good">{$v.goods_name}</div>-->
+                <!--<div class="price_wrap">-->
+                    <!--<i class="discount"  style="display:;">{$v[rebate]}折</i> <span class="price" style="display:;">￥{$v[price]}元</span> <del class="old_price"  style="display:;">￥{$v[goods_price]}元</del>-->
+                <!--</div>-->
+                <!--<div class="bottom_info">-->
+                    <!--<span class="remain_num" style="display:;"><strong>已有</strong>{$v[buy_num] + $v[virtual_num]}人购买</span>-->
+                    <!--<span class="sg_g_time last_g_time" id="jstimerBox{$v[goods_id]}"></span>-->
+                <!--</div>-->
+            <!--</a>-->
+        <!--</li>-->
+
+        <!--<script>-->
+            <!--Tday['{$v[goods_id]}'] = new Date('{$v.end_time|date="Y/m/d H:i:s",###}');-->
+            <!--window.setInterval(function()-->
+            <!--{clock11('{$v[goods_id]}');}, 1000);-->
+        <!--</script>-->
+    <!--</foreach>-->
+<!--</ul>-->
+
+<!--<section class="list-pagination">-->
+    <!--<div style="" class="pagenav-wrapper" id="J_PageNavWrap">-->
+      <!--<div class="pagenav-content">-->
+        <!--<div class="pagenav" id="J_PageNav">-->
+          <!--<div class="p-prev p-gray" > <a href="">上一页</a> </div>-->
+          <!--<div class="pagenav-cur" style="vertical-align:bottom">-->
+            <!--<div class="pagenav-text" > <span>      1/5</span> <i></i> </div>-->
+		      <!--<select class="pagenav-select"  onchange="location.href=this.options[this.selectedIndex].value;">-->
+		  		<!--<option selected="selected" value="pro_search.php?keywords=&category=0&brand=0&sort=goods_id&order=DESC&min_price=0&max_price=0&action=&intro=promotion&goods_type=0&sc_ds=0&outstock=0&page=1">第1页</option>-->
+		  	  <!--</select>-->
+          <!--</div>-->
+       	<!--<div class="p-next" > <a href="">下一页</a> </div>-->
+		<!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
+
+<script>
+    function goTop(){
+        $('html,body').animate({'scrollTop':0},600);
+    }
+</script>
+<a href="javascript:goTop();" class="gotop"><img width="auto" height="auto" src="__STATIC__/images/topup.png"></a>
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+<div class="bot"></div>
+
+</body>
+</html>

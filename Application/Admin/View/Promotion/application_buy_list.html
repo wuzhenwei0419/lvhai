@@ -1,0 +1,144 @@
+<style>
+	#qrcode{
+		display: inline;
+	}
+	.row .sorting{
+		font-size: 15px;
+		text-align: center;
+	}
+</style>
+<include file="Public/min-header"/>
+<div class="wrapper">
+	<include file="Public/breadcrumb"/>
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box">
+					<div class="box-header">
+						<nav class="navbar navbar-default">
+							<div class="collapse navbar-collapse">
+								<form class="navbar-form form-inline" action="{:U('Promotion/application_buy_list')}" method="post">
+									<!--
+                                      <div class="form-group">
+                                            <input type="text" name="keywords" class="form-control" placeholder="搜索">
+                                      </div>
+                                      <button type="submit" class="btn btn-default">提交</button>
+                                     -->
+									<div class="form-group pull-right">
+										<a href="{:U('Promotion/application_buy')}" class="btn btn-primary pull-right"><i class="fa fa-plus"></i>添加拼单</a>
+									</div>
+									<div class="form-group pull-right" style="margin-right: 10px;">
+									<a href="{:U('Promotion/change_password')}" class="btn btn-primary pull-right btn-info"><i class="fa fa-pencil"></i>修改密码</a>
+									</div>
+								</form>
+							</div>
+						</nav>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+							<div class="col-sm-12">
+								<table id="list-table" class="table table-bordered table-striped dataTable">
+									<thead>
+									<tr role="row">
+										<th class="sorting"  align="center">商品ID</th>
+										<th class="sorting"  align="center">拼单标题</th>
+										<th class="sorting" tabindex="0">拼单价</th>
+										<th class="sorting" tabindex="0">开始时间</th>
+										<th class="sorting" tabindex="0">结束时间</th>
+										<th class="sorting" tabindex="0">已参团</th>
+										<th class="sorting" tabindex="0">参团库存</th>
+										<th class="sorting" tabindex="0">折扣</th>
+										<th class="sorting" tabindex="0">操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									<foreach name="list" item="vo" key="k" >
+										<tr role="row" align="center">
+											<td>{$vo.goods_id}</td>
+											<td align="center">{$vo.title|getSubstr=0,30}</td>
+											<td>{$vo.price}</td>
+											<td>{$vo.start_time}</td>
+											<td>{$vo.end_time}</td>
+											<td>{$vo.buy_num}</td>
+											<td>{$vo.goods_num}</td>
+											<td>{$vo.rebate}</td>
+											<td>
+												<button target="_blank"  data-toggle="tooltip" title="" class=" btn btn-info qw" data-original-title="查看详情" onclick="Birth($(this))" data-id="{$vo['id']}"><i class="glyphicon glyphicon-qrcode"></i></button>
+												<a class="btn btn-primary" href="{:U('Promotion/application_buy',array('act'=>'edit','id'=>$vo['id']))}"><i class="fa fa-pencil"></i></a>
+												<a class="btn btn-danger" href="javascript:void(0)" data-url="{:U('Promotion/applicationHandle')}" data-id="{$vo.id}" onclick="delfun(this)"><i class="fa fa-trash-o"></i></a>
+											</td>
+										</tr>
+									</foreach>
+									</tbody>
+									<tfoot>
+
+									</tfoot>
+								</table>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6 text-left"></div>
+							<div class="col-sm-6 text-right">{$page}</div>
+						</div>
+					</div><!-- /.box-body -->
+				</div><!-- /.box -->
+			</div>
+		</div>
+	</section>
+</div>
+<script src="__PUBLIC__/js/qrcode.js"></script><!--二维码js-->
+<script>
+    function delfun(obj){
+        if(confirm('确认删除')){
+            $.ajax({
+                type : 'post',
+                url : $(obj).attr('data-url'),
+                data : {act:'del',id:$(obj).attr('data-id')},
+                dataType : 'json',
+                success : function(data){
+                    if(data){
+                        $(obj).parent().parent().remove();
+                    }else{
+                        layer.alert('删除失败', {icon: 2});  //alert('删除失败');
+                    }
+                }
+            })
+        }
+        return false;
+    }
+    // var ie=document.querySelector(".qw")
+	// console.log(ie.getAttribute("data-id"))
+    function Birth($ele) {
+       var id= $ele.attr("data-id");
+       console.log(id)
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-rim', //加上边框
+            area: ['600px', '300px'], //宽高
+            content: '<div class="modal-header" style="float:left;">您的网址：&nbsp;&nbsp;\n' +
+            '\t\t\t\t<div class="htt" style="float: right;display: none">http://www.lvhai.shop/index.php/Mobile/AgentGood/index/id/' + id + '</div>\n' +
+            '<div class="xia" style="float: right;">http://www.lvhai.shop/index.php/Home/AgentGood/index/id/' + id + '</div>\n' +
+        '\t\t\t\t<br />\n' +
+            '\t\t\t\t<br />\n' +
+            '\t\t\t\t<p style="float: left">您的二维码:&nbsp;&nbsp;</p>\n' +
+            '\t\t\t\t<div id="qrcode" style="width:100px; height:100px; margin-top:15px;">\n' +
+            '\t\t\t\t</div>\n' +
+            '\t\t\t\t<br />\n' +
+            '\t\t\t</div>'
+        });
+        var lv=document.querySelector('.htt').innerHTML
+// 设置参数方式
+        var qrcode = new QRCode('qrcode', {
+            width: 100,
+            height: 100,
+            colorDark : '#000000',
+            colorLight : '#ffffff',
+        });
+// 使用 API
+        qrcode.makeCode(lv);
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+<?php
+//000031104000a:2:{i:0;a:40:{s:8:"goods_id";i:510;s:6:"cat_id";i:860;s:13:"extend_cat_id";i:860;s:8:"goods_sn";s:9:"TP0000510";s:10:"goods_name";s:15:"云南丑苹果";s:11:"click_count";i:1;s:8:"brand_id";i:351;s:11:"store_count";i:0;s:13:"comment_count";i:0;s:6:"weight";i:0;s:12:"market_price";s:4:"0.00";s:10:"shop_price";s:4:"0.00";s:10:"cost_price";s:4:"0.00";s:8:"keywords";s:0:"";s:12:"goods_remark";s:179:"包装：胶筐
+口感：酸甜、甜多、酸少、口感细腻
+果形：近似圆形
+新鲜度：硬度高，个别有轻微磕碰
+请当面验货，质量问题现场处理";s:13:"goods_content";s:0:"";s:12:"original_img";s:49:"/Public/upload/goods/2018/11-02/5bdc05cec8a40.jpg";s:7:"is_real";i:1;s:10:"is_on_sale";i:1;s:16:"is_free_shipping";i:0;s:7:"on_time";i:1541212879;s:4:"sort";i:50;s:12:"is_recommend";i:1;s:6:"is_new";i:0;s:6:"is_hot";i:0;s:11:"last_update";i:0;s:10:"goods_type";i:33;s:9:"spec_type";i:33;s:13:"give_integral";i:0;s:17:"exchange_integral";i:0;s:12:"suppliers_id";i:5;s:9:"sales_sum";i:0;s:9:"prom_type";i:0;s:7:"prom_id";i:0;s:10:"commission";s:4:"0.00";s:3:"spu";s:0:"";s:3:"sku";s:0:"";s:17:"shipping_area_ids";s:5:"43,45";s:8:"quantity";i:1;s:10:"is_collage";i:0;}i:1;a:40:{s:8:"goods_id";i:476;s:6:"cat_id";i:860;s:13:"extend_cat_id";i:860;s:8:"goods_sn";s:9:"TP0000476";s:10:"goods_name";s:21:"艾芙苹果净重8kg";s:11:"click_count";i:7;s:8:"brand_id";i:351;s:11:"store_count";i:0;s:13:"comment_count";i:0;s:6:"weight";i:0;s:12:"market_price";s:4:"0.00";s:10:"shop_price";s:4:"0.00";s:10:"cost_price";s:4:"0.00";s:8:"keywords";s:0:"";s:12:"goods_remark";s:188:"艾芙苹果果肉清脆可口，含糖量丰富。
+1、编码：TP0000476
+2、重量：单果140-170g
+3、口感：香甜可口，皮薄质脆，爽口多汁。
+4、包装：纸箱装";s:13:"goods_content";s:0:"";s:12:"original_img";s:49:"/Public/upload/goods/2018/10-12/5bc03c8dc955a.jpg";s:7:"is_real";i:1;s:10:"is_on_sale";i:1;s:16:"is_free_shipping";i:0;s:7:"on_time";i:1541061242;s:4:"sort";i:50;s:12:"is_recommend";i:1;s:6:"is_new";i:0;s:6:"is_hot";i:0;s:11:"last_update";i:0;s:10:"goods_type";i:33;s:9:"spec_type";i:33;s:13:"give_integral";i:0;s:17:"exchange_integral";i:0;s:12:"suppliers_id";i:5;s:9:"sales_sum";i:0;s:9:"prom_type";i:0;s:7:"prom_id";i:0;s:10:"commission";s:4:"0.00";s:3:"spu";s:0:"";s:3:"sku";s:0:"";s:17:"shipping_area_ids";s:5:"43,45";s:8:"quantity";i:1;s:10:"is_collage";i:0;}}
+?>

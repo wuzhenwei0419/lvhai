@@ -1,0 +1,254 @@
+<include file="Public/min-header"/>
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<style type="text/css">
+.hq-table {
+  table-layout: fixed;
+}
+.hq-table td,
+.hq-table th {
+  width: 8.33%;
+}
+.hq-table input {
+  max-width: 100%;
+}
+.glyphicon-arrow-up {
+  color: red;
+}
+.glyphicon-arrow-down {
+  color: green;
+}
+.hq-table .up-down {
+  font-size: 12px;
+  margin-right: 5px;
+}
+</style>
+<div class="wrapper">
+  <include file="Public/breadcrumb"/>
+
+  <!-- Main content -->
+  <section class="content ">
+    <!-- Main content -->
+    <div class="container-fluid">
+      <div class="pull-right">
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+        <a href="javascript:;" class="btn btn-default" data-url="http://www.tp-shop.cn/Doc/Index/article/id/1014/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+      </div>
+      <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-copy"></i>
+        excel导入
+      </button>
+      <form action="{:U('Admin/Market/Exceltest')}" id="search-form2" class=" form-inline" method="post">
+        <button type="submit" class="btn btn-default pull-right"><i class="fa fa-file-excel-o"></i>&nbsp;下载excel填写样式</button>
+      </form>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i> 行情详情</h3>
+        </div>
+        <div class="panel-body ">   
+          <!--表单数据-->
+          <form method="post" id="hq-detail" action=""> 
+
+            <input type="hidden" name="id" value="{$article_id}">                   
+            <!--通用信息-->
+            <table class="hq-table table table-bordered table-striped dataTable" >
+              <thead>
+                <tr>
+                  <th>品种</th>
+                  <th>品名</th>
+                  <th>产地</th>
+                  <th>市场</th>
+                  <th>规格</th>
+                  <th>单位</th>
+                  <th>净重</th>
+                  <th>毛重</th>
+                  <th>最高价</th>
+                  <th>最低价</th>
+                  <th>均价</th>
+                  <th>涨跌</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <foreach name="list" item="list">
+                  <if condition="$list.issue neq 3 ">
+                    <tr>
+
+                      <td class="hidden"><input type="hidden" name="hq_id[]" value="{$list.hq_id}"></td>
+                      <td>
+                        <select class="form-control" name="hq_name[]">
+                          <option value ="{$list.hq_name_id}">{$list.hq_name}</option>
+                          <volist name="type" id="vo">
+                            <option value ="{$vo.id}">{$vo.name}</option>
+                          </volist>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control product-name" name="hq_variety[]" placeholder="" value="{$list.hq_variety}" >
+                      </td>
+                      <td>
+                        <input type="text" class="form-control location" name="hq_address[]" placeholder="" value="{$list.hq_address}" >
+                      </td>
+                      <td>
+                        <select class="market form-control" name="hq_ads[]">
+                          <option value ="{$list.hq_ads_id}">{$list.hq_ads}</option>
+                          <volist name="market" id="vo">
+                            <option value ="{$vo.id}">{$vo.name}</option>
+                          </volist>
+                        </select>
+                      </td>
+                      <td>
+                        <input type="text" class="form-control spec" name="spec[]" placeholder="" value="{$list.spec}" >
+                      </td>
+                      <td>
+                        <input type="text" class="form-control unit" name="hq_unit[]" placeholder="" value="{$list.hq_unit}" >
+                      </td>
+                      <td>
+                      <input type="text" class="form-control unit" name="suttle[]" placeholder="" value="{$list.suttle}" >
+                    </td>
+                      <td>
+                      <input type="text" class="form-control unit" name="gross[]" placeholder="" value="{$list.gross}" >
+                    </td>
+                      <td>
+                        <input type="text" class="form-control max" name="hprice[]" placeholder="" value="{$list.hprice}" >
+                      </td>
+                      <td>
+                        <input type="text" class="form-control min" name="lprice[]" placeholder="" value="{$list.lprice}" >
+                      </td>
+                      <td>
+                        <input type="text" class="form-control average" name="eprice[]" placeholder="" value="{$list.eprice}" >
+                      </td>
+                      <td>
+                        <if condition="$list.hq_up gt 0">
+                          <span class="glyphicon glyphicon-arrow-up up-down" aria-hidden="true"></span>{$list.hq_up}
+                          <elseif condition="$list.hq_up lt 0" />
+                          <span class="glyphicon glyphicon-arrow-down up-down" aria-hidden="true"></span>{$list.hq_up|substr=1}
+                          <else />
+                          <span class="glyphicon up-down" aria-hidden="true"></span>{$list.hq_up}
+                        </if>
+                      </td>
+
+                      <td class="operation">
+                        <span class="btn btn-primary plus" ><i class="glyphicon glyphicon-plus" aria-hidden="true"></i></span>
+                        <a href="javascript:del_fun('{:U('Market/dellist',array('id'=>$list['hq_id']))}');" class="btn btn-danger"><span class="minus"><i class="glyphicon glyphicon-minus" aria-hidden="true"></i></span></a>
+                      </td>
+                    </tr>
+                  <else />
+                    <tr>
+                      <td>{$list.hq_name}</td>
+                      <td>{$list.hq_variety}</td>
+                      <td>{$list.hq_address} </td>
+                      <td>{$list.hq_ads}</td>
+                      <td>{$list.spec}</td>
+                      <td>{$list.hq_unit}</td>
+                      <td>{$list.suttle}</td>
+                      <td>{$list.gross}</td>
+                      <td>{$list.hprice}</td>
+                      <td>{$list.lprice}</td>
+                      <td>{$list.eprice}</td>
+                      <td>
+                        <if condition="$list.hq_up gt 0">
+                          <span class="glyphicon glyphicon-arrow-up up-down" aria-hidden="true"></span>{$list.hq_up}
+                          <elseif condition="$list.hq_up lt 0" />
+                          <span class="glyphicon glyphicon-arrow-down up-down" aria-hidden="true"></span>{$list.hq_up|substr=1}
+                          <else />
+                          <span class="glyphicon up-down" aria-hidden="true"></span>{$list.hq_up}
+                        </if>
+                      </td>
+                      <td>{$list.remakes}</td>
+                      <td></td>
+                    </tr>
+                  </if>
+                </foreach>
+              </tbody>
+
+            </table>
+            <div class="pull-right">
+              <button class="btn btn-primary" onclick="ajax_submit_form('hq-detail','{:U('Market/addlist')}');" title="" data-toggle="tooltip" type="button" data-original-title="保存">保存</button>
+              <button class="btn btn-danger"  onclick="ajax_submit_form('hq-detail','{:U('Market/issue')}');"  title="" data-toggle="tooltip" type="button" data-original-title="审核并发布">审核并发布</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<!--导入文件模态框-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">        <h4>上传文件！</h4>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+
+      <div class="modal-body">
+        <form action="{:U('Admin/Market/importExcel',array('id'=>$article_id))}" enctype="multipart/form-data" method="post">
+          <input type="file"name="photo"  class="btn btn-default">
+          <input type="submit"value="导入数据" class="btn btn-info">
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  .pull-right{
+    margin-right: 6px;
+    background-color: #f4f4f4;
+    color: #444;
+    border-color: #ddd;
+  }
+  .modal-header .close {
+    margin-top: -20px;
+  }
+  .modal-header h4{
+    margin: 0;
+    text-align: center ;
+  }
+  .modal-body form input{
+    margin: 15px;
+  }
+</style>
+
+<script type="text/javascript">
+  $('body').on('click', '.operation .plus',function() {
+    var $this = $(this);
+    var $partent = $this.parents('tr');
+    var market = $partent.find('select[name="hq_ads"]').val();
+    $partent.find('select[name="hq_ads"]').find('option[value="' + market + '"]').attr('selected',true);
+    var html = $partent.clone();
+    html.insertAfter($partent);
+    var $new = $partent.next();
+    $new.find('input').each(function() {
+      $(this).val('');
+    });
+    $new.find('select[name="hq_name"]').val('');
+    $new.find('.up-down').html('');
+  }).on('click', '.operation .minus',function() {
+    $(this).parents('tr').remove();
+  });
+  $('.time').daterangepicker({
+    format:"YYYY-MM-DD",
+    singleDatePicker: true,
+    showDropdowns: true,
+    maxDate: moment(),
+    locale : {
+      applyLabel : '确定',
+      cancelLabel : '取消',
+      fromLabel : '起始时间',
+      toLabel : '结束时间',
+      customRangeLabel : '自定义',
+      daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+      monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月' ],
+      firstDay : 1
+    }
+  });
+</script>
+</body>
+</html>

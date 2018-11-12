@@ -1,0 +1,125 @@
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content ">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回管理员列表"><i class="fa fa-reply"></i></a>
+                <a href="javascript:;" class="btn btn-default" data-url="http://www.tp-shop.cn/Doc/Index/article/id/1001/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 审查代理商</h3>
+                </div>
+                <div class="panel-body ">
+                    <!--表单数据-->
+                    <!--通用信息-->
+                    <div class="tab-content col-md-10">
+                        <div class="tab-pane active" id="tab_tongyong">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td class="col-sm-2">id：</td>
+                                    <td class="col-sm-8">
+                                        {$lists.suppliers_id}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2">供应商名称：</td>
+                                    <td class="col-sm-8">
+                                        {$lists.suppliers_name}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2">供应商联系人：</td>
+                                    <td class="col-sm-8">
+                                        {$lists.suppliers_contacts}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2">供应商电话：</td>
+                                    <td class="col-sm-8">
+                                        {$lists.suppliers_phone}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2">供应商地址：</td>
+                                    <td class="col-sm-8">
+                                        {$lists.suppliers_address}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-sm-2">供应商性质：</td>
+                                    <td class="col-sm-8 nature" abbr="{$lists.nature_id}">
+                                        {$lists.nature}
+                                    </td>
+                                </tr>
+                                <tr id="idcard_img1">
+                                    <td class="col-sm-2">正面：</td>
+                                    <td class="col-sm-8">
+                                        <img src="/{$lists.idcard_img1}" alt="" style="width: 20vw;height: 20vh">
+                                    </td>
+                                </tr>
+                                <tr id="idcard_img2">
+                                    <td class="col-sm-2">反面：</td>
+                                    <td class="col-sm-8">
+                                        <img src="/{$lists.idcard_img2}" alt=""style="width: 20vw;height: 20vh">
+                                    </td>
+                                </tr>
+                                <tr id="business_licence">
+                                    <td class="col-sm-2">营业执照：</td>
+                                    <td class="col-sm-8">
+                                        <img src="/{$lists.business_licence}" alt="" style="width: 20vw;height: 20vh">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商经营品种：</td>
+                                    <td >
+                                        {$lists.suppliers_desc}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>申请时间：</td>
+                                    <td>
+                                        {$list[0].add_time|date='Y-m-d H:i:s',###}
+                                    </td>
+                                </tr>
+
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <td class="text-right">
+                                    </td>
+
+                                    <td class="text-right"><a href="{:U('Agent/supplier_pass',array('suppliers_id'=>$lists['suppliers_id']))}" data-toggle="tooltip" title="" class="btn btn-danger">通过</a>
+                                        <a href="{:U('Agent/supplier_out',array('suppliers_id'=>$lists['suppliers_id']))}" data-toggle="tooltip" title="" class="btn btn-primary">不通过</a>
+                                    </td>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+<script>
+    var nature=document.querySelector(".nature").abbr
+    var idcard_img1=document.querySelector("#idcard_img1")
+    var idcard_img2=document.querySelector("#idcard_img2")
+    var business_licence=document.querySelector("#business_licence")
+   if(nature==0){
+       idcard_img1.style.display="table-row"
+       idcard_img2.style.display="table-row"
+       business_licence.style.display="none"
+   }else {
+       idcard_img1.style.display="none"
+       idcard_img2.style.display="none"
+       business_licence.style.display="table-row"
+    }
+</script>
+</html>

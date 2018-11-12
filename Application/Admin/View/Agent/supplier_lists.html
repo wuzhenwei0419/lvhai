@@ -1,0 +1,74 @@
+<style>
+    .row th,td{
+        font-size: 14px;
+    }
+    .navbar-collapse{
+        margin-top: 13px;
+        font-size: 16px;
+    }
+</style>
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <nav class="navbar navbar-default">
+                            <div class="collapse navbar-collapse">
+                                <i class="fa fa-list"></i>
+                               供应商申请列表
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="list-table" class="table table-bordered table-striped dataTable">
+                                    <thead>
+                                    <tr role="row">
+                                        <th style="text-align: center">ID</th>
+                                        <th style="text-align: center">姓名</th>
+                                        <th style="text-align: center"> 电话</th>
+                                        <th style="text-align: center">性质</th>
+                                        <th style="text-align: center">地址</th>
+                                        <th style="text-align: center">加入时间</th>
+                                        <th style="text-align: center">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <foreach name="lists"  item="v">
+                                        <tr role="row" align="center">
+                                            <td>{$v.suppliers_id}</td>
+                                            <td>{$v.suppliers_name}</td>
+                                            <td>{$v.suppliers_phone}</td>
+                                            <td>{$v.nature}</td>
+                                            <td>{$v.suppliers_address}</td>
+                                            <td>{$v.time|date='Y-m-d H:i:s',###}</td>
+                                            <td>
+                                                <a href="{:U('Agent/supplier_detail',array('suppliers_id'=>$v['suppliers_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-eye"></i></a>
+
+                                                <a href="{:U('Agent/del_supplier',array('suppliers_id'=>$v['suppliers_id']))}" data-toggle="tooltip" title="" class="btn btn-danger" data-original-title="删除"><i class="fa fa-trash-o"></i></a>
+
+                                            </td>
+                                        </tr>
+                                    </foreach>
+                                    </tbody>
+                                    <tfoot>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6 text-left"></div>
+                            <div class="col-sm-6 text-right">{$show}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

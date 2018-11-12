@@ -1,0 +1,60 @@
+/** @file Sass Mixins. */
+/** @file Vaeiables. */
+.page-hq { background: #f6f6f6; }
+
+.hq-left { float: left; width: 830px; background: #fff; padding: 20px; }
+.hq-left ul { padding: 0; }
+.hq-left li { list-style: none; margin-bottom: 35px; }
+.hq-left li img { -webkit-transition: all ease 0.5s; -moz-transition: all ease 0.5s; transition: all ease 0.5s; }
+.hq-left li:hover img { transform: scale(1.1); }
+.hq-left li:hover .l-right { left: 5px; }
+.hq-left .l-left { max-width: 260px; height: 130px; float: left; overflow: hidden; }
+.hq-left .l-left img { max-width: 100%; }
+.hq-left .l-right { width: 550px; float: right; left: 0; position: relative; -webkit-transition: all ease 0.5s; -moz-transition: all ease 0.5s; transition: all ease 0.5s; }
+.hq-left h5 { margin-bottom: 15px; margin-top: 5px; font-weight: bold; }
+.hq-left h5 a { font-size: 16px; }
+.hq-left h5 a:hover { color: #52ab44; text-decoration: none; }
+.hq-left p { font-size: 14px; height: 42px; overflow: hidden; color: #666; }
+.hq-left .date { color: #999; display: block; margin-top: 25px; }
+.hq-left .date .demo-icon { color: #999; font-size: 14px; margin-right: 5px; }
+
+.hq-right { width: 290px; height: 517px; float: right; background: #fff; }
+.hq-right .bottom { padding: 20px 15px; }
+.hq-right ul { padding: 0; }
+.hq-right li { list-style: none; margin-bottom: 15px; }
+.hq-right a { font-size: 14px; -webkit-transition: all ease 0.3s; -moz-transition: all ease 0.3s; transition: all ease 0.3s; }
+.hq-right a:hover { color: #52ab44; padding-left: 5px; }
+
+.node-title { text-align: center; font-size: 18px; font-weight: bold; }
+
+.node-release { text-align: center; font-size: 14px; margin-top: 5px; margin-bottom: 40px; color: #999; }
+
+.node-content .table { width: 100%; margin-bottom: 50px; }
+.node-content .table th { font-weight: bold; }
+.node-content .table tr:nth-child(odd) { background: #f9f9f9; }
+.node-content .table > tbody > tr > td, .node-content .table > tbody > tr > th, .node-content .table > tfoot > tr > td, .node-content .table > tfoot > tr > th, .node-content .table > thead > tr > td, .node-content .table > thead > tr > th { padding: 8px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; }
+.node-content p { color: #333; }
+.node-content p strong { color: #dd0005; }
+.node-content .node-nav { text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; }
+.node-content .node-nav .nav-left { float: left; }
+.node-content .node-nav .nav-right { float: right; }
+.node-content .node-nav a { display: inline-block; font-weight: bold; }
+.node-content .node-nav a:hover { text-decoration: none; color: #52ab44; }
+.node-content .node-nav a:hover .iconbar { background: #52ab44; }
+.node-content .node-nav i { font-style: normal; font-family: 'SimSun'; margin: 0 5px; }
+.node-content .node-nav .iconbar { width: 20px; height: 3px; margin: 3px 0; display: block; background: #333; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+
+@font-face { font-family: 'Glyphicons Halflings'; src: url("../fonts/glyphicons-halflings-regular.eot"); src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+.glyphicon { position: relative; top: 1px; display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: 400; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.node-content .up-down { font-size: 12px; margin-right: 5px; }
+
+.glyphicon-arrow-down { color: green; }
+
+.glyphicon-arrow-down:before { content: "\e094"; }
+
+.glyphicon-arrow-up { color: red; }
+
+.glyphicon-arrow-up:before { content: "\e093"; }
+
+/*# sourceMappingURL=market.css.map */

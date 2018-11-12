@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0050)http://www.tp-shop.cn/Doc/Index/article/id/38.html -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>lvahishop-商品增删改查</title>
+<link rel="stylesheet" href="./38_files/kfsc.css" type="text/css">
+<!--api 接口需要特殊样式显示-->
+	<link rel="stylesheet" type="text/css" href="./38_files/shCoreDefault2.css"><link href="./38_files/coment.css" rel="stylesheet" type="text/css"> 
+<script src="./38_files/jquery-3.1.1.min.js.下载"></script>    
+<script type="text/javascript" src="./38_files/shCore.js.下载"></script>
+<script type="text/javascript">
+SyntaxHighlighter.all();       
+</script>
+            <style>
+/*			*/
+			*{ font-family: Arial,"Courier New","Andale Mono",monospace;}			
+		
+			
+			table {
+					border-collapse: collapse; margin:5px;
+				}
+				td{ padding:5px;}
+				
+			</style>
+
+<meta name="__hash__" content="f919ec0e8b53a2ce3b28848a2b2d04e9_57169eb3925ec3072434836031d87aa3"></head>
+
+<body>
+
+<div class="kfsc-r-he">
+       <h2 style="padding-left:30px;">商品增删改查</h2>
+    <div class="kfsc-xhx"></div>
+</div>
+<div style=" padding-left:30px; padding-top:20px;">
+<p>lvhaishop 对应&nbsp; app 万能接口</p><p><br></p><table border="0" cellpadding="0" cellspacing="0" class="syntaxhighlighter  html"><tbody><tr><td class="gutter"><div class="line number1 index0 alt2">1</div><div class="line number2 index1 alt1">2</div><div class="line number3 index2 alt2">3</div><div class="line number4 index3 alt1">4</div><div class="line number5 index4 alt2">5</div><div class="line number6 index5 alt1">6</div><div class="line number7 index6 alt2">7</div><div class="line number8 index7 alt1">8</div><div class="line number9 index8 alt2">9</div><div class="line number10 index9 alt1">10</div><div class="line number11 index10 alt2">11</div><div class="line number12 index11 alt1">12</div><div class="line number13 index12 alt2">13</div><div class="line number14 index13 alt1">14</div><div class="line number15 index14 alt2">15</div><div class="line number16 index15 alt1">16</div><div class="line number17 index16 alt2">17</div><div class="line number18 index17 alt1">18</div><div class="line number19 index18 alt2">19</div><div class="line number20 index19 alt1">20</div><div class="line number21 index20 alt2">21</div><div class="line number22 index21 alt1">22</div><div class="line number23 index22 alt2">23</div><div class="line number24 index23 alt1">24</div><div class="line number25 index24 alt2">25</div><div class="line number26 index25 alt1">26</div><div class="line number27 index26 alt2">27</div><div class="line number28 index27 alt1">28</div><div class="line number29 index28 alt2">29</div><div class="line number30 index29 alt1">30</div><div class="line number31 index30 alt2">31</div><div class="line number32 index31 alt1">32</div><div class="line number33 index32 alt2">33</div></td><td class="code"><div class="container"><div class="line number1 index0 alt2"><code class="html plain">1.获取所有商品分类</code></div><div class="line number2 index1 alt1"><code class="html plain">URL地址&nbsp;&nbsp;&nbsp;&nbsp;http://www.tp-shop.cn/index.php/Api/Goods/goodsCategoryList</code></div><div class="line number3 index2 alt2"><code class="html plain">请求方式&nbsp;&nbsp;&nbsp;&nbsp;Get&nbsp;或&nbsp;&nbsp;post</code></div><div class="line number4 index3 alt1">&nbsp;</div><div class="line number5 index4 alt2">&nbsp;</div><div class="line number6 index5 alt1"><code class="html spaces">&nbsp;</code><code class="html plain">参数列表</code></div><div class="line number7 index6 alt2">&nbsp;</div><div class="line number8 index7 alt1"><code class="html plain">参数&nbsp;&nbsp;&nbsp;&nbsp;是否必须&nbsp;&nbsp;&nbsp;&nbsp;说明</code></div><div class="line number9 index8 alt2"><code class="html plain">parent_id&nbsp;&nbsp;&nbsp;&nbsp;必须&nbsp;&nbsp;&nbsp;&nbsp;父id&nbsp;</code></div><div class="line number10 index9 alt1">&nbsp;</div><div class="line number11 index10 alt2"><code class="html plain">成功示例</code></div><div class="line number12 index11 alt1">&nbsp;</div><div class="line number13 index12 alt2"><code class="html spaces">&nbsp;</code><code class="html plain">{</code></div><div class="line number14 index13 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"status":&nbsp;"success",&nbsp;&nbsp;&nbsp;//状态</code></div><div class="line number15 index14 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"msg":&nbsp;"获取成功",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//提示</code></div><div class="line number16 index15 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"result":&nbsp;[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code></div><div class="line number17 index16 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">{</code></div><div class="line number18 index17 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"id":&nbsp;"1",&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;分类id</code></div><div class="line number19 index18 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"name":&nbsp;"手机&nbsp;、&nbsp;数码&nbsp;、&nbsp;通信",&nbsp;&nbsp;//&nbsp;分类名称</code></div><div class="line number20 index19 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"parent_id":&nbsp;"0",&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;父id</code></div><div class="line number21 index20 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"parent_id_path":&nbsp;"0_1",&nbsp;//&nbsp;家族图谱&nbsp;id</code></div><div class="line number22 index21 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"level":&nbsp;"1",&nbsp;&nbsp;&nbsp;&nbsp;//&nbsp;分类等级&nbsp;&nbsp;1,2,3….&nbsp;更多级</code></div><div class="line number23 index22 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"sort_order":&nbsp;"30",&nbsp;&nbsp;//&nbsp;排序&nbsp;数字越大越靠前</code></div><div class="line number24 index23 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"is_show":&nbsp;"1",&nbsp;&nbsp;//&nbsp;菜单是否显示&nbsp;&nbsp;0&nbsp;关闭&nbsp;&nbsp;1开启</code></div><div class="line number25 index24 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"filter_attr":&nbsp;"0",&nbsp;&nbsp;//&nbsp;帅选属性&nbsp;有哪些</code></div><div class="line number26 index25 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"image":&nbsp;""&nbsp;&nbsp;//&nbsp;分类的&nbsp;图片</code></div><div class="line number27 index26 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">},</code></div><div class="line number28 index27 alt1">&nbsp;</div><div class="line number29 index28 alt2"><code class="html plain">失败示例</code></div><div class="line number30 index29 alt1"><code class="html plain">{</code></div><div class="line number31 index30 alt2"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"status":&nbsp;"error",</code></div><div class="line number32 index31 alt1"><code class="html spaces">&nbsp;&nbsp;&nbsp;&nbsp;</code><code class="html plain">"msg":&nbsp;"获取商品分类失败！"</code></div><div class="line number33 index32 alt2"><code class="html plain">}</code></div></div></td></tr></tbody></table><p><br></p></div>
+   
+<div style=" padding-left:30px; padding-top:20px; width:80%">
+		<!--选项卡显隐块-->
+		<div id="tabbar" class="box tabbar">
+            <!-- 选项卡导航 -->
+            <div class="tab-nav cf">                
+                <span class="item selected" data-target="comment">评论<!-- （<span class="review-count"></span>） --></span>
+            </div>
+            <!-- /选项卡导航 -->
+            <div id="ds-thread" data-thread-key="38" data-title="商品增删改查" data-url="http://www.tp-shop.cn/index/Article/detail/article_id/38.html">
+                <div class="ds-reset">
+                    <div id="ds-reset">
+                        <div class="ds-replybox">
+                            <a class="ds-avatar" href="javascript:void(0);">
+                                <img src="./38_files/noavatar_default.png" alt="过客~" height="auto" width="auto">                            </a>
+                            <form method="post" action="http://www.tp-shop.cn/Doc/Indexbbc/publish_comment.html" id="comment_form">
+                                <div class="ds-textarea-wrapper ds-rounded-top">
+                                    <textarea name="content" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea>
+                                </div>
+                                <div class="ds-post-toolbar">
+                                    <div class="ds-post-options ds-gradient-bg">
+                                        <input class="chaketest_txt" placeholder="请输入图形验证码" type="text" name="verify_code" id="verify_code" style="vertical-align:middle;">
+                                        <img class="chaketest_fa" src="./38_files/index.php" alt="" id="verify_code2" onclick="verify();" height="auto" width="auto">
+                                    </div>
+									<input type="hidden" name="id" value="38">
+                                    <button class="ds-post-button" onclick="submit_order()" type="button">发布</button>
+                                </div>
+                            <input type="hidden" name="__hash__" value="f919ec0e8b53a2ce3b28848a2b2d04e9_57169eb3925ec3072434836031d87aa3"></form>
+                        </div>
+                        <ul class="ds-comments" id="ajax_comment_return"><li data-post-id="6322678493452698369" class="ds-post">
+    <div data-source="duoshuo" data-root-id="0" data-thread-id="6320724285149152002" data-post-id="6322678493452698369" class="ds-post-self">
+        <div class="ds-avatar">
+            <img src="./38_files/100" height="auto" width="auto">
+        </div>
+        <div class="ds-comment-body">
+            <div class="ds-comment-header">
+                <span data-qqt-account="" class="ds-user-name">绅•男</span>
+            </div>
+            <p>建议打上关联 sql 表之类的，看不懂</p>
+            <div class="ds-comment-footer ds-comment-actions">
+                <span class="ds-time">2017-07-28</span>
+            </div>
+        </div>
+    </div>
+</li><!--
+<li data-post-id="6322678493452698369" class="ds-post">
+    <div data-source="duoshuo" data-root-id="0" data-thread-id="6320724285149152002" data-post-id="6322678493452698369" class="ds-post-self">
+        <div class="ds-avatar">
+            <img src="http://q.qlogo.cn/qqapp/101277529/FF995E11F6C4E907095E8552227F9E8C/100">
+        </div>
+        <div class="ds-comment-body">
+            <div class="ds-comment-header">
+                <span data-qqt-account="" class="ds-user-name">当燃</span>
+                <a class="reply-btn" href="javascript:;">回复<i></i></a>
+            </div>
+            <p>去掉模板首页底部的客服代码就行了</p>
+            <div class="ds-comment-footer ds-comment-actions">
+                <span class="ds-time">2017-04-11</span>
+            </div>
+            <form class="form2_replay" method="post" action="/Doc/Indexbbc/publish_comment.html">
+                <div class="ds-textarea-wrapper ds-rounded-top">
+                    <textarea name="content" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea>
+                </div>
+                <div class="ds-post-toolbar">
+                    <div class="ds-post-options ds-gradient-bg">
+                        <input class="chaketest_txt" placeholder="请输入图形验证码" type="text" name="verify_code" id="verify_code" style="vertical-align:top;">
+                        <img class="chaketest_fa" src="/index.php?m=Home&amp;c=Index&amp;a=verify&amp;type=publish_comment&amp;fontSize=30&amp;length=4&amp;r=0.07032091364036042" alt="" id="" onclick="verify2(this)">                                  
+                    </div>
+                    <input type="hidden" name="id" value="1496">
+                    <button class="ds-post-button" onclick="submit_order2(this)" type="button">发布</button>
+                </div>
+            <input type="hidden" name="__hash__" value="9231632dd4c17ac9ba9f8ae54afa03d5_ef4e2438ee3c24462405d37391eaec5f" /></form>
+            <ul class="dpmt10">
+                <li class="ds-post">
+                    <div data-source="duoshuo" data-root-id="0" data-thread-id="6320724285149152002" data-post-id="6322678493452698369" class="ds-post-self">
+                        <div class="ds-avatar">
+                            <img src="http://q.qlogo.cn/qqapp/101277529/FF995E11F6C4E907095E8552227F9E8C/100">
+                        </div>
+                        <div class="ds-comment-body">
+                            <div class="ds-comment-header">
+                                <span data-qqt-account="" class="ds-user-name">当燃</span>
+                                <a class="reply-btn" href="javascript:;">回复<i></i></a>
+                            </div>
+                            <p>去掉模板首页底部的客服代码就行了</p>
+                            <div class="ds-comment-footer ds-comment-actions">
+                                <span class="ds-time">2017-04-11</span>
+                            </div>
+                            <form class="form2_replay" method="post" action="/Doc/Indexbbc/publish_comment.html">
+                                <div class="ds-textarea-wrapper ds-rounded-top">
+                                    <textarea name="content" title="Ctrl+Enter快捷提交" placeholder="说点什么吧…"></textarea>
+                                </div>
+                                <div class="ds-post-toolbar">
+                                    <div class="ds-post-options ds-gradient-bg">
+                                        <input class="chaketest_txt" placeholder="请输入图形验证码" type="text" name="verify_code" id="verify_code" style="vertical-align:top;">
+                                        <img class="chaketest_fa" src="/index.php?m=Home&amp;c=Index&amp;a=verify&amp;type=publish_comment&amp;fontSize=30&amp;length=4&amp;r=0.07032091364036042" alt="" onclick="verify2(this)">                                  
+                                    </div>
+                                    <input type="hidden" name="id" value="1496">
+                                    <input type="hidden" name="parent_id" value="1496">
+                                    <button class="ds-post-button" onclick="submit_order2(this)" type="button">发布</button>
+                                </div>
+                            <input type="hidden" name="__hash__" value="9231632dd4c17ac9ba9f8ae54afa03d5_ef4e2438ee3c24462405d37391eaec5f" /></form>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</li>-->
+ <div class="ds-paginator" style="display: block;">
+ <div class="ds-border"></div>
+<div class="dataTables_paginate paging_simple_numbers"><ul class="pagination">    </ul></div></div>       
+ 
+<script>
+    // 点击分页触发的事件
+    $("#ajax_comment_return .pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajaxComment(commentType,cur_page);
+    });
+
+    //回复
+    $('.reply-btn').click(function() {
+         $(this).parents('.ds-comment-header').siblings('.form2_replay').toggle(300);
+    });
+    
+    function verify2(obj){
+        $(obj).attr('src','/index.php?m=Home&c=User&a=verify&type=publish_comment&r='+Math.random());
+    }
+</script></ul>
+
+                    </div>
+                </div>
+            </div>
+            </div>
+ <!--------用户评价-start--------------->   
+                <script>
+                    $(document).ready(function(){
+                        commentType = 1; // 评论类型
+                        ajaxComment(1,1);// ajax 加载评价列表
+                    });
+                  
+                    // 用ajax分页显示评论
+                    function ajaxComment(commentType,page){
+                        $.ajax({
+                            type : "GET",
+                            url:"/index.php?m=Doc&c=Indexbbc&a=ajax_comments&id=38&p="+page,//+tab,
+                            success: function(data){
+                                $("#ajax_comment_return").html('');								 
+                                $("#ajax_comment_return").append(data);
+                            }
+                        });
+                    }		
+
+					// 验证码切换
+					function verify(){
+					   $('#verify_code2').attr('src','/index.php?m=Home&c=Index&a=verify&type=publish_comment&fontSize=30&length=4&r='+Math.random());
+					}
+						
+					/**
+					* ajax 提交发表评论
+					*/	
+					function checkSubmit()
+					{
+					    var verify_code = $('#verify_code').val();
+						if($.trim(verify_code) == '')	
+						{
+							alert('请输入图形验证码!!!');
+							return false;
+						}
+					    var content = $('#content').val();
+						if($.trim(content) == '')	
+						{
+							alert('请输入评论内容!!!');
+							return false;
+						}						
+					}
+					
+					
+					// 提交订单
+					ajax_return_status = 1;
+					function submit_order()
+					{
+						if(ajax_return_status == 0)
+							return false;
+							
+						ajax_return_status = 0;	
+							
+						$.ajax({
+							type : "POST",
+							url:"/Doc/Indexbbc/publish_comment.html",//+tab,
+							data : $('#comment_form').serialize(),// 你的formid
+							dataType: "json",
+							success: function(data){
+																	
+								if(data.status != '1')
+								{
+									// alert(data.msg); //执行有误
+									alert(data.msg);
+									// 登录超时
+									if(data.status == -100) 
+										location.href ="/Home/LoginApi/login/oauth/qq.html";
+									ajax_return_status = 1; // 上一次ajax 已经返回, 可以进行下一次 ajax请求
+									
+									verify();
+									 $('#verify_code').val('');
+									return false;
+								}		 							
+								alert(data.msg);							 		
+							}
+						});	
+					}		
+					
+                </script>
+                
+                
+                
+                <!--------用户评价-end---------------->                     
+        <!--多说评论 end -->               
+                  
+</div>
+                        
+
+</body></html>

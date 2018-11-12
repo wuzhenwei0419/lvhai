@@ -1,0 +1,111 @@
+<!DOCTYPE html >
+<html>
+<head>
+  <meta name="Generator" content="tpshop" />
+  <meta charset="utf-8">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="viewport" content="minimal-ui=yes,width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>水果行情-{$tpshop_config['shop_info_store_title']}</title>
+  <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+  <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/group_buy.css"/>
+  <link rel="stylesheet" href="__STATIC__/css/lvhai.css">
+  <link rel="stylesheet" href="__STATIC__/css/market.css">
+  <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+  <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
+  <script src="__PUBLIC__/js/global.js"></script>
+  <script src="__PUBLIC__/js/mobile_common.js"></script>
+</head>
+<body>
+<div class="tab_nav">
+  <div class="header">
+    <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+    <div class="h-mid">水果行情</div>
+    <div class="h-right">
+      <aside class="top_bar">
+        <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+      </aside>
+    </div>
+  </div>
+</div>
+<include file="Public/menu"/>
+
+<div class="hq-main">
+  <h2 class="node-title">{$article[0].title}</h2>
+  <div class="node-release">发布时间：{$article[0].publish_time|date="Y-m-d",###}      </div>
+  <div class="node-content">
+    <table class="table">
+      <tr>
+        <th>品名</th>
+        <th>规格</th>
+
+        <th>净重</th>
+        <th>均价</th>
+        <th>涨跌</th>
+      </tr>
+      <foreach name="market" item="v" >
+        <tr class="summary-tr">
+          <td><span class="mark"></span>{$v[hq_variety]}</td>
+          <td>{$v[spec]}</td>
+          <td>{$v[suttle]}</td>
+
+          <td>{$v[eprice]}</td>
+          <td>
+            <if condition="$v[hq_up] gt 0">
+              <span class="glyphicon glyphicon-arrow-up up-down" aria-hidden="true"></span>{$v[hq_up]}
+              <elseif condition="$v[hq_up] lt 0" />
+              <span class="glyphicon glyphicon-arrow-down up-down" aria-hidden="true"></span>{$v[hq_up]|substr=1}
+              <else />
+              <span class="glyphicon up-down" aria-hidden="true"></span>{$v[hq_up]}
+            </if>
+          </td>
+        </tr>
+        <tr class="details-tr">
+          <td colspan="5">
+            <ul>
+              <li><strong>品种:</strong>{$v[hq_name]}</li>
+              <li><strong>产地:</strong>{$v[hq_address]}</li>
+              <li><strong>单位:</strong>{$v[hq_unit]}</li>
+              <li><strong>毛重:</strong>{$v[gross]}</li>
+              <li><strong>最高价:</strong>{$v[hprice]}</li>
+              <li><strong>最低价:</strong>{$v[lprice]}</li>
+            </ul>
+          </td>
+        </tr>
+      </foreach>
+    </table>
+    <p><strong>特别提示：</strong>本信息仅供参考。请谨慎采用，风险自负。</p>
+    <div class="node-nav">
+      <a class="nav-left" href="{:U('Mobile/Markets/details',array('id'=>$articledown))}"><i><</i>上一篇</a>
+      <a class="nav-middle" href="{:U('Mobile/Markets/index')}"><i class="iconbar"></i><i class="iconbar"></i><i class="iconbar"></i></a>
+      <a class="nav-right" href="{:U('Mobile/Markets/details',array('id'=>$articleup))}">下一篇<i>></i></a>
+    </div>
+  </div>
+</div>
+
+<a href="javascript:goTop();" class="gotop"><img width="auto" height="auto" src="__STATIC__/images/topup.png"></a>
+<include file="Public/footer"/>
+<include file="Public/footer_nav"/>
+<script type="text/javascript">
+    function toggleSlider($ele, $menu, className) {
+        if ($ele.hasClass(className)) {
+            $menu.hide();
+            $ele.removeClass(className);
+        }
+        else {
+            $menu.show();
+            $ele.addClass(className);
+        }
+    }
+    function goTop() {
+        $('html,body').animate({
+            'scrollTop': 0
+        }, 600);
+    }
+    $('.summary-tr').click(function () {
+        toggleSlider($(this), $(this).next('.details-tr'), 'in')
+    })
+</script>
+</body>
+</html>

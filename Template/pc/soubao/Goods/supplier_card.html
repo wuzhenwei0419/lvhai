@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>供应商-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <link rel="stylesheet" href="__STATIC__/css/category.css">
+
+    <style>
+        .business_card{
+            width: 68%;
+            height: auto;
+            margin: 0 auto;
+            padding-top: 40px;
+            padding-bottom: 47px;
+        }
+        .box{
+            width: 364px;
+            overflow: hidden;
+            border: 1px solid #dbdbdb;
+            border-radius: 5px;
+            float: left;
+            margin-left: 47px;
+            margin-bottom: 47px;
+
+        }
+        .box h1{
+            color: black;
+            font-size: 20px;
+            font-weight: 800;
+            margin-top: 18px;
+            margin-left: 20px;
+        }
+        .box h2{
+            color: #4a4f49;
+            font-size: 18px;
+            font-weight: 800;
+            margin-top: 21px;
+            margin-left: 20px;
+        }
+        .box p{
+            color: #8e938f;
+            font-size: 12px;
+            margin-top: 7px;
+            margin-left: 20px;
+        }
+        .product{
+            width: 100%;
+            background: #a5a8a5;
+            margin-top: 14px;
+            color: white;
+            line-height: 27px;
+            box-sizing: border-box;
+        }
+        .product p{
+            color: white;
+        }
+        .box:hover h1{
+              color: #52ab44;
+          }
+     .box:hover .product{
+            background: #52ab44;
+        }
+        .next{
+            width: auto;
+            background-image: ();
+        }
+    </style>
+</head>
+<body>
+<!-- 头部-s -->
+<include file="Public/min-header" />
+<div class="business_card">
+    <volist name="supplier_list" id="vo" >
+    <div class="box">
+        <h1>{$vo['suppliers_name']}</h1>
+        <h2>{$vo['suppliers_contacts']}</h2>
+        <p style="margin-top: 21px;">
+            <img src="__STATIC__/images/gong1.png" alt="">&nbsp
+            {$vo['suppliers_phone']}
+        </p>
+        <p>
+            <img src="__STATIC__/images/fang.jpg" alt="" style="width: 12px">&nbsp
+            {$vo['nature']}
+        </p>
+        <p>
+            <img src="__STATIC__/images/gong3.png" alt="">&nbsp
+            {$vo['suppliers_address']}
+        </p>
+        <div class="product">
+            <p class="main_camp">
+                主营：{$vo['suppliers_desc']}
+            </p>
+        </div>
+    </div>
+    </volist>
+    <div class="fn-page-css-1 pagintion fix" style="display: block;">
+        <div class="pagenavi text12">{$page}</div>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+
+<include file="Public/footer" />
+</body>
+</html>

@@ -1,0 +1,55 @@
+/** @file Sass Mixins. */
+/** @file Vaeiables. */
+.market { padding: 0 10px; }
+.market li { margin-bottom: 15px; }
+.market li .l-left { display: block; width: 130px; float: left; }
+.market li .l-left img { max-width: 100%; }
+.market li .l-right { width: calc(100% - 145px); float: right; }
+.market li .l-right h5 { font-size: 14px; line-height: 1.2; height: 33px; overflow: hidden; margin-top: 3px; }
+.market li .l-right h5 a { color: #333; }
+.market li .l-right p { font-size: 12px; color: #666; line-height: 1.5; height: 54px; margin-top: 5px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; }
+
+.node-title { text-align: center; font-size: 16px; font-weight: bold; margin-top: 20px; }
+
+.node-release { text-align: center; font-size: 12px; margin-top: 5px; margin-bottom: 30px; color: #999; line-height: 1; }
+
+.hq-main { font-size: 12px; padding: 0 12px; }
+.hq-main .table { width: 100%; margin-bottom: 50px; }
+.hq-main .table th { font-weight: bold; }
+.hq-main .table th, .hq-main .table td { text-align: center; font-size: 12px; }
+.hq-main .table tr:nth-child(4n+2) { background: #f9f9f9; }
+.hq-main .table tr:nth-child(4n+3) { background: #f9f9f9; }
+.hq-main .details-tr { display: none; }
+.hq-main .details-tr td { text-align: left; padding-left: 10px !important; }
+.hq-main .details-tr td strong { margin-right: 10px; }
+.hq-main .mark { font-weight: bold; position: relative; float: left; width: 12px; margin-top: 3px; }
+.hq-main .mark:before, .hq-main .mark:after { content: ''; position: absolute; display: block; background: #ccc; }
+.hq-main .mark:before { width: 10px; height: 2px; left: 0; top: 4px; }
+.hq-main .mark:after { width: 2px; height: 10px; left: 4px; top: 0; }
+.hq-main .in .mark:after { display: none; }
+.hq-main .table > tbody > tr > td, .hq-main .table > tbody > tr > th, .hq-main .table > tfoot > tr > td, .hq-main .table > tfoot > tr > th, .hq-main .table > thead > tr > td, .hq-main .table > thead > tr > th { padding: 8px 2px; line-height: 1.42857143; vertical-align: top; border-top: 1px solid #ddd; }
+.hq-main p { color: #333; }
+.hq-main p strong { color: #dd0005; }
+.hq-main .node-nav { text-align: center; margin-top: 20px; padding-top: 10px; border-top: 1px solid #eee; }
+.hq-main .node-nav .nav-left { float: left; }
+.hq-main .node-nav .nav-right { float: right; }
+.hq-main .node-nav a { display: inline-block; vertical-align: middle; font-weight: bold; color: #333; }
+.hq-main .node-nav a:hover { text-decoration: none; color: #52ab44; }
+.hq-main .node-nav a:hover .iconbar { background: #52ab44; }
+.hq-main .node-nav i { font-style: normal; font-family: 'SimSun'; margin: 0 5px; }
+.hq-main .node-nav .iconbar { width: 18px; height: 2px; margin: 3px 0; display: block; background: #333; -webkit-border-radius: 1px; -moz-border-radius: 1px; border-radius: 1px; }
+
+@font-face { font-family: 'Glyphicons Halflings'; src: url("../fonts/glyphicons-halflings-regular.eot"); src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff2") format("woff2"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular") format("svg"); }
+.glyphicon { position: relative; top: 1px; display: inline-block; font-family: 'Glyphicons Halflings'; font-style: normal; font-weight: 400; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.node-content .up-down { font-size: 12px; margin-right: 5px; }
+
+.glyphicon-arrow-down { color: green; }
+
+.glyphicon-arrow-down:before { content: "\e094"; }
+
+.glyphicon-arrow-up { color: red; }
+
+.glyphicon-arrow-up:before { content: "\e093"; }
+
+/*# sourceMappingURL=market.css.map */

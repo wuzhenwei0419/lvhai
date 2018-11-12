@@ -1,0 +1,80 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+  <!-- Content Header (Page header) -->
+  <include file="Public/breadcrumb"/>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i> 折扣
+            <a href="{:U('Discount/discount')}">
+              <button type="button" class="btn btn-info">
+                <i class="ace-icon fa fa-plus bigger-110"></i>
+                <span>添加折扣</span>
+              </button>
+            </a>
+          </h3>
+        </div>
+        <div class="panel-body">
+          <div id="ajax_return">
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <td class="text-center">
+                      订购数量
+                    </td>
+                    <td class="text-center">
+                      折扣
+                    </td>
+                    <th valign="middle" class="text-center">是否显示</th>
+                    <td class="text-center">操作</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <foreach name="discountlist" item="vo">   
+                    <tr>
+                      <td class="text-center">{$vo.nummin}-{$vo.nummax}</td>
+                      <td class="text-center">{$vo.discount}</td>
+                      <td class="text-center">
+                        <img width="20" height="20" src="__PUBLIC__/images/<if condition='$vo[is_show] eq 1'>yes.png<else />cancel.png</if>" onclick="changeTableVal('discount','dis_id','{$vo.dis_id}','is_show',this)"/>                             
+                      </td>
+                      <td class="text-right">
+                        <a href="{:U('Discount/discount',array('id'=>$vo['dis_id']))}" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="编辑"><i class="fa fa-pencil"></i></a>
+                        <a href="javascript:del_fun('{:U('Discount/del',array('id'=>$vo['dis_id']))}');" class="btn btn-danger" title="删除"><i class="fa fa-trash-o"></i></a>
+                      </td>
+                    </tr>
+                  </foreach>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<style>
+.btn-info{
+ float: right;
+ margin-top: -8px;
+}
+</style>
+<!-- /.content-wrapper -->
+<script>
+    // 删除操作
+    function del(id,t)
+    {
+      if(!confirm('确定要删除吗?'))
+        return false;
+
+      location.href = $(t).data('href');
+    }
+  </script>
+</body>
+</html>

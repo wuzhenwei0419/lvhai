@@ -1,0 +1,74 @@
+
+<div class="navbar navbar-default">
+  <form action="" id="search-form-hq" class="navbar-form form-inline" method="post" onsubmit="return false">          
+
+    <div class="form-group">
+      <label class="control-label" for="input-order-id">关键词</label>
+      <div class="input-group">
+        <input type="text" name="keywords" value="{$keywords}" placeholder="搜索词" id="input-order-id" class="form-control">
+      </div>
+    </div>        
+    <div class="form-group">
+      <select name="ads" class="form-control">
+        <option value="">全部</option>
+        <volist name="hqads" id="v">
+         <option value="{$v.id}">{$v.name}</option>
+       </volist>
+     </select>                
+   </div>
+   <button type="submit" onclick="ajax_get_table('search-form-hq',1)" id="button-filter search-order" class="btn btn-primary"><i class="fa fa-search"></i> 筛选</button>
+   <button type="button" onclick="location.href='/index.php/Admin/Market/article'" class="btn btn-primary pull-right"><i class="fa fa-plus"></i>添加行情</button>
+ </form>
+</div>
+<table border=0  cellpadding="0" cellspacing="0" class="table table-bordered table-striped dataTable" >
+  <tr>
+    <th>文章标题</th>
+    <th>市场</th>
+    <th>描述</th>
+    <th>发布时间</th>
+    <th>显示</th>
+    <th>操作</th>
+  </tr>
+  <foreach name="marketList" item="vo" key="k"  >            
+    <tr>
+      <td>{$vo[title]}</td>
+      <td>{$vo[ads]}</td>
+      <td>{$vo[content]}</td>
+      <td>{$vo[publish_time]|date='Y-m-d',###}</td>
+      <td class="text-center">
+        <img width="20" height="20" src="/Public/images/yes.png" onclick="changeTableVal('goods','goods_id','292','is_on_sale',this)">
+      </td>
+      <td class="text-right">
+        <a href="{:U('Market/article',array('id'=>$vo['article_id']))}" class="btn btn-info" title="编辑基本信息"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+        <a href="{:U('Market/details',array('id'=>$vo['article_id']))}" class="btn btn-primary" title="编辑行情"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span></a>
+        <a href="javascript:del_fun('{:U('Market/del',array('id'=>$vo['article_id']))}');" class="btn btn-danger" title="删除"><i class="fa fa-trash-o"></i></a>
+        <a href="javascript:void(0);" onclick="ClearHqarticleThumb('{$vo.$article_id}')" class="btn btn-default" title="清除缩略图缓存"><i class="glyphicon glyphicon-picture"></i></a>
+      </td>
+    </tr>
+  </foreach>
+</table>
+<div class="row">
+  <div class="col-sm-6 text-left">
+  </div>
+  <div class="col-sm-6 text-right">{$page}</div>
+</div>
+<script type="text/javascript">
+  $(".pagination  a").click(function(){
+    cur_page = $(this).data('p');
+    ajax_get_table('search-form-hq',cur_page);
+  });
+
+   function ClearHqarticleThumb(article_id)
+    {
+      $.ajax({
+        type:'GET',
+        url:"<?php echo U('Admin/System/ClearHqarticleThumb');?>",
+        data:{article_id:article_id},
+        dataType:'json',
+        success:function(data){
+          layer.alert(data.msg, {icon: 2});                
+        }
+    });
+    }   
+
+</script>

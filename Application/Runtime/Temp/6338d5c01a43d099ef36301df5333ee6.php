@@ -1,0 +1,3 @@
+<?php
+//000000000000a:3:{i:0;a:3:{s:6:"img_id";i:2701;s:8:"goods_id";i:526;s:9:"image_url";s:49:"/Public/upload/goods/2018/11-05/5bdf99ffcb2c6.jpg";}i:1;a:3:{s:6:"img_id";i:2702;s:8:"goods_id";i:526;s:9:"image_url";s:49:"/Public/upload/goods/2018/11-05/5bdf99ff8f2f6.jpg";}i:2;a:3:{s:6:"img_id";i:2703;s:8:"goods_id";i:526;s:9:"image_url";s:49:"/Public/upload/goods/2018/11-05/5bdf99f530b23.jpg";}}
+?>

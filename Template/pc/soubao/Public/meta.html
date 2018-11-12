@@ -1,0 +1,51 @@
+<script type="text/javascript" src="__PUBLIC__/js/jquery-1.10.2.min.js"></script>
+<script src="__PUBLIC__/js/global.js"></script>
+<script src="__PUBLIC__/js/layer/layer.js"></script> 
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/common.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/main.min.css">
+<link rel="stylesheet" type="text/css" href="__STATIC__/css/lvhai.css">
+<script type="text/javascript">
+  if(isMobileBrowser()) {
+    var url = window.location.pathname;
+    if (url.indexOf('/Home/') >= 0) {
+      url = url.replace('/Home/', '/Mobile/');
+    }
+    else if (url.indexOf('m=Home') >= 0) {
+      url = url.replace('m=Home', 'm=Mobile');
+    }
+    else {
+      return false;
+    }
+    location.href = url;
+  }
+  $(document).ready(function(){
+   get_cart_num();
+   var uname= getCookie('uname');
+   if(uname == ''){
+    $('.islogin').remove();
+    $('.nologin').show();
+    $('body').addClass('not-login');
+  }else{
+    $('.islogin').show();
+    $('.nologin').remove();
+    $('.userinfo').html(decodeURIComponent(uname));
+    $('body').addClass('login');
+  }
+});
+
+  function get_cart_num(){
+   var cart_cn = getCookie('cn');
+   if(cart_cn == ''){
+     $.ajax({
+      type : "GET",
+		url:"/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
+		success: function(data){								 
+			cart_cn = getCookie('cn');
+			$('#cart_quantity').html(cart_cn);					
+		}
+	});	
+   }
+   $('#cart_quantity').html(cart_cn);
+   $('#miniCartRightQty').html(cart_cn);
+ }
+</script>

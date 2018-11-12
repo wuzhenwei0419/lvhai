@@ -1,0 +1,3 @@
+<?php
+//000000000000a:6:{i:0;a:3:{s:6:"img_id";i:2502;s:8:"goods_id";i:348;s:9:"image_url";s:49:"/Public/upload/goods/2018/10-31/5bd931c91a5e7.jpg";}i:1;a:3:{s:6:"img_id";i:2503;s:8:"goods_id";i:348;s:9:"image_url";s:49:"/Public/upload/goods/2018/10-31/5bd931c8e8b83.jpg";}i:2;a:3:{s:6:"img_id";i:2504;s:8:"goods_id";i:348;s:9:"image_url";s:49:"/Public/upload/goods/2018/10-31/5bd931b7d1fa6.jpg";}i:3;a:3:{s:6:"img_id";i:2178;s:8:"goods_id";i:429;s:9:"image_url";s:49:"/Public/upload/goods/2018/09-03/5b8c8c8a500ba.jpg";}i:4;a:3:{s:6:"img_id";i:2179;s:8:"goods_id";i:429;s:9:"image_url";s:49:"/Public/upload/goods/2018/09-03/5b8c8c8a39e2e.jpg";}i:5;a:3:{s:6:"img_id";i:2501;s:8:"goods_id";i:429;s:9:"image_url";s:49:"/Public/upload/goods/2018/10-31/5bd91ba9637cd.jpg";}}
+?>

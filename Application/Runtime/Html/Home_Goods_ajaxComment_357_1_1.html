@@ -1,0 +1,30 @@
+
+    <!-- /.fn-comment-list -->
+    <div class="fn-page-css-1" style="display: block;">
+      <div class="fn-page-css-1 pagintion fix" style="display: block;">
+      	<!--
+        <ul>
+          <li class="pg-prev pg-off"><a href="javascript:void(0)"><i></i>上一页</a></li>
+          <li class="pg-on pg-index" data-page-index="1"><a href="javascript:void(0)" class="on">1</a></li>
+          <li pg-index="" data-page-index="2"><a href="javascript:void(0)">2</a></li>
+          <li pg-index="" data-page-index="3"><a href="javascript:void(0)">3</a></li>
+          <li pg-index="" data-page-index="4"><a href="javascript:void(0)">4</a></li>
+          <li pg-index="" data-page-index="5"><a href="javascript:void(0)">5</a></li>
+          <li pg-index="" data-page-index="6"><a href="javascript:void(0)">6</a></li>
+          <li class="pg-next" data-page-index="2"><a href="javascript:void(0)">下一页</a></li>
+          <li class="pg-num-top">到第</li>
+          <li class="pg-num">
+            <input type="text" class="jump_index">
+          </li>
+          <li class="pg-num-bot">页</li>
+          <li class="pg-btn"><a href="javascript:void(0);" class="btn_jump">确定</a></li>
+        </ul>-->
+              </div>
+    </div>
+<script>
+    // 点击分页触发的事件
+    $("#ajax_comment_return .pagination  a").click(function(){
+        cur_page = $(this).data('p');
+        ajaxComment(commentType,cur_page);
+    });
+</script>

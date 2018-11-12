@@ -1,0 +1,317 @@
+<style>
+    .zhen{
+        width: 20vw;
+        height: 20vh;
+        border: 1px solid #ccc;
+    }
+</style>
+<include file="Public/min-header" />
+<div class="wrapper">
+    <include file="Public/breadcrumb"/>
+    <section class="content ">
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回管理员列表"><i class="fa fa-reply"></i></a>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-list"></i> 添加管理员</h3>
+                </div>
+                <div class="panel-body ">   
+                    <!--表单数据-->
+                    <form method="post" id="suppliersHandle" action="{:U('Agent/supplierHandle')}">
+                        <!--通用信息-->
+                    <div class="tab-content col-md-10">                 	  
+                        <div class="tab-pane active" id="tab_tongyong">                           
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td class="col-sm-2">供应商名称：</td>
+                                    <td class="col-sm-8">
+                                        <input type="text" class="form-control" name="suppliers_name" value="{$info.suppliers_name}" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商联系人：</td>
+                                    <td>
+                               			<input type="text" class="form-control" name="suppliers_contacts" value="{$info.suppliers_contacts}" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商电话：</td>
+                                    <td>
+                                        <input type="telephone" class="form-control" name="suppliers_phone" value="{$info.suppliers_phone}" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商地址：</td>
+                                    <td>
+                                        <input type="telephone" class="form-control" name="suppliers_address" value="{$info.suppliers_address}" >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商性质：</td>
+                                    <td>
+                                        <select name="nature_id" id="selectet" class="input-sm" onclick="Choice()"> <option value="{$info.nature_id}">{$info.nature}</option>
+                                            <option value="0">植户(个人)</option>
+                                            <option value="1">贸易商（企业）</option>
+
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="po">
+                                    <td class="col-sm-2">正面：</td>
+                                    <td class="col-sm-8">
+                                        <div class="zhen" onclick="file('file')">
+                                            <img id="portrait" src="__PUBLIC__/images/1110_03.png" width="100%" height="100%" >
+                                            <input type="file" name="idcard_img1"  style="display: none"  id="file"/>
+                                            <input type="hidden" class="input-sm" name="idcard_img1" id="idcard_img1" value="{$info.idcard_img1}">
+
+                                            <script type="text/javascript">
+                                                function file(elementId) {
+                                                    document.getElementById(elementId).click()
+                                                }
+                                                $("#file").change(function () {
+                                                    var this_=this
+                                                    var file = this_.files[0];
+                                                    if (window.FileReader) {
+                                                        var fr = new FileReader();
+                                                        fr.onloadend = function(e) {
+                                                            document.getElementById("portrait").src = e.target.result;
+                                                        };
+                                                        fr.readAsDataURL(file);
+                                                    }
+                                                    var formData = new FormData($( "#suppliersHandle" )[0]);
+                                                    $.ajax({
+                                                        url: "{:U('Admin/Agent/suppliers_img1')}" ,
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        async: false,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function (returndata) {
+                                                            if(returndata=="上传失败"){
+                                                                alert("上传失败")
+                                                                setTimeout("   $(\"#portrait\").attr('src',\"__PUBLIC__/images/1110_03.png\")",10);
+                                                            }else{
+                                                                $('#portrait, #idcard_img1').val(returndata);
+                                                                alert('上传成功');
+                                                            }
+                                                        },
+                                                        error: function (returndata) {
+                                                            console.log((returndata));
+                                                        }
+                                                    });
+                                                })
+                                            </script>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="trai">
+                                    <td class="col-sm-2">身份证反面：</td>
+                                    <td class="col-sm-8">
+                                        <div class="zhen" onclick="file('fil')">
+                                            <img id="portrai" src="__PUBLIC__/images/1110_03.png" width="100%" height="100%" >
+
+                                            <input type="file" name="idcard_img2"  class="file" style="display: none"  id="fil"/>
+                                            <input type="hidden" class="input-sm" name="idcard_img2" id="idcard_img2" value="{$info.idcard_img2}">
+
+                                            <script type="text/javascript">
+                                                function file(elementId) {
+                                                    document.getElementById(elementId).click()
+                                                }
+                                                $("#fil").change(function () {
+                                                    var this_=this
+                                                    var file = this_.files[0];
+                                                    if (window.FileReader) {
+                                                        var fr = new FileReader();
+                                                        fr.onloadend = function(e) {
+                                                            document.getElementById("portrai").src = e.target.result;
+                                                        };
+                                                        fr.readAsDataURL(file);
+                                                    }
+                                                    var formData = new FormData($( "#suppliersHandle" )[0]);
+                                                    $.ajax({
+                                                        url: "{:U('Admin/Agent/suppliers_img2')}" ,
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        async: false,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function (returndata) {
+                                                            if(returndata=="上传失败"){
+                                                                alert("上传失败")
+                                                                setTimeout("   $(\"#portrai\").attr('src',\"__PUBLIC__/images/1110_03.png\")",10);
+                                                            }else{
+                                                                $('#portrai, #idcard_img2').val(returndata);
+                                                                alert('上传成功');
+                                                            }
+                                                        },
+                                                        error: function (returndata) {
+                                                            alert(returndata);
+                                                        }
+                                                    });
+                                                })
+                                            </script>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr id="business" style="display: none">
+                                    <td class="col-sm-2">营业执照：</td>
+                                    <td class="col-sm-8">
+                                        <div class="zhen" onclick="fi('fi')">
+                                            <img id="por" src="__PUBLIC__/images/1110_03.png" width="100%" height="100%" >
+
+                                            <input type="file" name="business_licence"  class="fi" style="display: none"  id="fi"/>
+                                            <input type="hidden" class="input-sm" name="business_licence" id="business_licence" value="{$info.business_licence}">
+
+                                            <script type="text/javascript">
+                                                function fi(elementId) {
+                                                    document.getElementById(elementId).click()
+                                                }
+                                                $("#fi").change(function () {
+                                                    var this_=this
+                                                    var file = this_.files[0];
+                                                    if (window.FileReader) {
+                                                        var fr = new FileReader();
+                                                        fr.onloadend = function(e) {
+                                                            document.getElementById("por").src = e.target.result;
+                                                        };
+                                                        fr.readAsDataURL(file);
+                                                    }
+                                                    var formData = new FormData($( "#suppliersHandle" )[0]);
+                                                    $.ajax({
+                                                        url: "{:U('Admin/Agent/suppliers_img3')}" ,
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        async: false,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function (returndata) {
+                                                            if(returndata=="上传失败"){
+                                                                alert("上传失败")
+                                                                setTimeout("   $(\"#por\").attr('src',\"__PUBLIC__/images/1110_03.png\")",10);
+                                                            }else{
+                                                                $('#por, #business_licence').val(returndata);
+                                                                alert('上传成功');
+                                                            }
+                                                        },
+                                                        error: function (returndata) {
+                                                            alert(returndata);
+                                                        }
+                                                    });
+                                                })
+                                            </script>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>供应商经营品种：</td>
+                                    <td>
+                                        <input type="telephone" class="form-control" name="suppliers_desc" value="{$info.suppliers_desc}" >
+                                    </td>
+                                </tr>
+                                </tbody> 
+                                <tfoot>
+                                	<tr>
+                                	<td><input type="hidden" name="act" value="{$act}">
+                                		<input type="hidden" name="suppliers_id" value="{$info.suppliers_id}">
+                                	</td>
+                                	<td class="text-right"><input class="btn btn-primary" type="button" onclick="adsubmit()" value="保存"></td></tr>
+                                </tfoot>                               
+                                </table>
+                        </div>                           
+                    </div>              
+			    	</form><!--表单数据-->
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+<script>
+    // $("#selectet").html('<option value="{$info.nature_id}">{$info.nature}<option>')
+    var val=$(" #idcard_img1 ").val()
+    console.log($(" #idcard_img1 ").val())
+    if(val==""){
+        console.log(2)
+    }else {
+        $("#portrait").attr('src',"/"+val);
+    }
+    var val=$(" #idcard_img2 ").val()
+    console.log($(" #idcard_img2 ").val())
+    if(val==""){
+        console.log(2)
+    }else {
+        $("#portrai").attr('src',"/"+val);
+    }
+    var val=$(" #business_licence ").val()
+    console.log($(" #business_licence ").val())
+    if(val==""){
+        console.log(2)
+    }else {
+        $("#por").attr('src',"/"+val);
+    }
+    var input=document.querySelector(".input-sm")
+    var index = input.selectedIndex
+    var value = input.options[index].value;
+    var business=document.querySelector("#business")
+    var por=document.querySelector("#po")
+    var trai=document.querySelector("#trai")
+
+    if(value==1){
+        business.style.display="table-row"
+        por.style.display="none"
+        trai.style.display="none"
+    }
+    else{
+        business.style.display="none"
+        por.style.display="table-row"
+        trai.style.display="table-row"
+    }
+    function Choice() {
+        var input=document.querySelector(".input-sm")
+        var index = input.selectedIndex
+        var value = input.options[index].value;
+        var business=document.querySelector("#business")
+        var por=document.querySelector("#po")
+        var trai=document.querySelector("#trai")
+
+        if(value==1){
+            business.style.display="table-row"
+            por.style.display="none"
+            trai.style.display="none"
+        }
+        else{
+            business.style.display="none"
+            por.style.display="table-row"
+            trai.style.display="table-row"
+        }
+    }
+    function adsubmit(){
+        if($('input[name=suppliers_name]').val() == ''){
+            layer.msg('供应商名称不能为空！', {icon: 2,time: 1000});   //alert('少年，用户名不能为空！');
+            return false;
+        }
+        if($('input[name=suppliers_desc]').val() == ''){
+            layer.msg('供应商描述不能为空！', {icon: 2,time: 1000});//alert('少年，邮箱不能为空！');
+            return false;
+        }
+        if($('input[name=suppliers_contacts]').val() == ''){
+            layer.msg('供应商联系人不能为空！', {icon: 2,time: 1000});//alert('少年，邮箱不能为空！');
+            return false;
+        }
+        if($('input[name=suppliers_phone]').val() == ''){
+            layer.msg('供应商电话不能为空！', {icon: 2,time: 1000});//alert('少年，邮箱不能为空！');
+            return false;
+        }
+        $('#suppliersHandle').submit();
+    }
+</script>
+</html>

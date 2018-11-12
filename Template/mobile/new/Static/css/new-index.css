@@ -1,0 +1,20 @@
+.floor_body{
+    margin: 0 auto ;
+}
+.floor_body .jing{
+    text-align: center;
+    margin:  0 auto;
+    border-radius: 0;
+    background: white;
+    color:#0a2b1d ;
+    font-size: 16px;
+}
+.floor_body .lvhai{
+    width: 20%;
+    text-align: center;
+    margin:  0 auto;
+    color: #D3D3D3;
+    font-size: 10px;
+    overflow: hidden;
+    margin-top: -17px;
+}

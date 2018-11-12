@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>账户管理-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <link rel="shortcut icon"  href="__STATIC__/images/favicon.ico" />
+    <style>
+        .Apply{
+            width: 100%;
+            height: 40vh;
+        }
+        .Apply img{
+            /*width: 50px;*/
+            /*height: 50px;*/
+            font-size: 50px;
+        }
+        .cen{
+            width: 440px;
+            margin: 0 auto;
+            font-size: 20px;
+            font-weight: 800;
+            color: black;
+            line-height: 40px;
+            margin-top: 150px;
+        }
+        .pass{
+            font-size: 13px;
+            color: #676767;
+            line-height: 40px;
+            margin-left: 60px;
+            font-weight: 600;
+        }
+        .word{
+            line-height: 18px;
+        }
+        .btn{
+            width: 104px;
+            height: 29px;
+            background: #fa6c2c;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            line-height: 29px;
+            margin-left: 70px;
+            border-radius: 5px;
+        }
+        .icon_correct{
+            width: 42px;
+            height: 42px;
+            line-height: 42px;
+            background: -95px -172px;}
+        .icon_big_warning{
+            width: 49px;
+            height: 42px;
+            line-height: 42px;
+            background: -95px -125px;
+        }
+        .error{
+            width: 42px;
+        }
+        .we{
+            margin-left: 58px;
+            margin-top: 20px;
+        }
+        .tx_cash{
+            margin-top: 20px;
+        }
+        .zhen{
+            width: 76%;
+            height: 140px;
+            float: left;
+            margin-top: 20px;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid rgb(222, 222, 222);
+        }
+        .cash_submit{
+            margin-left: -50px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部-s -->
+<include file="User/header" />
+<!-- 头部-e -->
+<link rel="stylesheet" href="__STATIC__/css/favorite.css">
+
+<div class="wrap">
+    <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font">我的绿海</a>&gt;<span class="color">资金管理</span></div>
+    <!--菜单-->
+    <include file="User/menu" />
+    <!--菜单-->
+    <!--侧边导航栏结束-->
+    <div class="col_main">
+        <div class="main balance">
+
+            <div class="ui_tab">
+                <ul class="ui_tab_nav">
+                    <li class="active"><a id="activeHref" class="activeHref" href=""  >申请代理</a></li>
+                </ul>
+                <!-- Details List star -->
+                <if condition="$pass eq ''">
+                    <div class="ui_tab_content">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <form action="" method="post" enctype="multipart/form-data" name="distribut_form" id="distribut_form" >
+                                <div class="cash_num bb1" style="overflow: hidden">
+                                    <div class="tx_cash" style="float: left ;width: 40%;">
+                                        <span>姓名：</span>
+                                        <input type="text" id="user_name" name="user_name"  class="imput_text vam" value="{$user_name}" style="width: 70%"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left;width: 40%">
+                                        <span>身份证：</span>
+                                        <input type="text" id="idcard" name="idcard"  class="idcard vam" value="{$idcard}" style="width: 70%"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left;width: 40%">
+                                        <span  style="margin-top: 30px;">正面：</span>
+                                        <div class="zhen" onclick="file('file')">
+                                            <img  id="portrait" src="__STATIC__/images/1110_03.png" width="100%" height="100%">
+                                            <input type="file" name="img1" class="file" style="display: none"  id="file"/>
+                                            <input type="hidden" class="input-sm" name="img1" id="img1" value="{$img1}">
+                                            <script type="text/javascript">
+                                                function file(elementId) {
+                                                    document.getElementById(elementId).click()
+                                                }
+                                                $("#file").change(function () {
+                                                    var this_=this
+                                                    var file = this_.files[0];
+                                                    if (window.FileReader) {
+                                                        var fr = new FileReader();
+                                                        fr.onloadend = function(e) {
+                                                            document.getElementById("portrait").src = e.target.result;
+                                                        };
+                                                        fr.readAsDataURL(file);
+                                                    }
+                                                    var formData = new FormData($( "#distribut_form" )[0]);
+                                                    $.ajax({
+                                                        url: "{:U('Home/User/pass_img1')}" ,
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        async: false,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function (returndata) {
+                                                            if(returndata=="上传失败"){
+                                                                alert("上传失败")
+                                                                setTimeout("   $(\"#portrait\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+
+                                                            }else{
+                                                                $('#portrait, #img1').val(returndata);
+                                                                alert('上传成功');
+                                                            }
+                                                        },
+                                                        error: function (returndata) {
+                                                            console.log((returndata));
+                                                        }
+                                                    });
+                                                })
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                    <div class="tx_cash" style="float: left;width: 40%">
+                                        <span  style="margin-top: 30px;">反面：</span>
+                                        <div class="zhen" onclick="file('fil')">
+                                            <img id="portrai" src="__STATIC__/images/1110_03.png" width="100%" height="100%">
+                                            <input type="file" name="img2"  class="file" style="display: none"  id="fil"/>
+                                            <input type="hidden" class="input-sm" name="img2" id="img2" value="{$img2}">
+                                            <script type="text/javascript">
+                                                function file(elementId) {
+                                                    document.getElementById(elementId).click()
+                                                }
+                                                $("#fil").change(function () {
+                                                    var this_=this
+                                                    var file = this_.files[0];
+                                                    if (window.FileReader) {
+                                                        var fr = new FileReader();
+                                                        fr.onloadend = function(e) {
+                                                            document.getElementById("portrai").src = e.target.result;
+                                                        };
+                                                        fr.readAsDataURL(file);
+                                                    }
+                                                    var formData = new FormData($( "#distribut_form" )[0]);
+                                                    $.ajax({
+                                                        url: "{:U('Home/User/pass_img2')}" ,
+                                                        type: 'POST',
+                                                        data: formData,
+                                                        async: false,
+                                                        cache: false,
+                                                        contentType: false,
+                                                        processData: false,
+                                                        success: function (returndata) {
+                                                            if(returndata=="上传失败"){
+                                                                alert("上传失败")
+                                                                setTimeout("   $(\"#portrai\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                                                            }else{
+                                                                $('#portrai, #img2').val(returndata);
+                                                                alert('上传成功');
+                                                            }
+                                                        },
+                                                        error: function (returndata) {
+                                                            alert(returndata);
+                                                        }
+                                                    });
+                                                })
+                                            </script>
+
+                                        </div>
+                                    </div>
+                                    <div class="tx_cash" style="float: left;width: 40%;overflow: hidden">
+                                        <span>手机：</span>
+                                        <input type="text" id="phone_num" name="phone_num"  class="phone_num vam" value="{$phone_num}" style="width: 70%" disabled="disabled"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left;width: 40%;overflow: hidden">
+                                        <span>邮箱：</span>
+                                        <input type="text" id="email" name="email"  class="imput_text vam" value="{$email}" style="width: 70%;"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left ;width: 40%">
+                                        <span>地址：</span>
+                                        <input type="text" id="address" name="address"  class="imput_text vam" value="{$address}" style="width: 70%"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left ;width: 40%">
+                                        <span>推荐人：</span>
+                                        <input type="text" id="referee_phone_num" name="referee_phone_num"  class="imput_text vam" value="{$referee_phone_num}" style="width: 70%"/>
+                                    </div>
+                                    <div class="tx_cash" style="float: left ;width: 40%">
+                                        <span>验证码：</span>
+                                        <input type="text" name="verify_code" class="imput_text vam" id="verify_code" placeholder="请输入下面的验证码" style="width:150px;" />
+                                        <img class="yzm_code" id="verify_code_img" width="100" height="30" src="{:U('User/pass_verify')}"  onclick="verify(this)" />
+                                    </div>
+                                    <br>
+                                    <div class="tx_cash" style="float: left ;width: 40%">
+                                    <a id=""></a>
+                                </div>
+                                    <br>
+                                    <div class="tx_cash" style="float: left ;width: 40%;padding-top: 49px">
+                                        <a id="cash_submit"  onClick="gt();" href="" style="margin-left: -50px;">确定提交</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <elseif condition="$pass eq 1"/>
+                    <div class="ui_tab_content">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen">
+                                    <i class="icon_big_warning"></i>
+                                    &nbsp;&nbsp; <span>您已提交申请，正在审核，请耐心等待</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <elseif condition="$pass eq 2"/>
+                    <div class="ui_tab_content">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen ok">
+                                    <i class="icon_correct"></i>
+                                    &nbsp;&nbsp;<span>恭喜您，申请成功</span>
+                                    <p class="pass">账号：{$phone_num}</p>
+                                    <p class="pass word">初始密码：123456</p>
+                                    <a href="{:U('Admin/Admin/login')}" target="view_window">
+                                        <button type="button" class="btn we" >登录后台</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <elseif condition="$pass eq 3"/>
+                    <div class="ui_tab_content">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen">
+                                    <img src="__STATIC__/images/278212038171987408.png" alt="" class="error">
+                                    &nbsp;&nbsp;<span>很遗憾，申请失败</span>
+                                    <br>
+                                    <a href="{:U('home/user/pass')}">
+                                        <button type="button" class="btn" onclick="del_pass()" >重新申请</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </if>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<include file="User/footer" />
+</body>
+<script>
+    // 表单验证提交
+    function gt(){
+        var num=document.querySelector("#phone_num")
+        num.removeAttribute('disabled');
+        var user_name = $.trim($('#user_name').val());
+        var phone_num = $.trim($('#phone_num').val());
+        var email = $.trim($('#email').val());
+        var address = $.trim($('#address').val());
+        var verify_code = $.trim($('#verify_code').val());
+        if(user_name == '')
+        {
+            alert('请填写姓名');
+            return false;
+        }
+        if(phone_num == '')
+        {
+            alert('请填写手机');
+            return false;
+        }
+        if(email == '')
+        {
+            alert('请填写邮箱');
+            return false;
+        }
+        if(address == '')
+        {
+            alert('请填写地址');
+            return false;
+        }
+        if(verify_code == '')
+        {
+            alert('验证码必填');
+            return false;
+        }
+
+        $('#distribut_form').submit(
+            $.ajax({
+                type: "POST",
+                url: "{:U('Home/User/add_pass')}" ,
+                data: $('#distribut_form').serialize(),
+                success: function (data) {
+                    var dataJSON = JSON.parse(data);
+                    if(dataJSON.status !== 1){
+                        alert("验证码错误");
+                    }else{
+                        alert("操作成功");
+                        window.location.reload()
+                    }
+                },
+                error : function() {
+                    alert("提交失败！");
+                }
+            })
+        );
+    }
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Home&c=User&a=pass_verify&r='+Math.random());
+    }
+    function del_pass() {
+        $.ajax({
+            url:"{:U('User/del_pass')}",
+            type:"post",
+            success: function (result) {
+            },
+            error : function() {
+            }
+        })
+    }
+
+</script>
+</html>

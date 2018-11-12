@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="content-language" content="zh-cn" />
+  <meta name="renderer" content="webkit|ie-comp|ie-stand" />
+  <meta http-equiv="Cache-control" content="public" max-age="no-cache" />
+  <link rel="shortcut icon"  href="__STATIC__/images/favicon.ico" />
+  <title>详情-{$tpshop_config['shop_info_store_title']}</title>
+  <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+  <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/help.css"/>
+  <link rel="stylesheet" type="text/css" href="__STATIC__/css/market.css">
+  <link rel="stylesheet" href="__STATIC__/css/category.css">
+
+
+  <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <script src="js/ie9.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ie.css"/>
+  <![endif]-->
+</head>
+<body class="page-hq">
+  <!--------头部开始-------------->
+  <include file="Public/min-header"/>
+  <!--------头部结束--------------> 
+
+  <!--E头部-->
+  <div style="clear: both; height:20px"></div>
+  <div id="pageContent" class="pageContent clearfix">
+    <div class="hc-warp clearfix" id="page">  
+      <div class="hq-left">
+        <div class="market">
+          <ul>
+            <foreach name="article" item="vo" >
+              <li class="clearfix">
+                <a href="{:U('Home/Markets/details',array('id'=>$vo['article_id']))}" class="l-left"><img src="{$vo.article_id|hqarticle_thum_images=260,130}" width="auto" height="auto"></a>
+                <div class="l-right">
+                  <h5><a href="{:U('Home/Markets/details',array('id'=>$vo['article_id']))}">{$vo[title]}</a></h5>
+                  <p>{$vo[content]}</p>
+                  <span class="date"><i class="demo-icon">&#xe805;</i>{$vo.publish_time|date="Y-m-d",###} </span>
+                </div>
+              </li>
+            </foreach>
+          </ul>
+        </div>
+ <!-- Page -->
+        <div class="fn-page-css-1 pagintion fix" style="display: block;">
+          <div class="pagenavi text12">{$page->show()}</div>
+        </div>
+      </div>
+      <div class="hq-right">
+        <img width="auto" height="auto"src="__STATIC__/images/lvhai/hq-r.png" alt="">
+        <div class="bottom">
+          <ul>
+            <foreach name="articlelist" item="vo" >
+            <li>
+              <a href="{:U('Home/Markets/details',array('id'=>$vo['article_id']))}">{$vo[title]}</a>
+            </li>
+           </foreach>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="clear: both; height:20px"></div>
+  <include file="Public/footer"/>
+</body>
+</html>

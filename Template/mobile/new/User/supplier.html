@@ -1,0 +1,450 @@
+<include file="Public/header"/>
+<style>
+    #distribut_form .tx_cash{
+        padding-bottom:30px ;
+    }
+    .Wallet{
+        border: 0;
+    }
+    .bb1{
+        border: 0;
+    }
+    .cash_num{
+        text-align: left;
+    }
+    .Wallet{
+        border: 0;
+    }
+    .bb1{
+        border: 0;
+    }
+    .cash_num p{
+        padding-bottom: 30px;
+    }
+    .cen{
+        width: 207px;
+        margin: 0 auto;
+        padding-top: 50px;
+    }
+    .cen img{
+        float: left;
+        padding-right: 15px;
+        padding-top: 40px;
+    }
+    .right{
+        float: left;
+        line-height: 24px;
+        padding-top: 19px;
+
+    }
+    .cash_num p{
+        font-size: 15px;
+        color: black;
+        padding: 0;
+    }
+    .Congratulations{
+        line-height: 5rem;
+        margin-left: 1.01rem;
+    }
+    .dotto{
+        float: left;
+        padding-left: 59px;
+    }
+    .dotto p{
+        font-weight: 600;
+        color: #939393;
+    }
+    .cen img{
+        width: 42px;
+    }
+    .cha{
+        width: auto;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .btn{
+        width: 104px;
+        height: 29px;
+        background: #fa6c2c;
+        font-size: 12px;
+        color: white;
+        text-align: center;
+        line-height: 29px;
+        border-radius: 5px;
+        outline: none;
+        border-width: 0;
+    }
+    .xia{
+        margin-top: 10px;
+    }
+    .xi{
+        margin-top: -20px;
+    }
+    .cen .fea{
+        padding-right: 0;
+    }
+    .sorry{
+        margin-left:0;
+    }
+    .pad{
+        padding-left: 56px;
+    }
+    .tx_cash .over{
+        width: 63%;
+        height: 30%;
+    }
+    .tx_cash img{
+        margin-top: 0;
+    }
+</style>
+<body>
+<header>
+
+    <div class="tab_nav">
+        <div class="header">
+            <div class="h-left"><a class="sb-back" href="javascript:history.back(-1)" title="返回"></a></div>
+            <div class="h-mid">代理商</div>
+            <div class="h-right">
+                <aside class="top_bar">
+                    <div onClick="show_menu();$('#close_btn').addClass('hid');" id="show_more"><a href="javascript:;"></a> </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</header>
+<include file="Public/menu"/>
+<div id="tbh5v0">
+    <div class="user_com">
+        <if condition="$is_check eq ''">
+            <div class="Wallet withdrawals">
+                <div class="cash_num bb1">
+
+                    <!-- <input type="hidden" name="MAX_FILE_SIZE" value='176942' /> -->
+                    <!-- <input type="file" name="myFile"  accept="image/jpeg,image/gif,image/png"/><br /> -->
+
+                    <form action="" method="post" enctype="multipart/form-data" name="distribut_form" id="distribut_form">
+                        <p class="tx_cash"><span>名称：</span><input type="text" id="suppliers_name" name="suppliers_name" placeholder="请输入名称" value="{$suppliers_name}"/></p>
+                        <p class="tx_cash"><span>联系人：</span><input type="text" id="suppliers_contacts" name="suppliers_contacts" placeholder="请输入联系人" value="{$suppliers_contacts}"/></p>
+                        <p class="tx_cash"><span>地址：</span><input type="text" id="suppliers_address" name="suppliers_address" placeholder="请输入地址" value="{$suppliers_address}"/></p>
+                        <p class="tx_cash"><span>手机：</span><input type="text" id="suppliers_phone" name="suppliers_phone" placeholder="请输入手机" value="{$suppliers_phone}"/></p>
+                        <p class="tx_cash"><span>性质：</span>
+                            <select name="nature_id"  class="input-sm" onclick="Choice()">
+                                <option value="0">植户(个人)</option>
+                                <option value="1">贸易商（企业）</option>
+                            </select></p>
+                        <p class="tx_cash" id="id"><span>身份证：</span><input type="text" id="idcard" name="idcard" placeholder="请输入身份证号码" value="{$idcard}" /></p>
+                        <p class="tx_cash" id="po" onclick="fileSele('file')"><span>正面：</span>
+                            <span class="over">
+                            <img width="auto" height="auto" class="img1" id="portrait" src="__STATIC__/images/1110_03.png"  style="display: block;width: 100%;border: 1px solid #dedede;height: 20vh"></span>
+                            <input type="file" name='idcard_img1' id="file" style="display: none" />
+                            <input type="hidden" class="input-sm" name="idcard_img1" id="idcard_img1" value="{$idcard_img1}">
+                        </p>
+                        <p class="tx_cash"  id="trai" onclick="fileSel('fil')"><span>反面：</span>
+                            <span class="over">
+                            <img width="auto" height="auto" class="img2" id="portrai" src="__STATIC__/images/1110_03.png"  style="display: block;width: 100%;border: 1px solid #dedede;height: 20vh"></span>
+                            <input type="file" name='idcard_img2' id="fil" style="display: none" value="{$idcard_img2}" />
+                            <input type="hidden" class="input-sm" name="idcard_img2" id="idcard_img2" value="{$idcard_img2}">
+                        </p>
+                        <p class="tx_cash" id="business" onclick="fi('fi')" style="display: none"><span>营业执照：</span>
+                            <span class="over">
+                            <img width="auto" height="auto" class="img2" id="por" src="__STATIC__/images/1110_03.png"  style="display: block;width: 100%;border: 1px solid #dedede;height: 20vh"></span>
+                            <input type="file" name='business_licence' id="fi" style="display: none" value="{$business_licence}" />
+                            <input type="hidden" class="input-sm" name="business_licence" id="business_licence" value="{$business_licence}">
+                        </p>
+                        <p class="tx_cash">
+                            <span>经营品种：</span>
+                            <input type="textfile" id="suppliers_desc" name="suppliers_desc"  class="phone_num vam" value="{$nature}" style="width: 70%;height:45px;border: 1px solid #dedede;" />
+                        </p>
+                        <p class="tx_cash"><span>验证码：</span>
+                            <input type="text" name="verify_code" id="verify_code" placeholder="请输入下面的验证码" />
+                            <img class="po-ab to0" id="verify_code_img" width="100" height="30" src="{:U('User/supplier_verify',array('type'=>'withdrawals'))}"  onclick="verify(this)" />
+                        </p>
+                        <div class="cha"><a id="cash_submit"  onClick="checkSubmit();"  href="javascript:void(0);">确定提交</a></div>
+                    </form>
+                </div>
+
+            </div>
+            <elseif condition="$is_check eq 1"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/jing.png" alt="">
+                                <div class="right xia">
+                                    <p>您已提交申请
+                                    </p>
+                                    <p>正在审核中请等待</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <elseif condition="$is_check eq 2"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/ok.jpg" alt="" class="fea">
+                                <div class="right">
+                                    <p  class="Congratulations">恭喜您，申请成功</p>
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <elseif condition="$is_check eq 3"/>
+            <div class="user_com">
+                <div class="Wallet withdrawals">
+                    <div class="cash_num bb1">
+                        <div class="Apply">
+                            <div class="cen">
+                                <img width="auto" height="auto" src="__STATIC__/images/278212038171987408.png" alt="">
+                                <div class="right">
+                                    <p  class="Congratulations sorry">很遗憾，申请失败</p>
+                                </div>
+                                <div class="dotto pad">
+                                    <button type="button" class="btn" onclick="del_pass()" >重新申请</button>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </if>
+
+    </div>
+    <include file="Public/footer"/>
+</div>
+<include file="Public/footer_nav"/>
+</body>
+<script>
+    function Choice() {
+        var input=document.querySelector(".input-sm")
+        var index = input.selectedIndex
+        var value = input.options[index].value;
+
+        var business=document.querySelector("#business")
+        var por=document.querySelector("#po")
+        var trai=document.querySelector("#trai")
+        var id=document.querySelector("#id")
+
+        if(value==1){
+            por.style.display="none"
+            trai.style.display="none"
+            id.style.display="none"
+            business.style.display="block"
+        }
+        else{
+            por.style.display="block"
+            trai.style.display="block"
+            id.style.display="block"
+            business.style.display="none"
+        }
+    }
+    function fileSele(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#file").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrait").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Mobile/User/suppliers_img1')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrait\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrait, #img1').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    function fileSel(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#fil").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrai").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Mobile/User/suppliers_img2')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrai\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrai, #img2').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    function fi(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#fi").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("por").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Mobile/User/suppliers_img3')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#por\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#por, #business_licence').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    // 表单验证提交
+    function checkSubmit(){
+        var input=document.querySelector(".input-sm")
+        var index = input.selectedIndex
+        var value = input.options[index].value;
+        var suppliers_name = $.trim($('#suppliers_name').val());
+        var suppliers_contacts = $.trim($('#suppliers_contacts').val());
+        var suppliers_address = $.trim($('#suppliers_address').val());
+        var suppliers_phone = $.trim($('#suppliers_phone').val());
+        var idcard = $.trim($('#idcard').val());
+        var suppliers_desc = $.trim($('#suppliers_desc').val());
+        var verify_code = $.trim($('#verify_code').val());
+        if(suppliers_name == '')
+        {
+            alert('请填写姓名');
+            return false;
+        }
+        if(suppliers_contacts == '')
+        {
+            alert('联系人必填');
+            return false;
+        }
+        if(suppliers_address == '')
+        {
+            alert('地址必填');
+            return false;
+        }
+        if(suppliers_phone == '')
+        {
+            alert('手机必填');
+            return false;
+        }
+        if(value==0){
+            if(idcard == '')
+            {
+                alert('身份证必填');
+                return false;
+            }
+        }
+        if(suppliers_desc == '')
+        {
+            alert('经营品种必填');
+            return false;
+        }
+        if(verify_code == '')
+        {
+            alert('验证码必填');
+            return false;
+        }
+        $('#distribut_form').submit(
+            $.ajax({
+                type: "POST",
+                url: "{:U('Mobile/User/add_supplier')}" ,
+                data: $('#distribut_form').serialize(),
+                success: function (result) {
+                    console.log(result)
+                    // var dataJSON = JSON.parse(result);
+                    // console.log(dataJSON)
+                    if(result.status !== 1){
+                        alert("验证码错误");
+                    }else{
+                        location.reload();
+                        alert("操作成功");
+                    }
+
+                },
+                error : function() {
+                    alert("提交失败！");
+                }
+            })
+        );
+
+    }
+
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Mobile&c=User&a=supplier_verify&r='+Math.random());
+    }
+    function del_pass() {
+        $.ajax({
+            url:"{:U('User/del_supplier')}",
+            type:"post",
+            success: function (result) {
+                location.reload();
+            },
+            error : function() {
+            }
+        })
+    }
+</script>
+</html>

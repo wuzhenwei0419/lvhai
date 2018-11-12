@@ -1,0 +1,136 @@
+
+<include file="Public/min-header"/>
+<link href="__PUBLIC__/plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+<script src="__PUBLIC__/plugins/daterangepicker/moment.min.js" type="text/javascript"></script>
+<script src="__PUBLIC__/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<div class="wrapper">
+  <include file="Public/breadcrumb"/>
+
+  <!-- Main content -->
+  <section class="content ">
+    <!-- Main content -->
+    <div class="container-fluid">
+      <div class="pull-right">
+        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="返回"><i class="fa fa-reply"></i></a>
+        <a href="javascript:;" class="btn btn-default" data-url="http://www.tp-shop.cn/Doc/Index/article/id/1014/developer/user.html" onclick="get_help(this)"><i class="fa fa-question-circle"></i> 帮助</a>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-list"></i> 行情详情</h3>
+        </div>
+        <div class="panel-body ">   
+          <!--表单数据-->
+          <form method="post" id="hq-article" action="">                    
+            <!--通用信息-->
+            <div class="tab-content col-md-10">
+              <div class="tab-pane active" id="tab_tongyong">                           
+                <table class="table table-bordered">
+                  <tbody>
+                    <tr>
+                      <td class="col-sm-2">行情标题：</td>
+                      <td class="hidden"><input type="hidden" name="id" value="{$article[0].article_id}"></td>
+                      <td class="col-sm-6">
+                        <input type="text" class="form-control" name="title" id="title" value="{$article[0].title}"> 
+                        <span id="err_title" style="color:#F00; display:none;"></span>                                  
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>上传图片：</td>
+                      <td>
+                        <input type="button" value="上传图片" onclick="GetUploadify(1,'thumb','market');">
+                        <input type="text" class="input-sm" name="thumb" id="thumb" value="{$article[0].thumb}">
+                        &nbsp;&nbsp;
+                        <a target="_blank" href="/" id="original_img2">
+                          <img width="25" height="25" src="/Public/images/image_icon.jpg">
+                        </a>
+                        <span id="err_original_img" style="color:#F00; display:none;"></span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>行情描述：</td>
+                      <td>
+                        <textarea class="form-control" rows="4" placeholder="" name="content">{$article[0].content}</textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>选择市场:</td>
+                      <td>
+                        <select class="market form-control" name="hq_ads">
+                          <option value ="{$article[0].ads_id}">{$article[0].ads}</option>
+                        <volist name="market" id="vo">
+                          <option value ="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                        </select>
+                        <span id="err_ads" style="color:#F00; display:none;"></span> 
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>选择时间：</td>
+                      <td>
+                        <fieldset>
+                          <div class="control-group">
+                            <div class="controls">
+                              <div class="input-prepend input-group">
+                                <span class="add-on input-group-addon">
+                                  <i class="glyphicon glyphicon-calendar fa fa-calendar">
+                                  </i>
+                                </span>
+                                <if  condition="$article[0][publish_time] eq 0">
+                                  <input type="text" style="width: 300px" name="publish_time" id="publish_time" class="form-control" value="{$time}">
+                                  <else />
+                                <input type="text" style="width: 300px" name="publish_time" id="publish_time" class="form-control" value="{$article[0].publish_time|date='Y-m-d',###}">
+                                </if>
+                                <span id="err_publish_time" style="color:#F00; display:none;"></span> 
+                              </div>
+                            </div>
+                          </div>
+                        </fieldset>
+                      </td>
+                    </tr>                             
+                  </tbody> 
+                  <tfoot>
+                    <tr>
+                      <td>
+                        <input class="btn btn-default" type="reset" value="重置">
+                      </td>
+                      <td class="text-right"><input class="btn btn-primary" type="button" onclick="ajax_submit_form('hq-article','{:U('Market/addarticle?is_ajax=1')}');" value="保存">
+            
+                      </td>
+                    </tr>
+                  </tfoot>                               
+                </table>
+              </div>                           
+            </div>              
+            <input type="hidden" name="__hash__" value="e1edc96d68cde69cc76e279a13107a42_a57356fcd691d77dda8805a459c5a416">
+          </form><!--表单数据-->
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+    $('#publish_time').daterangepicker({
+      format:"YYYY-MM-DD",
+      singleDatePicker: true,
+      showDropdowns: true,
+      maxDate: moment(),
+      locale : {
+        applyLabel : '确定',
+        cancelLabel : '取消',
+        fromLabel : '起始时间',
+        toLabel : '结束时间',
+        customRangeLabel : '自定义',
+        daysOfWeek : [ '日', '一', '二', '三', '四', '五', '六' ],
+        monthNames : [ '一月', '二月', '三月', '四月', '五月', '六月','七月', '八月', '九月', '十月', '十一月', '十二月' ],
+        firstDay : 1
+      }
+    });
+
+  });
+
+</script>
+</body>
+</html>
