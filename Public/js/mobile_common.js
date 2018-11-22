@@ -68,7 +68,7 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
                     }
                     else {
                         if (data.status < 0) {
-                            layer.open({content: data.msg, time: 2});
+                            alert(data.msg);
                             return false;
                         }
                         cart_num = parseInt($('#tp_cart_info').html()) + parseInt(num);

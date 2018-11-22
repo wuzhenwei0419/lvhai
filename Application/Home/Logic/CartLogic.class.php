@@ -396,14 +396,17 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
            $data2['act_id']             = $val['act_id'];//代理商拼单id
            $order_goods_id              = M("OrderGoods")->data($data2)->add(); 
            // 扣除商品库存  扣除库存移到 付完款后扣除
-           //M('Goods')->where("goods_id = ".$val['goods_id'])->setDec('store_count',$val['goods_num']); // 商品减少库存
-        } 
+//           M('Goods')->where("goods_id = ".$val['goods_id'])->setInc('store_count',$val['goods_num']); // 商品减少库存
+        }
+
+        //默认设置为已支付
+        update_pay_status($order['order_sn'], 1);
         
         // 如果应付金额为0  可能是余额支付 + 积分 + 优惠券 这里订单支付状态直接变成已支付 
-        if($data['order_amount'] == 0)
-        {                        
-            update_pay_status($order['order_sn'], 1);    
-        }           
+//        if($data['order_amount'] == 0)
+//        {
+//            update_pay_status($order['order_sn'], 1);
+//        }
         
         // 2修改优惠券状态  
         if($coupon_id > 0){

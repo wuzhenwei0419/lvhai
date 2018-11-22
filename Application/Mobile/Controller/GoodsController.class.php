@@ -84,9 +84,10 @@ class GoodsController extends MobileBaseController {
     	
     	$count = count($filter_goods_id);
     	$page = new Page($count,4);
+        $p = I('p',1);
     	if($count > 0)
     	{
-    		$goods_list = M('goods')->where("goods_id in (".  implode(',', $filter_goods_id).")")->order("$sort $sort_asc")->limit($page->firstRow.','.$page->listRows)->select();
+    		$goods_list = M('goods')->where("goods_id in (".  implode(',', $filter_goods_id).")")->order("$sort $sort_asc")->page($p,50)->select();
     		$filter_goods_id2 = get_arr_column($goods_list, 'goods_id');
     		if($filter_goods_id2)
     			$goods_images = M('goods_images')->where("goods_id in (".  implode(',', $filter_goods_id2).")")->cache(true)->select();
@@ -104,6 +105,7 @@ class GoodsController extends MobileBaseController {
     	$this->assign('cateArr',$cateArr);
     	$this->assign('filter_param',$filter_param); // 帅选条件
     	$this->assign('cat_id',$id);
+        $this->assign('p',$p);
     	$this->assign('page',$page);// 赋值分页输出
     	$this->assign('sort_asc', $sort_asc == 'asc' ? 'desc' : 'asc');
     	C('TOKEN_ON',false);

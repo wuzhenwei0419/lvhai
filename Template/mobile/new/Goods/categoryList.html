@@ -45,7 +45,12 @@
     .right{
       float: right;
       width: 80%;
-      height: 100vh;
+      min-height: 600px;
+      height:100% !important;
+      /*overflow: hidden;*/
+    }
+    #leftframe{
+      -webkit-overflow-scrolling:touch; overflow: scroll;
     }
     .top{
       width: 100%;
@@ -83,7 +88,7 @@
 </div>
 <div class="right">
   <iframe align="center" id="leftframe" width="100%" height="100%" src="/index.php/Mobile/Goods/goodsList/id/844.html" frameborder="no" border="0" marginwidth="0"
-          marginheight="0" scrolling="yes"></iframe>
+          marginheight="0" scrolling="yes" style="-webkit-overflow-scrolling:touch; overflow: scroll; min-height:600px;"></iframe>
 </div>
 <include file="Public/footer_nav"/>
 <script>
@@ -111,6 +116,55 @@
             $('.left ul').eq(index).show().siblings().hide();
             $('.left').scrollTop(0);
         });
+
+
+        var page = 2;
+
+        //下拉加载
+        //获取滚动条当前的位置
+        function getScrollTop() {
+            var scrollTop = 0;
+            if(document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if(document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+        //获取当前可视范围的高度
+        function getClientHeight() {
+            var innerHeight =  window.innerHeight; //window的高度，即手机的高度
+            return innerHeight
+        }
+        //获取文档完整的高度
+        function getScrollHeight() {
+            return $("body").height()
+        }
+        //滚动事件触发
+        window.onscroll = function() {
+//	console.log(11);
+//            alert(1);
+            if(getScrollTop() + getClientHeight() ===getScrollHeight()) {
+                $.ajax({
+                    type : "get",
+                    url:"/index.php?m=Mobile&c=Goods&a=goodsList&id={$cat_id}&p=" +page,
+                    dataType:'html',
+                    success: function(data)
+                    {
+                        if(data){
+                            $("#goods_list").append(data);
+                            page++
+                            $('.get_more').hide();
+                        }else{
+                            $('.get_more').hide();
+                            $('#getmore').remove();
+                        }
+                    }
+                });
+
+
+            }
+        }
 
     });
 

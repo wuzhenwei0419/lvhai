@@ -72,6 +72,56 @@
             $('.userinfo').html(decodeURIComponent(decodeURIComponent(uname)));
             $('body').addClass('login');
         }
+
+        var page = 2;
+
+        //下拉加载
+        //获取滚动条当前的位置
+        function getScrollTop() {
+            var scrollTop = 0;
+            if(document.documentElement && document.documentElement.scrollTop) {
+                scrollTop = document.documentElement.scrollTop;
+            } else if(document.body) {
+                scrollTop = document.body.scrollTop;
+            }
+            return scrollTop;
+        }
+        //获取当前可视范围的高度
+        function getClientHeight() {
+            var innerHeight =  window.innerHeight; //window的高度，即手机的高度
+            return innerHeight
+        }
+        //获取文档完整的高度
+        function getScrollHeight() {
+            return $("body").height()
+        }
+        //滚动事件触发
+        window.onscroll = function() {
+//	console.log(11);
+//            alert(1);
+            if(getScrollTop() + getClientHeight() ===getScrollHeight()) {
+                $.ajax({
+                    type : "get",
+                    url:"/index.php?m=Mobile&c=Goods&a=goodsList&id={$cat_id}&p=" +page,
+                    dataType:'html',
+                    success: function(data)
+                    {
+                        if(data){
+                            $("#goods_list").append(data);
+                            page++
+                            $('.get_more').hide();
+                        }else{
+                            $('.get_more').hide();
+                            $('#getmore').remove();
+                        }
+                    }
+                });
+
+
+            }
+        }
+
+
     });
 
 </script>
