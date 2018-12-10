@@ -144,7 +144,11 @@
                 </if>
                 <dl class="goods_price">
                     <script type="text/javascript" src="__STATIC__/js/lefttime.js"></script>
-                    <dt> <span id="goods_price" class="islogin">￥{$goods.shop_price}元</span><a href="{:U('User/index')}" class="nologin">登录查看最新价格</a><font>价格：￥{$goods.market_price}元</font> </dt>
+                    <dt> <span id="goods_price" class="islogin">￥{$goods.shop_price}元/箱</span>&nbsp;
+                        <if condition="$goods.shop_price_jin gt 0">
+                        <span class="islogin" style="padding-left:10px;font-size:14px;color: #0bb20c;">约￥{$goods.shop_price_jin}元/斤</span>
+                        </if>
+                        <a href="{:U('User/index')}" class="nologin">登录查看最新价格</a><font>价格：￥{$goods.market_price}元</font> </dt>
                     <dd style="font-size: 12px; line-height: 1; margin-bottom: 5px;" class="disappear">
                         <i class="onlylost">仅剩
                             <em>
@@ -163,7 +167,7 @@
                 <ul class="price_dottm">
                     <li style=" text-align:left">折扣：{$goods.discount}折</li>
                     <li>{$commentStatistics.c0}人评价</li>
-                    <li style=" text-align:right">{$goods.sale_num}人已付款</li>
+                    <!--<li style=" text-align:right">{$goods.sale_num}人已付款</li>-->
                 </ul>
             </div>
             <if condition="($prom_goods neq null) OR ($prom_order neq null)">
@@ -242,7 +246,7 @@
                     <input type="hidden" name="goods_id" value="{$goods.goods_id}"/>
                   <button type="button" class="increase" onClick="goods_add();">+</button>
                   </span>
-                                    <span style="margin-left: 10px;margin-top: 10px;display: inline-block;vertical-align: middle; font-size: 14px; color: #333;">库存：{$goods.store_count}&nbsp &nbsp起订数量:</span><span id="numMin" style="margin-left: 10px;margin-top: 10px;display: inline-block;vertical-align: middle; font-size: 14px; color: #333;">{$goods.quantity}</span>
+                                    <span style="margin-left: 10px;margin-top: 10px;display: inline-block;vertical-align: middle; font-size: 14px; color: #333;">起订数量:</span><span id="numMin" style="margin-left: 10px;margin-top: 10px;display: inline-block;vertical-align: middle; font-size: 14px; color: #333;">{$goods.quantity}</span>
                                 </div>
                             </li>
                         </ul>
@@ -277,7 +281,7 @@
                         }
                     });
                     commentType = 1; // 评论类型
-                    ajaxComment(1,1);// ajax 加载评价列表
+//                    ajaxComment(1,1);// ajax 加载评价列表
                 })
                 var numMin = parseInt($("#numMin").text());
                 $("#number").blur(function() {
@@ -288,7 +292,7 @@
                     }
                 });
             </script>
-            <script type="text/jscript">
+            <script type="text/javascript">
 
 function click_search (){
   var search_ka = document.getElementById("search_ka");
@@ -417,10 +421,17 @@ function changeAtt1(t) {
         <li><a href="javascript:collect_goods({$goods.goods_id})" id="favorite_add"><em class="goods_nav3"></em><span>收藏</span></a></li>
     </ul>
     <dl>
-        <dd class="flow"><a class="button active_button" href="javascript:void(0);" onClick="AjaxAddCart({$goods.goods_id},1,0,{$goods.is_collage});">加入购物车</a> </dd>
-        <dd class="goumai">
-            <a id="a" style="display:block;" href="javascript:void(0);"  onclick="AjaxAddCart({$goods.goods_id},1,0,{$goods.is_collage});">立即购买</a>
-        </dd>
+        <if condition="$goods.store_count eq 0">
+            <dd class="goumai" style="float: right;background-color: #bbbbbb;">
+                <a style="display:block;" href="javascript:void(0);">已售罄</a>
+            </dd>
+        <else />
+            <dd class="flow"><a class="button active_button" href="javascript:void(0);" onClick="AjaxAddCart({$goods.goods_id},1,0,{$goods.is_collage});">加入购物车</a> </dd>
+            <dd class="goumai">
+                <a id="a" style="display:block;" href="javascript:void(0);"  onclick="AjaxAddCart({$goods.goods_id},1,1,{$goods.is_collage});">立即购买</a>
+            </dd>
+        </if>
+
     </dl>
 </div>
 <div class="htt" style="float: right;display: none" >  http://www.lvhai.shop/index.php/Mobile/Goods/goodsInfo/id/{$goods.goods_id}</div>
@@ -428,23 +439,23 @@ function changeAtt1(t) {
     //购物车
     //购物车
     function con() {
-        console.log(1)
+        console.log(1);
     }
-    var id=getCookie("id")
-    var a=document.querySelector("#a")
-    var show_cart=document.querySelector(".show_cart")
+    var id=getCookie("id");
+    var a=document.querySelector("#a");
+    var show_cart=document.querySelector(".show_cart");
     if(id==""){
         a.onclick=function () {
-            con()
+            con();
         }
-        a.setAttribute("href","/index.php/Mobile/User/index.html")
-        show_cart.setAttribute("href","/index.php/Mobile/User/index.html")
+        a.setAttribute("href","/index.php/Mobile/User/index.html");
+        show_cart.setAttribute("href","/index.php/Mobile/User/index.html");
     }else {
         a.onclick=function () {
-            AjaxAddCart({$goods.goods_id},1,0,{$goods.is_collage})
+            AjaxAddCart({$goods.goods_id},1,1,{$goods.is_collage});
         }
-        a.setAttribute("href","/index.php/Mobile/Cart/cart.html")
-        show_cart.setAttribute("href","/index.php/Mobile/Cart/cart.html")
+//        a.setAttribute("href","/index.php/Mobile/Cart/cart.html");
+        show_cart.setAttribute("href","/index.php/Mobile/Cart/cart.html");
     }
     $(document).ready(function(){
         // 更新商品价格

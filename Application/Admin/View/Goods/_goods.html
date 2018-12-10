@@ -268,7 +268,14 @@
                                         <input type="text" value="{$goodsInfo.shop_price}" name="shop_price" class="form-control" style="width:150px;" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
                                         <span id="err_shop_price" style="color:#F00; display:none;"></span>					                                        
                                     </td>
-                                </tr>  
+                                </tr>
+                                <tr>
+                                    <td>本店售价(按斤):</td>
+                                    <td>
+                                        <input type="text" value="{$goodsInfo.shop_price_jin}" name="shop_price_jin" class="form-control" style="width:150px;" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
+                                        <span id="err_shop_price_jin" style="color:#F00; display:none;"></span>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <td>市场价:</td>
                                     <td>

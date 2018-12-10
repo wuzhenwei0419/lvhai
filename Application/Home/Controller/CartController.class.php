@@ -106,10 +106,10 @@ class CartController extends BaseController {
             $this->assign('select_all', $_POST['select_all']); // 全选框
         }
            $first = M('users')->where('user_id = '.$this->user_id)->getField('total_amount'); 
-          if($first==0){
-                 $read='首单95折';
-                 $this->assign('read', $read);
-            } 
+//          if($first==0){
+//                 $read='首单95折';
+//                 $this->assign('read', $read);
+//            }
                 
         $result = $this->cartLogic->cartList($this->user, $this->session_id,1,1); // 选中的商品        
         if(empty($result['total_price']))

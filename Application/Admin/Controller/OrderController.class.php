@@ -178,7 +178,7 @@ class OrderController extends BaseController {
         }
 
         //校验是否已经合并了总订单
-        $where = "where user_id = ". $user_id ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";    
+        $where = "where user_id = ". $user_id ." and c limit 1";
         $sql = "select * from __PREFIX__total_order $where";
         $totalOrderInfo = D()->query($sql);
         if ($totalOrderInfo) {

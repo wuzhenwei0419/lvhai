@@ -271,14 +271,14 @@
 <!-- end 提示配送商品 --> 
 <include file="Public/footer"/>
 <script>
-    var d=document.querySelectorAll("#logistics")
-    console.log(d)
-    for(var i=0;i<d.length;i++){
-        d[1].style.display="none"
-        d[2].style.display="none"
-        d[3].style.display="none"
-        d[4].style.display="none"
-    }
+//    var d=document.querySelectorAll("#logistics")
+//    console.log(d)
+//    for(var i=0;i<d.length;i++){
+//        d[1].style.display="none"
+//        d[2].style.display="none"
+//        d[3].style.display="none"
+//        d[4].style.display="none"
+//    }
 </script>
 <script>
 $(document).ready(function(){
@@ -340,11 +340,11 @@ function ajax_address(){
 				input_address_id.each(function(){
 				if($(this).attr('data-city-id')!=13280){
 					var input = $(".order-invoice-list").find("input:radio");
-					input.each(function(){
-						 if($(this).val()=='lvhaiflash'){
-							$(this).attr("disabled","disabled");
-						 }    
-					});	
+//					input.each(function(){
+//						 if($(this).val()=='lvhaiflash'){
+//							$(this).attr("disabled","disabled");
+//						 }
+//					});
 				}
 			});
 			//默认地区判定物流

@@ -39,13 +39,18 @@
                  <!--echo "：";-->
                  <!--echo $goodsattr[0]['attr_value'];-->
            <!--?></span>-->
+							<if condition="$vo.shop_price_jin gt 0">
 							<div class="price_box islogin">
-								<span class="new_price"><i>￥{$vo.shop_price}元</i></span>
+								<span class="new_price" style="color: #0bb20c;">约￥{$vo.shop_price_jin}元/斤</span>
+							</div>
+							</if>
+							<div class="price_box islogin">
+								<span class="new_price"><i>￥{$vo.shop_price}元/箱</i></span>
 							</div>
 							<div class="price_box nologin">
-								<span class="new_price"><i>￥{$vo.shop_price}元</i></span>
+								<span class="new_price">登录查看价格</span>
 							</div>
-							<div class="comment_box islogin">已售{$vo.sales_sum}件</div>
+							<!--<div class="comment_box islogin">已售{$vo.sales_sum}件</div>-->
 						</a>
 						<span class="bug_car" onClick="AjaxAddCart({$vo[goods_id]},1,0);"><i class="iconlvhai icon icon-cart"></i></span>
 					</li>
@@ -61,10 +66,12 @@
             window.parent.location.href= url;
         });
 
-        var uname= getCookie('uname');
+        var uname= getCookie('user_id');
+        console.log(uname);
         if(uname == ''){
             $('.islogin').remove();
             $('.nologin').show();
+            $('.item').attr("data-url","/index.php/Mobile/User/index.html");
             $('body').addClass('not-login');
         }else{
             $('.islogin').show();

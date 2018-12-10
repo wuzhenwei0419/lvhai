@@ -9,10 +9,10 @@
  */
 function AjaxAddCart(goods_id,num,to_catr,collage)
 {
-    console.log(collage)
+    // console.log(collage);
     if(collage=="1") {
-        alert("只有申请为代理商才可以享受此价格")
-        return false
+        alert("只有申请为代理商才可以享受此价格");
+        return false;
 
     }else {
         //如果有商品规格 说明是商品详情页提交
@@ -20,6 +20,7 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
             $.ajax({
                 type: "POST",
                 url: "/index.php?m=Home&c=Cart&a=ajaxAddCart",
+                async:false,
                 data: $('#buy_goods_form').serialize(),// 你的formid 搜索表单 序列化提交
                 dataType: 'json',
                 success: function (data) {
@@ -30,7 +31,9 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
                     }
                     if (to_catr == 1)  //直接购买
                     {
+                        // alert(1);
                         location.href = "/index.php?m=Mobile&c=Cart&a=cart";
+                        return false;
                     }
                     cart_num = parseInt($('#tp_cart_info').html()) + parseInt($('#number').val());
                     $('#tp_cart_info').html(cart_num)
@@ -41,10 +44,10 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
                         yes: function () {
                             layer.closeAll();
                         }, no: function () {
-                            var id = getCookie("id")
-                            console.log(id)
+                            var id = getCookie("id");
+                            // console.log(id);
                             if (id == "") {
-                                location.href = "/index.php?m=Mobile&c=user&a=login"
+                                location.href = "/index.php?m=Mobile&c=user&a=login";
                             } else {
                                 location.href = "/index.php?m=Mobile&c=Cart&a=cart";
                             }

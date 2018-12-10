@@ -269,7 +269,7 @@ class GoodsController extends BaseController {
                     M('cart')->where("goods_id = $goods_id and spec_key = ''")->save(array(
                             'market_price'=>$_POST['market_price'], //市场价
                             'goods_price'=>$_POST['shop_price'], // 本店价
-                            'member_goods_price'=>$_POST['shop_price'], // 会员折扣价                        
+                            'member_goods_price'=>$_POST['shop_price'], // 会员折扣价
                             ));
                     $Goods->afterSave($goods_id);
                 } else {
