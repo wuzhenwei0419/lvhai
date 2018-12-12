@@ -39,14 +39,14 @@
                  <!--echo "：";-->
                  <!--echo $goodsattr[0]['attr_value'];-->
            <!--?></span>-->
+							<div class="price_box islogin">
+								<span class="new_price"><i>约￥{$vo.shop_price}元/箱</i></span>
+							</div>
 							<if condition="$vo.shop_price_jin gt 0">
-							<div class="price_box islogin">
-								<span class="new_price" style="color: #0bb20c;">约￥{$vo.shop_price_jin}元/斤</span>
-							</div>
+								<div class="price_box islogin">
+									<span class="new_price" style="color: #0bb20c;">￥{$vo.shop_price_jin}元/斤</span>
+								</div>
 							</if>
-							<div class="price_box islogin">
-								<span class="new_price"><i>￥{$vo.shop_price}元/箱</i></span>
-							</div>
 							<div class="price_box nologin">
 								<span class="new_price">登录查看价格</span>
 							</div>
@@ -57,9 +57,34 @@
 				</foreach>
 			</empty>
 		</div>
+		<notempty name="goods_list">
+			<div id="getmore" style="font-size:.24rem;text-align: center;color:#888;padding:.25rem .24rem .4rem; clear:both">
+				<a href="javascript:void(0)" onClick="ajax_sourch_submit()">点击加载更多</a>
+			</div>
+		</notempty>
 	</section>
 </section>
 <script>
+    var page = 1;
+    /*** ajax 提交表单 查询订单列表结果*/
+    function ajax_sourch_submit()
+    {
+        page += 1;
+        $.ajax({
+            type : "GET",
+            url:"/index.php?m=Mobile&c=Goods&a=goodsList&is_ajax=1&id={$cat_id}&p=" +page,//+tab,
+//			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
+            success: function(data)
+            {
+                console.log(data);
+                if($.trim(data) == '')
+                    $('#getmore').hide();
+                else
+                    $("#goods_list").append(data);
+            }
+        });
+    }
+
     $(function () {
         $(".item").click(function () {
             var url = $(this).data("url");
@@ -67,7 +92,7 @@
         });
 
         var uname= getCookie('user_id');
-        console.log(uname);
+//        console.log(uname);
         if(uname == ''){
             $('.islogin').remove();
             $('.nologin').show();
@@ -80,53 +105,7 @@
             $('body').addClass('login');
         }
 
-        var page = 2;
 
-        //下拉加载
-        //获取滚动条当前的位置
-        function getScrollTop() {
-            var scrollTop = 0;
-            if(document.documentElement && document.documentElement.scrollTop) {
-                scrollTop = document.documentElement.scrollTop;
-            } else if(document.body) {
-                scrollTop = document.body.scrollTop;
-            }
-            return scrollTop;
-        }
-        //获取当前可视范围的高度
-        function getClientHeight() {
-            var innerHeight =  window.innerHeight; //window的高度，即手机的高度
-            return innerHeight
-        }
-        //获取文档完整的高度
-        function getScrollHeight() {
-            return $("body").height()
-        }
-        //滚动事件触发
-        window.onscroll = function() {
-//	console.log(11);
-//            alert(1);
-            if(getScrollTop() + getClientHeight() ===getScrollHeight()) {
-                $.ajax({
-                    type : "get",
-                    url:"/index.php?m=Mobile&c=Goods&a=goodsList&id={$cat_id}&p=" +page,
-                    dataType:'html',
-                    success: function(data)
-                    {
-                        if(data){
-                            $("#goods_list").append(data);
-                            page++
-                            $('.get_more').hide();
-                        }else{
-                            $('.get_more').hide();
-                            $('#getmore').remove();
-                        }
-                    }
-                });
-
-
-            }
-        }
 
 
     });

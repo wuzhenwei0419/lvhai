@@ -110,7 +110,10 @@
                           <strong id="second">0</strong>秒
                         </i>
                         <else/>
-                        <strong class="fn-rmb-num" id="goods_price"> {$goods.shop_price} </strong>
+                        <strong class="fn-rmb-num" id="goods_price"> 约{$goods.shop_price}元/箱 </strong>
+                        <if condition="$goods.shop_price_jin gt 0">
+                          <span class="fn-rmb-num" style="padding-left:10px;font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</span>
+                        </if>
                         <i class="login-get-price">（<a href="{:U('Home/user/login')}" class="Obtain">登录获取最新价格</a>）</i>
                       </if>
 

@@ -152,7 +152,10 @@
             <p class="itemprice">
               <span class="new" rehot="90101748934_201480" style="display: block; float: left;"><i class="fn-rmb">¥</i>{$v[market_price]}</span>
               <a href="{:U('Home/user/login')}" class="Obtain">登录获取最新价格</a>
-              <span class="old"><i class="fn-rmb">¥</i>{$v[shop_price]}</span>
+              <span class="old"><i class="fn-rmb">¥</i>约{$v[shop_price]}/箱</span>
+              <if condition="$v.shop_price_jin gt 0">
+                <span class="old" style="padding-left:10px;font-size:14px;color: #0bb20c;">约<i class="fn-rmb">¥</i>{$v.shop_price_jin}元/斤</span>
+              </if>
             </p>
           </div>
         </div>

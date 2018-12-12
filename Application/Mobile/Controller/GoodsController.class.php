@@ -87,7 +87,7 @@ class GoodsController extends MobileBaseController {
         $p = I('p',1);
     	if($count > 0)
     	{
-    		$goods_list = M('goods')->where("goods_id in (".  implode(',', $filter_goods_id).")")->order("$sort $sort_asc")->page($p,50)->select();
+    		$goods_list = M('goods')->where("goods_id in (".  implode(',', $filter_goods_id).")")->order("$sort $sort_asc")->limit($page->firstRow.','.$page->listRows)->select();
     		$filter_goods_id2 = get_arr_column($goods_list, 'goods_id');
     		if($filter_goods_id2)
     			$goods_images = M('goods_images')->where("goods_id in (".  implode(',', $filter_goods_id2).")")->cache(true)->select();

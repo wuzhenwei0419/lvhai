@@ -320,6 +320,9 @@
             <div class="price-cash">
               <span class="text13 colf22e01">¥</span>
               <span class="text18 colf22e01 fontT">{$v[shop_price]}</span>
+              <if condition="$v[shop_price_jin] gt 0">
+                <span class="text18 colf22e01 fontT" style="padding-left:10px;font-size:14px;color: #0bb20c;">约￥{$v.shop_price_jin}元/斤</span>
+              </if>
               <del></del>
               <span class="text12" style="float: right;color: gray;position: relative;top:3px">{$v[sales_sum]}人付款</span>
             </div>

@@ -144,10 +144,11 @@
                 </if>
                 <dl class="goods_price">
                     <script type="text/javascript" src="__STATIC__/js/lefttime.js"></script>
-                    <dt> <span id="goods_price" class="islogin">￥{$goods.shop_price}元/箱</span>&nbsp;
+                    <dt>
                         <if condition="$goods.shop_price_jin gt 0">
-                        <span class="islogin" style="padding-left:10px;font-size:14px;color: #0bb20c;">约￥{$goods.shop_price_jin}元/斤</span>
-                        </if>
+                            <span class="islogin" style="font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</span>
+                        </if>&nbsp;
+                        <span id="goods_price" class="islogin" style="padding-left:10px;font-size:18px;">约￥{$goods.shop_price}元/箱</span>
                         <a href="{:U('User/index')}" class="nologin">登录查看最新价格</a><font>价格：￥{$goods.market_price}元</font> </dt>
                     <dd style="font-size: 12px; line-height: 1; margin-bottom: 5px;" class="disappear">
                         <i class="onlylost">仅剩
