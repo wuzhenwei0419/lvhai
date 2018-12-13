@@ -75,8 +75,9 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
                             return false;
                         }
                         cart_num = parseInt($('#tp_cart_info').html()) + parseInt(num);
-                        $('#tp_cart_info').html(cart_num)
-                        layer.open({content: data.msg, time: 1});
+                        $('#tp_cart_info').html(cart_num);
+                        // layer.open({content: data.msg, time: 1});
+                        alert(data.msg);
                         return false;
                     }
                 }
