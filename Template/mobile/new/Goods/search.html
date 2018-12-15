@@ -67,23 +67,39 @@
 							</div>
 							<div class="title_box">{$vo.goods_name}</div>
 
-							<div class="price_box">
-				<span class="new_price"><?php
+							<!--<div class="price_box">-->
+				<!--<span class="new_price"><?php-->
 
-                 $goodsattr=D()->query("select attr_name ,attr_value from tp_goods_attr as a,tp_goods_attribute as b where a.goods_id=$vo[goods_id] and a.attr_id=b.attr_id and attr_name='含糖量'");
-                 echo $goodsattr[0]['attr_name'];
-                 echo "：";
-                 echo $goodsattr[0]['attr_value'];
-           ?></span>
+                 <!--$goodsattr=D()->query("select attr_name ,attr_value from tp_goods_attr as a,tp_goods_attribute as b where a.goods_id=$vo[goods_id] and a.attr_id=b.attr_id and attr_name='含糖量'");-->
+                 <!--echo $goodsattr[0]['attr_name'];-->
+                 <!--echo "：";-->
+                 <!--echo $goodsattr[0]['attr_value'];-->
+           <!--?></span>-->
+							<!--</div>-->
+							<div class="price_box islogin">
+								<span class="new_price">约￥{$vo.shop_price}元/箱</span>
 							</div>
-							<div class="comment_box">已售0</div>
+							<div class="price_box nologin">
+								<span class="new_price" style="color: red;">登录查看价格</span>
+							</div>
+							<div class="price_box">
+							</div>
+							<div class="price_box nologin" style="margin-top: 10px;">
+								<span class="new_price" style="color: #0bb20c;">￥ ^ - ^元/箱</span>
+							</div>
+							<if condition="$vo.shop_price_jin gt 0">
+								<div class="price_box islogin" style="margin-top: 10px;">
+									<span class="new_price" style="color: #0bb20c;">￥{$vo.shop_price_jin}元/斤</span>
+								</div>
+							</if>
+							<!--<div class="comment_box">已售0</div>-->
 						</a>
-						<div class="ui-number b">
-							<a class="decrease" onClick="goods_cut({$vo.goods_id});">-</a>
-							<input class="num" id="number_{$vo.goods_id}" type="text" onBlur="changePrice();" value="1" onFocus="if(value=='1') {value=''}" size="4" maxlength="5">
-							<a class="increase" onClick="goods_add({$vo.goods_id});">+</a>
-						</div>
-						<span class="bug_car" onClick="AjaxAddCart({$vo[goods_id]},1,0);"><i class="iconlvhai icon icon-cart"></i></span>
+						<!--<div class="ui-number b">-->
+							<!--<a class="decrease" onClick="goods_cut({$vo.goods_id});">-</a>-->
+							<!--<input class="num" id="number_{$vo.goods_id}" type="text" onBlur="changePrice();" value="1" onFocus="if(value=='1') {value=''}" size="4" maxlength="5">-->
+							<!--<a class="increase" onClick="goods_add({$vo.goods_id});">+</a>-->
+						<!--</div>-->
+						<span style="padding: 5px;" class="bug_car" onClick="AjaxAddCart({$vo[goods_id]},1,0);"><i class="iconlvhai icon icon-cart"></i></span>
 					</li>
 				</foreach>
 			</empty>
@@ -271,6 +287,20 @@
 </script>
 <script>
     $(function(){
+        var uname= getCookie('user_id');
+//        console.log(uname);
+        if(uname == ''){
+            $('.islogin').remove();
+            $('.nologin').show();
+            $('.item').attr("data-url","/index.php/Mobile/User/index.html");
+            $('body').addClass('not-login');
+        }else{
+            $('.islogin').show();
+            $('.nologin').remove();
+            $('.userinfo').html(decodeURIComponent(decodeURIComponent(uname)));
+            $('body').addClass('login');
+        }
+
         //搜索浮层显示逻辑
         var sbox = $("#head_search_box"),
             sort = $('#product_sort'),
