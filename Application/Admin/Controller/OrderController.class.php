@@ -120,7 +120,7 @@ class OrderController extends BaseController {
         //var_dump(print_r($condition['admin_id']));
         $sort_order = I('order_by','DESC').' '.I('sort');
         $count = M('order')->where($condition)->group("user_id")->count();
-        $Page  = new AjaxPage($count,20);
+        $Page  = new AjaxPage($count,100);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);
@@ -178,7 +178,7 @@ class OrderController extends BaseController {
         }
 
         //校验是否已经合并了总订单
-        $where = "where user_id = ". $user_id ." and c limit 1";
+        $where = "where user_id = ". $user_id ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";    
         $sql = "select * from __PREFIX__total_order $where";
         $totalOrderInfo = D()->query($sql);
         if ($totalOrderInfo) {
@@ -431,7 +431,7 @@ class OrderController extends BaseController {
             if($o && $l){
                 $this->success('修改成功',U('Admin/Order/editprice',array('order_id'=>$order_id)));
             }else{
-                $this->success('修改失败',U('Admin/Order/total_order_detail',array('order_id'=>$order_id)));
+                $this->success('修改失败',U('Admin/Order/detail',array('order_id'=>$order_id)));
             }
             exit;
         }

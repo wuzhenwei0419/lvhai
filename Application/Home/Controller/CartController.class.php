@@ -53,6 +53,16 @@ class CartController extends BaseController {
      */
     function ajaxAddCart()
     {
+        //校验开始时间和闭市时间
+        $begin_time = tpCache('shopping.begin_time');
+        $end_time = tpCache('shopping.end_time');
+
+        $today = strtotime(date("Y-m-d"),time());
+
+        if (!(time() >= $today + 60*60*$begin_time && time() <= $today + 60*60*$end_time)){
+            exit(json_encode(array('status'=>-2,'msg'=>"平台下单时间：".$begin_time."点至".$end_time."点，谢谢配合！",'result'=>null)));
+        }
+
         $goods_id = I("goods_id"); // 商品id
         $goods_num = I("goods_num");// 商品数量
         $goods_spec = I("goods_spec"); // 商品规格  
@@ -123,7 +133,16 @@ class CartController extends BaseController {
      * 购物车第二步确定页面
      */
     public function cart2()
-    {        
+    {
+        //校验开始时间和闭市时间
+        $begin_time = tpCache('shopping.begin_time');
+        $end_time = tpCache('shopping.end_time');
+
+        $today = strtotime(date("Y-m-d"),time());
+
+        if (!(time() >= $today + 60*60*$begin_time && time() <= $today + 60*60*$end_time)){
+            $this->success('平台下单时间：'.$begin_time.'点至'.$end_time.'点，谢谢配合！',U('Home/Index/index'));
+        }
         
         if($this->user_id == 0)
             $this->error('请先登陆',U('Home/User/login'));
@@ -289,7 +308,7 @@ class CartController extends BaseController {
        
         // 提交订单        
         if($_REQUEST['act'] == 'submit_order')
-        {  
+        {
             if(empty($coupon_id) && !empty($couponCode))
                $coupon_id = M('CouponList')->where("`code`='$couponCode'")->getField('id');                    
             $result = $this->cartLogic->addOrder($this->user_id,$address_id,$shipping_code,$invoice_title,$coupon_id,$car_price); // 添加订单                        

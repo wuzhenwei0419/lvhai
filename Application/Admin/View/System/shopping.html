@@ -57,7 +57,14 @@
                                         <input type="radio" class="" name="reduce" value="1" <if condition="$config[reduce] eq 1"> checked </if>>订单支付时  &nbsp;&nbsp;&nbsp;&nbsp;
                                         <input type="radio" class="" name="reduce" value="2" <if condition="$config[reduce] eq 2"> checked </if>>发货时  &nbsp;&nbsp;&nbsp;&nbsp;
                                     </td>
-                                </tr>                              
+                                </tr>
+                                <tr>
+                                    <td>购买时间段：</td>
+                                    <td >
+                                        开市时间：<input type="text" title="只能输入整点" class="input-sm" name="begin_time" value="{$config[begin_time]}"> &nbsp;&nbsp;&nbsp;&nbsp;
+                                        闭市时间：<input type="text" title="只能输入整点" class="input-sm" name="end_time" value="{$config[end_time]}"> （请输入整点）
+                                    </td>
+                                </tr>
                                 </tbody> 
                                 <tfoot>
                                 	<tr>

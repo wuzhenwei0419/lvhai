@@ -46,6 +46,16 @@ class CartController extends MobileBaseController {
      */
     function addCart()
     {
+        //校验开始时间和闭市时间
+        $begin_time = tpCache('shopping.begin_time');
+        $end_time = tpCache('shopping.end_time');
+
+        $today = strtotime(date("Y-m-d"),time());
+
+        if (!(time() >= $today + 60*60*$begin_time && time() <= $today + 60*60*$end_time)){
+            exit(json_encode(array('status'=>-1,'msg'=>'平台下单时间：'.$begin_time.'点至'.$end_time.'点，谢谢配合！','result'=>'')));
+        }
+
         $goods_id = I("goods_id"); // 商品id
         $goods_num = I("goods_num");// 商品数量
         $goods_spec = I("goods_spec"); // 商品规格
@@ -61,6 +71,16 @@ class CartController extends MobileBaseController {
      */
     function ajaxAddCart()
     {
+        //校验开始时间和闭市时间
+        $begin_time = tpCache('shopping.begin_time');
+        $end_time = tpCache('shopping.end_time');
+
+        $today = strtotime(date("Y-m-d"),time());
+
+        if (!(time() >= $today + 60*60*$begin_time && time() <= $today + 60*60*$end_time)){
+            exit(json_encode(array('status'=>-2,'msg'=>'平台下单时间：'.$begin_time.'点至'.$end_time.'点，谢谢配合！','result'=>'')));
+        }
+
         $goods_id = I("goods_id"); // 商品id
         $goods_num = I("goods_num");// 商品数量
         $goods_spec = I("goods_spec"); // 商品规格
@@ -106,6 +126,15 @@ class CartController extends MobileBaseController {
      */
     public function cart2()
     {
+        //校验开始时间和闭市时间
+        $begin_time = tpCache('shopping.begin_time');
+        $end_time = tpCache('shopping.end_time');
+
+        $today = strtotime(date("Y-m-d"),time());
+
+        if (!(time() >= $today + 60*60*$begin_time && time() <= $today + 60*60*$end_time)){
+            $this->error('平台下单时间：'.$begin_time.'点至'.$end_time.'点，谢谢配合！',U('Mobile/Index/index'));
+        }
 
         if($this->user_id == 0)
             $this->error('请先登陆',U('Mobile/User/login'));
