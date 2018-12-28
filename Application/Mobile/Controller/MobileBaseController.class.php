@@ -43,11 +43,11 @@ class MobileBaseController extends Controller {
             $wechat_config = $wechat_list[0];
             $this->weixin_config = $wechat_config;
             $this->assign('wechat_config', $wechat_config); // 微信配置
-            if($wechat_config && !$_SESSION['openid']){
+            if($wechat_config && !$_SESSION['openid'] && (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] != 'User/login')){
                 //去授权获取openid
                 $wxuser = $this->GetOpenid();
                 //获取用户昵称
-                
+
                 session('subscribe', $wxuser['subscribe']);// 当前这个用户是否关注了微信公众号
                 //微信自动登录
                 $data = array(
@@ -56,27 +56,27 @@ class MobileBaseController extends Controller {
                     'nickname'=>trim($wxuser['nickname']) ? trim($wxuser['nickname']) : '微信用户',
                     'sex'=>$wxuser['sex'],
                     'head_pic'=>$wxuser['headimgurl'],
-                );                                                   
-                
+                );
+
                 $logic = new UsersLogic();
-                $data = $logic->thirdLogin($data);                                
+                $data = $logic->thirdLogin($data);
                 //dump($wxuser) ;die();
                 if($data['status'] == 1){
                     session('user',$data['result']);
                     setcookie('user_id',$data['result']['user_id'],null,'/');
                     setcookie('is_distribut',$data['result']['is_distribut'],null,'/');
                     setcookie('uname',$data['result']['nickname'],null,'/');
-                    
+
                     // 登录后将购物车的商品的 user_id 改为当前登录的id
                     M('cart')->where("session_id = '{$this->session_id}'")->save(array('user_id'=>$data['result']['user_id']));
                 }
             }
-            
-            // 微信Jssdk 操作类 用分享朋友圈 JS            
+
+            // 微信Jssdk 操作类 用分享朋友圈 JS
             $jssdk = new \Mobile\Logic\Jssdk($this->weixin_config['appid'], $this->weixin_config['appsecret']);
-            $signPackage = $jssdk->GetSignPackage();            
+            $signPackage = $jssdk->GetSignPackage();
             $this->assign('signPackage', $signPackage);
-        }        
+        }
         $this->public_assign();
     }
     

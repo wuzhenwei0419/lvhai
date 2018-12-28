@@ -248,7 +248,7 @@ class OrderController extends BaseController {
         $shipping_status = I('shipping_status');
         $condition['shipping_status'] = empty($shipping_status) ? array('neq',1) : $shipping_status;
         $condition['order_status'] = array('in','1,2,4');
-        $count = M('order')->where($condition)->count();
+        $count = M('total_order')->where($condition)->count();
         $Page  = new AjaxPage($count,10);
         //搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
@@ -1066,13 +1066,18 @@ class OrderController extends BaseController {
         if($order_sn){
             $where .= " AND order_sn = '$order_sn' ";
         }
-        
-            $where .= " AND order_status = 1";
-        
-        
+
+        $shipping_status =  I('shipping_status');
+        if($shipping_status){
+            $where .= " AND shipping_status = '$shipping_status' ";
+        }else {
+            $where .= " AND shipping_status != 1 ";
+        }
+        $where .= " AND order_status in (1,2,4)";
+
         
             
-        $sql = "select * from __PREFIX__order $where order by order_id";
+        $sql = "select * from __PREFIX__total_order $where order by order_id";
         $orderList = D()->query($sql);
         $strTable ='<table width="500" border="1">';
         $strTable .= '<tr>';
