@@ -451,7 +451,7 @@ use Aliyun\Api\Sms\Request\V20170525\SendSmsRequest;
 
         //发起访问请求
         $resp = $acsClient->getAcsResponse($request);
-        dump($resp);
+//        dump($resp);
         //短信发送成功返回True，失败返回false
 		if ($resp && $resp->Code == 'OK')   // if($resp->result->success == true)
 		{
