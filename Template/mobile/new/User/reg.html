@@ -38,6 +38,12 @@
 		<div id="logRegTabCon">
 			<div class="log_reg_item" id="phonearea">
 				<form action="" id="mobileForm" name="mobileForm" method="post"  onsubmit="return check_submit()">
+						<div class="field nickname">
+							<input type="text" id="nickname" name="nickname" placeholder="商户名称" class="c-form-txt-normal" onBlur="checkNickname(this.value);" />
+							<div class="tips">
+								<span id="nickname_notice"></span>
+							</div>
+						</div>
 						<div class="field phone">
 							<input type="text" id="username" name="username" placeholder="手机号" class="c-form-txt-normal" onBlur="checkMobilePhone(this.value);" />
 							<div class="tips">
@@ -69,6 +75,12 @@
 			</div>
 			<div class="log_reg_item hide" id="emailarea">
 				<form action="" method="post" id="emailForm" name="emailForm" onSubmit="return check_submit()">
+					<div class="field nickname">
+						<input type="text" id="nickname1" name="nickname" placeholder="商户名称" class="c-form-txt-normal" onBlur="checkNickname1(this.value);" />
+						<div class="tips">
+							<span id="nickname1_notice"></span>
+						</div>
+					</div>
 					<div class="field email">
 							<div class="st">
 								<input type="email" name="username" placeholder="邮箱地址" value="" class="c-form-txt-normal" id="username" onBlur="checkEmail2(this.value);" />
@@ -129,6 +141,21 @@ function changeForm(obj){
 
 function setCurrentForm(formObj) {
 	currentForm = $(formObj);
+}
+
+function checkNickname(nickname) {
+    if (nickname == '') {
+        $('#nickname_notice').css('color', 'red');
+        $('#nickname_notice').html('* 商户名称不能为空');
+        flag = false;
+    }
+}
+function checkNickname1(nickname1) {
+    if (nickname1 == '') {
+        $('#nickname1_notice').css('color', 'red');
+        $('#nickname1_notice').html('* 商户名称不能为空');
+        flag = false;
+    }
 }
 
 function checkEmail2(email){

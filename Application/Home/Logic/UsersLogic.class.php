@@ -212,6 +212,89 @@ class UsersLogic extends RelationModel
         return array('status'=>1,'msg'=>'注册成功','result'=>$user);
     }
 
+    /**
+     * 注册
+     * @param $username  邮箱或手机
+     * @param $username  商户名称
+     * @param $password  密码
+     * @param $password2 确认密码
+     * @return array
+     */
+    public function reg_new($username,$nickname,$password,$password2){
+        $is_validated = 0 ;
+        if(check_email($username)){
+            $is_validated = 1;
+            $map['email_validated'] = 1;
+            $map['email'] = $username; //邮箱注册
+        }
+
+        if(check_mobile($username)){
+            $is_validated = 1;
+            $map['mobile_validated'] = 1;
+            $map['mobile'] = $username; //手机注册
+        }
+
+        if(!$nickname){
+            return array('status'=>-1,'msg'=>'请输入商户名称');
+        }else{
+            $map['nickname'] = $nickname;
+            $is_validated = 1;
+        }
+
+        if($is_validated != 1)
+            return array('status'=>-1,'msg'=>'请用手机号或邮箱注册');
+
+        if(!$username || !$password)
+            return array('status'=>-1,'msg'=>'请输入用户名或密码');
+
+        //验证两次密码是否匹配
+        if($password2 != $password)
+            return array('status'=>-1,'msg'=>'两次输入密码不一致');
+        //验证是否存在用户名
+        if(get_user_info($username,1)||get_user_info($username,2))
+            return array('status'=>-1,'msg'=>'账号已存在');
+
+        $map['password'] = encrypt($password);
+        $map['reg_time'] = time();
+        $map['first_leader'] = cookie('first_leader'); // 推荐人id
+        $map['nickname'] = $nickname;
+
+        // 如果找到他老爸还要找他爷爷他祖父等
+        if($map['first_leader'])
+        {
+            $first_leader = M('users')->where("user_id = {$map['first_leader']}")->find();
+            $map['second_leader'] = $first_leader['first_leader'];
+            $map['third_leader'] = $first_leader['second_leader'];
+        }else
+        {
+            $map['first_leader'] = 0;
+        }
+
+        // 成为分销商条件
+        $distribut_condition = tpCache('distribut.condition');
+        if($distribut_condition == 0)  // 直接成为分销商, 每个人都可以做分销
+            $map['is_distribut']  = 1;
+
+        $map['token'] = md5(time().mt_rand(1,99999));
+        $user_id = M('users')->add($map);
+        if(!$user_id)
+            return array('status'=>-1,'msg'=>'注册失败');
+        $pay_points = tpCache('basic.reg_integral'); // 会员注册赠送积分
+        if($pay_points > 0)
+            accountLog($user_id, 0,$pay_points, '会员注册赠送积分'); // 记录日志流水
+        // 会员注册送优惠券
+        $coupon = M('coupon')->where("send_end_time > ".time()." and ((createnum - send_num) > 0 or createnum = 0) and type = 2")->select();
+        if(!empty($coupon)){
+            foreach ($coupon as $key => $val)
+            {
+                M('coupon_list')->add(array('cid'=>$val['id'],'type'=>$val['type'],'uid'=>$user_id,'send_time'=>time()));
+                M('Coupon')->where("id = {$val['id']}")->setInc('send_num'); // 优惠券领取数量加一
+            }
+        }
+        $user = M('users')->where("user_id = {$user_id}")->find();
+        return array('status'=>1,'msg'=>'注册成功','result'=>$user);
+    }
+
      /*
       * 获取当前登录用户信息
       */

@@ -168,6 +168,8 @@ class UserController extends BaseController {
             $password = I('post.password','');
             $password2 = I('post.password2','');
             $code = I('post.code','');
+            $nickname = I('post.nickname','');
+
             //是否开启注册短信验证码机制
             if(check_mobile($username) && tpCache('sms.regis_sms_enable')){
                 if(!$code)
@@ -184,7 +186,8 @@ class UserController extends BaseController {
                 if($check_code['status'] != 1)
                     $this->error($check_code['msg']);
             }
-            $data = $logic->reg($username,$password,$password2);
+            $data = $logic->reg_new($username,$nickname,$password,$password2);
+//            echo $nickname;die();
             if($data['status'] != 1)
                 $this->error($data['msg']);
             session('user',$data['result']);

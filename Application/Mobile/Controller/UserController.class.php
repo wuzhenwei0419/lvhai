@@ -175,6 +175,7 @@ class UserController extends MobileBaseController
             $username = I('post.username', '');
             $password = I('post.password', '');
             $password2 = I('post.password2', '');
+            $nickname = I('post.nickname','');
             //是否开启注册验证码机制
 
             if (check_mobile($username) && tpCache('sms.regis_sms_enable')) {
@@ -187,8 +188,8 @@ class UserController extends MobileBaseController
                     $this->error($check_code['msg']);
 
             }
-
-            $data = $logic->reg($username, $password, $password2);
+            $data = $logic->reg_new($username,$nickname,$password,$password2);
+//            $data = $logic->reg($username, $password, $password2);
             if ($data['status'] != 1)
                 $this->error($data['msg']);
             session('user', $data['result']);

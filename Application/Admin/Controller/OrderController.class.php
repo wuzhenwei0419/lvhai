@@ -130,7 +130,7 @@ class OrderController extends BaseController {
         // $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
 
         $orderList = M('order')->field('mobile,order_id,order_sn,user_id,order_status,shipping_status,pay_status,consignee,sum(total_amount) as total_amount,
-            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time')->where($condition)->limit($Page->firstRow.','.$Page->listRows)->group("user_id")->order('add_time DESC')->select();
+            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time')->where($condition)->group("user_id")->order('add_time DESC')->select();
 
         //TODO 统计已审核及未审核的订单数
         $orderAudit = array();
