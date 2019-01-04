@@ -21,6 +21,7 @@ class UserController extends MobileBaseController
 
     public $user_id = 0;
     public $user = array();
+    public $user_status = 0;
 
     /*
     * 初始化操作
@@ -34,6 +35,7 @@ class UserController extends MobileBaseController
             session('user', $user);  //覆盖session 中的 user
             $this->user = $user;
             $this->user_id = $user['user_id'];
+            $this->user_status = $user['status'];
             $this->assign('user', $user); //存储用户信息
         }
         $nologin = array(
@@ -45,6 +47,10 @@ class UserController extends MobileBaseController
             header("location:" . U('Mobile/User/login'));
             exit;
         }
+//        if (!$this->user_id){
+//            header("location:" . U('Mobile/User/shop_address'));
+//            exit;
+//        }
 
         //TODO 添加 待审核、已审核两种审核状态
         $order_status_coment = array(
@@ -1228,6 +1234,87 @@ class UserController extends MobileBaseController
         $imgname = time().'-3.png';
         $tmp = $_FILES['business_licence']['tmp_name'];
         $filepath = 'Public/upload/suppliers';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+
+    //=================================门店地址
+    public function shop_address(){
+        $shop_address=M('shop_address')->where('user_id ='.$this->user_id)->find();
+        $is_check = 1;
+        if ($shop_address){
+            $is_check = $shop_address['status'];
+        }
+        $this->assign('is_check',$is_check);
+        $this->assign('shop_address',$shop_address);
+        $this->display();
+    }
+
+    public function add_shop_address(){
+        $model=M('shop_address');
+        $data=I('post.');
+        $data['user_id']=$this->user_id;
+        $data['add_time']=time();
+        $verify_code = $data['verify_code'];
+        $verify = new Verify();
+        if (!$verify->check($verify_code,'add_shop_address'))
+        {
+            $res = array('status'=>-1);
+            exit(json_encode($res));
+        }
+        $list=$model->add($data);
+        if($list){
+            $this->success('上传成功',U('Mobile/User/shop_address'));
+
+        }else{
+            $this->error('上传失败',U('Mobile/User/shop_address'));
+        }
+
+        $this->display();
+
+    }
+
+    public function shop_address_verify()
+    {
+        //验证码类型
+        $type = I('get.type') ? I('get.type') : 'add_shop_address';
+        $config = array(
+            'fontSize' => 40,
+            'length' => 4,
+            'useCurve' => true,
+            'useNoise' => false,
+        );
+        $Verify = new Verify($config);
+        $Verify->entry($type);
+    }
+
+    public function shop_address_img1(){
+        $imgname = time().'-1.png';
+        $tmp = $_FILES['shop_logo']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+    public function shop_address_img2(){
+        $imgname = time().'-2.png';
+        $tmp = $_FILES['certificate']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+    public function shop_address_img3(){
+        $imgname = time().'-3.png';
+        $tmp = $_FILES['hygiene_licence']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
         if(move_uploaded_file($tmp,$filepath.$imgname)){
             $this->ajaxReturn($filepath.$imgname);
         }else{
