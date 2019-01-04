@@ -255,6 +255,23 @@
                 </div>
             </section>
 
+            <section class="index_floor" style=" border-bottom:1px solid #ddd ">
+                <h2 style=" border-bottom:1px solid #ddd ">  </h2>
+                <ul class="xiangq">
+                    <li>
+                        <p>品牌：</p>
+                        <span><a>{$goods['brand_name']}</a></span>
+                    </li>
+                    <li>
+                        <p>货号：</p>
+                        <span>{$goods.goods_sn}</span>
+                    </li>
+                    <foreach name="goods_attr_list" item="v" key="k" >
+                        <li><p>{$goods_attribute[$v[attr_id]]}:</p><span>{$v[attr_value]}</span></li>
+                    </foreach>
+                </ul>
+            </section>
+
             <p class="goods-remark">{$goods.goods_remark}</p>
             <!--<section id="search_ka">-->
             <!--<div class="ui-sx bian1">-->
