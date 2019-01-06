@@ -21,7 +21,7 @@ class UserController extends MobileBaseController
 
     public $user_id = 0;
     public $user = array();
-    public $user_status = 0;
+    public $shop_status = 0;
 
     /*
     * 初始化操作
@@ -35,22 +35,32 @@ class UserController extends MobileBaseController
             session('user', $user);  //覆盖session 中的 user
             $this->user = $user;
             $this->user_id = $user['user_id'];
-            $this->user_status = $user['status'];
+            $this->shop_status = $user['shop_status'];
             $this->assign('user', $user); //存储用户信息
+
+            if ( ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3)
+            && ACTION_NAME != 'add_shop_address' && ACTION_NAME != 'shop_address_img1'
+                && ACTION_NAME != 'shop_address_img2' && ACTION_NAME != 'shop_address_img3'){
+                $this->shop_address();
+                exit;
+            }elseif ($this->shop_status == 2){
+                setcookie('show_price', 1, null, '/');
+            };
+        }else{
+            $nologin = array(
+                'login', 'pop_login', 'do_login', 'logout', 'verify', 'set_pwd', 'finished',
+                'verifyHandle', 'reg', 'send_sms_reg_code', 'find_pwd', 'check_validate_code',
+                'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code',
+                'express', 'shop_address_img1', 'shop_address_img2', 'shop_address_img3'
+            );
+
+            if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
+                header("location:" . U('Mobile/User/login'));
+                exit;
+            };
         }
-        $nologin = array(
-            'login', 'pop_login', 'do_login', 'logout', 'verify', 'set_pwd', 'finished',
-            'verifyHandle', 'reg', 'send_sms_reg_code', 'find_pwd', 'check_validate_code',
-            'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code', 'express',
-        );
-        if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
-            header("location:" . U('Mobile/User/login'));
-            exit;
-        }
-//        if (!$this->user_id){
-//            header("location:" . U('Mobile/User/shop_address'));
-//            exit;
-//        }
+
+
 
         //TODO 添加 待审核、已审核两种审核状态
         $order_status_coment = array(
@@ -91,6 +101,8 @@ class UserController extends MobileBaseController
         session_destroy();
         setcookie('cn', '', time() - 3600, '/');
         setcookie('user_id', '', time() - 3600, '/');
+        setcookie('show_price','',time()-3600,'/');
+        setcookie('uname','',time()-3600,'/');
         //$this->success("退出成功",U('Mobile/Index/index'));
         header("Location:" . U('Mobile/User/login'));
     }
@@ -137,6 +149,7 @@ class UserController extends MobileBaseController
      */
     public function login()
     {
+
         if ($this->user_id > 0) {
             header("Location: " . U('Mobile/User/index'));
         }
@@ -157,6 +170,10 @@ class UserController extends MobileBaseController
         if ($res['status'] == 1) {
             $res['url'] = urldecode(I('post.referurl'));
             session('user', $res['result']);
+            if ($res['result']['shop_status'] == 0 || $res['result']['shop_status'] == 1 || $res['result']['shop_status'] == 3 ){
+                $res['status'] = 99;
+                setcookie('show_price', 0, null, '/');
+            }
             setcookie('user_id', $res['result']['user_id'], null, '/');
             setcookie('is_distribut', $res['result']['is_distribut'], null, '/');
             $nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
@@ -1244,13 +1261,13 @@ class UserController extends MobileBaseController
     //=================================门店地址
     public function shop_address(){
         $shop_address=M('shop_address')->where('user_id ='.$this->user_id)->find();
-        $is_check = 1;
+        $is_check = 0;
         if ($shop_address){
             $is_check = $shop_address['status'];
         }
         $this->assign('is_check',$is_check);
         $this->assign('shop_address',$shop_address);
-        $this->display();
+        $this->display("shop_address");
     }
 
     public function add_shop_address(){
@@ -1259,13 +1276,18 @@ class UserController extends MobileBaseController
         $data['user_id']=$this->user_id;
         $data['add_time']=time();
         $verify_code = $data['verify_code'];
-        $verify = new Verify();
-        if (!$verify->check($verify_code,'add_shop_address'))
-        {
-            $res = array('status'=>-1);
-            exit(json_encode($res));
+//        $verify = new Verify();
+//        if (!$verify->check($verify_code,'add_shop_address'))
+//        {
+//            $res = array('status'=>-1);
+//            exit(json_encode($res));
+//        }
+        if($data['id']){
+           $list=$model->save($data);
+        }else{
+            $list=$model->add($data);
         }
-        $list=$model->add($data);
+
         if($list){
             $this->success('上传成功',U('Mobile/User/shop_address'));
 

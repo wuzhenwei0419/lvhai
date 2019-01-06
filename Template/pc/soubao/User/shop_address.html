@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <title>账户管理-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <link rel="shortcut icon"  href="__STATIC__/images/favicon.ico" />
+    <style>
+        .Apply{
+            width: 100%;
+            height: 40vh;
+        }
+        .Apply img{
+            /*width: 50px;*/
+            /*height: 50px;*/
+            font-size: 50px;
+        }
+        .cen{
+            width: 440px;
+            margin: 0 auto;
+            font-size: 20px;
+            font-weight: 800;
+            color: black;
+            line-height: 40px;
+            margin-top: 150px;
+        }
+        .pass{
+            font-size: 13px;
+            color: #676767;
+            line-height: 40px;
+            margin-left: 60px;
+            font-weight: 600;
+        }
+        .word{
+            line-height: 18px;
+        }
+        .btn{
+            width: 104px;
+            height: 29px;
+            background: #fa6c2c;
+            font-size: 12px;
+            color: white;
+            text-align: center;
+            line-height: 29px;
+            margin-left: 70px;
+            border-radius: 5px;
+        }
+        .icon_correct{
+            width: 42px;
+            height: 42px;
+            line-height: 42px;
+            background: -95px -172px;}
+        .icon_big_warning{
+            width: 49px;
+            height: 42px;
+            line-height: 42px;
+            background: -95px -125px;
+        }
+        .error{
+            width: 42px;
+        }
+        .we{
+            margin-left: 58px;
+            margin-top: 20px;
+        }
+        .tx_cash{
+            margin-top: 20px;
+        }
+        .zhen{
+            width: 76%;
+            height: 140px;
+            float: left;
+            border-radius: 5px;
+            box-sizing: border-box;
+            border: 1px solid rgb(222, 222, 222);
+        }
+        .cash_submit{
+            margin-left: -50px;
+        }
+        .input-sm{
+            width:76%;
+            height:30px;
+            border: 1px solid #dedede;
+            padding: 2px 10px;
+            color: #9b9898;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<!-- 头部-s -->
+<include file="User/header" />
+<!-- 头部-e -->
+<link rel="stylesheet" href="__STATIC__/css/favorite.css">
+
+<div class="wrap">
+    <div class="bread_crumbs"> <a href="{:U('Home/User/index')}" class="crumbs_font">我的绿海</a>&gt;<span class="color">资金管理</span></div>
+    <!--菜单-->
+    <include file="User/menu" />
+    <!--菜单-->
+    <!--侧边导航栏结束-->
+    <div class="col_main">
+        <div class="main balance">
+       <div class="themes_title">
+        <h3>门店资料提交（
+            <if condition="$is_check eq 3">
+            <span style="font-size: 14px;color: #ee0000;">资料被驳回，请重新提交</span>
+        </if>
+        ）</h3>
+      </div>
+
+            <div class="ui_tab">
+                <!-- Details List star -->
+                <if condition="($is_check eq '') || ($is_check eq 3)">
+                    <div class="ui_tab_content" style="border: 0">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <form action="" method="post" enctype="multipart/form-data" name="distribut_form" id="distribut_form" >
+                                <div class="cash_num bb1" style="overflow: hidden;border: 0">
+                                    <if condition="$is_check eq 3">
+                                        <input type="hidden" name="id"  value="{$shop_address.id}"/>
+                                    </if>
+                                    <div class="tx_cash">
+                                        <span>门店名称：</span><input type="text" id="shop_name" name="shop_name" placeholder="请输入门店名称" value="{$shop_address.shop_name}"/>
+                                    </div>
+                                    <div class="tx_cash">
+                                        <span>联系人：</span><input type="text" id="contacts" name="contacts" placeholder="请输入联系人" value="{$shop_address.contacts}"/>
+                                    </div>
+                                    <div class="tx_cash">
+                                        <span>地址：</span><input type="text" id="shop_address" name="shop_address" placeholder="请输入地址" value="{$shop_address.shop_address}"/>
+                                    </div>
+                                    <div class="tx_cash">
+                                        <span>手机：</span><input type="text" id="mobile" name="mobile" placeholder="请输入手机" value="{$shop_address.mobile}"/>
+                                    </div>
+                                    <div class="tx_cash">
+                                        <span>邮箱：</span><input type="text" id="email" name="email" placeholder="请输入邮箱" value="{$shop_address.email}" />
+                                    </div>
+
+                                    <div class="tx_cash" id="por">
+                                        <span  style="margin-top: 30px;">门店照片：</span>
+                                        <div class="" onclick="fileSele('file')">
+                                            <img width="auto" height="auto" class="img1" id="portrait" src="__STATIC__/images/1110_03.png"  style="display: block;border: 1px solid #dedede;height: 20vh"></span>
+                                            <input type="file" name='shop_logo' id="file" style="display: none" />
+                                            <input type="hidden" class="input-sm" name="shop_logo" id="shop_logo" value="{$shop_address.shop_logo}">
+
+                                        </div>
+                                    </div>
+                                    <div class="tx_cash" id="trai">
+                                        <span  style="margin-top: 30px;">工商营业执照：</span>
+                                        <div class="" onclick="fileSel('fil')">
+                                            <img width="auto" height="auto" class="img2" id="portrai" src="__STATIC__/images/1110_03.png"  style="display: block;border: 1px solid #dedede;height: 20vh"></span>
+                                            <input type="file" name='certificate' id="fil" style="display: none" value="{$shop_address.certificate}" />
+                                            <input type="hidden" class="input-sm" name="certificate" id="certificate" value="{$shop_address.certificate}">
+
+                                        </div>
+                                    </div>
+                                    <div class="tx_cash" id="business">
+                                        <span  style="margin-top: 30px;">卫生许可证：</span>
+                                        <div class="" onclick="fi('fi')"style="margin-top: 23px">
+                                            <img width="auto" height="auto" class="img2" id="por" src="__STATIC__/images/1110_03.png"  style="display: block;border: 1px solid #dedede;height: 20vh"></span>
+                                            <input type="file" name='hygiene_licence' id="fi" style="display: none" value="{$shop_address.hygiene_licence}" />
+                                            <input type="hidden" class="input-sm" name="hygiene_licence" id="hygiene_licence" value="{$shop_address.hygiene_licence}">
+
+                                        </div>
+                                    </div>
+                                    <div class="tx_cash">
+                                        <span>备注：</span>
+                                        <input type="textfile" id="remark" name="remark"  class="phone_num vam" value="{$shop_address.remark}" style="width: 70%;height:45px;border: 1px solid #dedede;" />
+                                    </div>
+
+                                    <!--<div class="tx_cash" style="float: left ;width: 40%">-->
+                                        <!--<span>验证码：</span>-->
+                                        <!--<input type="text" name="verify_code" class="imput_text vam" id="verify_code" placeholder="请输入下面的验证码" style="width:150px;" />-->
+                                        <!--<img class="yzm_code" id="verify_code_img" width="100" height="30" src="{:U('User/supplier_verify')}"  onclick="verify(this)" />-->
+                                    <!--</div>-->
+                                    <br>
+                                    <div class="tx_cash" style="float: left ;width: 40%;padding-top: 49px">
+                                        <a id="cash_submit"  onClick="checkSubmit();"  style="cursor:pointer">确定提交</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <elseif condition="$is_check heq 1"/>
+                    <div class="ui_tab_content"  style="border: 0">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen">
+                                    <i class="icon_big_warning"></i>
+                                    &nbsp;&nbsp; <span>您已提交申请，正在审核，请耐心等待</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <elseif condition="$is_check eq 2"/>
+                    <div class="ui_tab_content"  style="border: 0">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen ok">
+                                    <i class="icon_correct"></i>
+                                    &nbsp;&nbsp;<span>恭喜您，申请成功</span>
+         
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <elseif condition="$is_check eq 3"/>
+                    <div class="ui_tab_content"  style="border: 0">
+                        <div class="ui_panel" id="noComment" style="display: block;">
+                            <div class="Apply">
+                                <div class="cen">
+                                    <img src="__STATIC__/images/278212038171987408.png" alt="" class="error">
+                                    &nbsp;&nbsp;<span>很遗憾，申请失败</span>
+                                    <br>
+                                    <a href="{:U('home/user/shop_address')}">
+                                        <button type="button" class="btn" onclick="del_pass()" >重新申请</button></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </if>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="clear: both;"></div>
+<include file="User/footer" />
+</body>
+<script>
+
+    function fileSele(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#file").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrait").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Home/User/shop_address_img1')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrait\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrait, #shop_logo').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    function fileSel(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#fil").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("portrai").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Home/User/shop_address_img2')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#portrai\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#portrai, #certificate').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    function fi(elementId){
+        document.getElementById(elementId).click();
+    }
+    $("#fi").change(function () {
+        var this_=this
+        var file = this_.files[0];
+        if (window.FileReader) {
+            var fr = new FileReader();
+            fr.onloadend = function (e) {
+                document.getElementById("por").src = e.target.result;
+            };
+            fr.readAsDataURL(file);
+        }
+        var formData = new FormData($("#distribut_form")[0]);
+        $.ajax({
+            url: "{:U('Home/User/shop_address_img3')}",
+            type: 'POST',
+            data: formData,
+            async: false,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (returndata) {
+                if(returndata=="上传失败"){
+                    alert("上传失败")
+                    setTimeout("   $(\"#por\").attr('src',\"__STATIC__/images/1110_03.png\")",10);
+                }else{
+                    $('#por, #hygiene_licence').val(returndata);
+                    alert('上传成功');
+                }
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        })
+    })
+    // 表单验证提交
+    function checkSubmit(){
+//        var input=document.querySelector(".input-sm")
+//        var index = input.selectedIndex
+//        var value = input.options[index].value;
+        var shop_name = $.trim($('#shop_name').val());
+        var contacts = $.trim($('#contacts').val());
+        var shop_address = $.trim($('#shop_address').val());
+        var mobile = $.trim($('#mobile').val());
+        var email = $.trim($('#email').val());
+//        var remark = $.trim($('#remark').val());
+//         var verify_code = $.trim($('#verify_code').val());
+        if(shop_name == '')
+        {
+            alert('请填写门店名称');
+            return false;
+        }
+        if(contacts == '')
+        {
+            alert('联系人必填');
+            return false;
+        }
+        if(shop_address == '')
+        {
+            alert('门店地址必填');
+            return false;
+        }
+        if(mobile == '')
+        {
+            alert('手机号码必填');
+            return false;
+        }else {
+            if(!checkMobile(mobile)){
+                alert('手机号码填写有误');
+            }
+        }
+
+        if(email && !checkEmail(email)){
+            alert('邮箱地址有误');
+        }
+
+
+//        if(remark == '')
+//        {
+//            alert('备注必填');
+//            return false;
+//        }
+//         if(verify_code == '')
+//         {
+//             alert('验证码必填');
+//             return false;
+//         }
+        $('#distribut_form').submit(
+            $.ajax({
+                type: "POST",
+                url: "{:U('Home/User/add_shop_address')}" ,
+                data: $('#distribut_form').serialize(),
+                success: function (result) {
+                    console.log(result)
+                    // var dataJSON = JSON.parse(result);
+                    // console.log(dataJSON)
+                    if(result.status !== 1){
+                        alert("资料提交失败");
+                    }else{
+                        location.reload();
+                        alert("操作成功");
+                    }
+
+                },
+                error : function() {
+                    alert("提交失败！");
+                }
+            })
+        );
+
+    }
+
+    // 验证码切换
+    function verify(){
+        $('#verify_code_img').attr('src','/index.php?m=Home&c=User&a=shop_address_verify&r='+Math.random());
+    }
+
+</script>
+</html>

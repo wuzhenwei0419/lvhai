@@ -1,0 +1,144 @@
+<include file="Public/min-header"/>
+<div class="wrapper">
+    <!-- Content Header (Page header) -->
+    <include file="Public/breadcrumb"/>
+    <section class="content">
+        <!-- Main content -->
+        <!--<div class="container-fluid">-->
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-list"></i> 用户门店地址信息</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form action="" method="post" onsubmit="return checkUserUpdate(this);">
+                            <input type="hidden" class="form-control" name="id" value="{$shop_address.id}">
+                            <table class="table table-bordered">
+                                <tbody>
+                                <tr>
+                                    <td class="col-sm-2">门店名称:</td>
+                                    <td ><input type="text" class="form-control" name="shop_name" value="{$shop_address.shop_name}"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>联系人:</td>
+                                    <td><input type="text" class="form-control" name="contacts" value="{$shop_address.contacts}"></td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>邮件地址:</td>
+                                    <td><input type="text" class="form-control" name="email" value="{$shop_address.email}"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>地址:</td>
+                                    <td><input type="text" class="form-control" name="shop_address" value="{$shop_address.shop_address}"></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>手机:</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="mobile" value="{$shop_address.mobile}">
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>门店照片:</td>
+                                    <td>
+                                        <img width="300" height="auto" class="img1" src="/{$shop_address.shop_logo}" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>工商营业执照:</td>
+                                    <td>
+                                        <img width="300" height="auto" class="img1" src="/{$shop_address.certificate}" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>卫生许可证:</td>
+                                    <td>
+                                        <img width="300" height="auto" class="img1" src="/{$shop_address.hygiene_licence}" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>备注:</td>
+                                    <td>
+                                        <input class="form-control" type="text" name="remark" value="{$shop_address.remark}">
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>门店地址状态:</td>
+                                    <td>
+                                        <input name="status" type="radio" value="1" <if condition="$shop_address['status'] eq 1">checked</if> >待审核
+                                        <input name="status" type="radio" value="2" <if condition="$shop_address['status'] eq 2">checked</if> >通过
+                                        <input name="status" type="radio" value="3" <if condition="$shop_address['status'] eq 3">checked</if> >不通过
+                                    </td>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button type="submit" class="btn btn-info">
+                                            <i class="ace-icon fa fa-check bigger-110"></i> 保存
+                                        </button>
+                                        <a href="javascript:history.go(-1)" data-toggle="tooltip" title="" class="btn btn-default pull-right" data-original-title="返回"><i class="fa fa-reply"></i></a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>    <!-- /.content -->
+    </section>
+</div>
+<script>
+    function checkUserUpdate(){
+        var email = $('input[name="email"]').val();
+        var mobile = $('input[name="mobile"]').val();
+        var shop_name = $('input[name="shop_name"]').val();
+        var shop_address = $('input[name="shop_address"]').val();
+        var contacts = $('input[name="contacts"]').val();
+
+        var error ='';
+        if(!shop_name){
+            error += "门店名称不能为空\n";
+        }
+        if(!shop_address){
+            error += "门店地址不能为空\n";
+        }
+        if(!contacts){
+            error += "联系人不能为空\n";
+        }
+
+        if(!checkEmail(email)){
+            error += "邮箱地址有误\n";
+        }
+        if(!checkMobile(mobile)){
+            error += "手机号码填写有误\n";
+        }
+        if(error){
+            layer.alert(error, {icon: 2});  //alert(error);
+            return false;
+        }
+        return true;
+
+    }
+</script>
+
+</body>
+</html>

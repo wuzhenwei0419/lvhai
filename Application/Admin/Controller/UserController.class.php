@@ -532,4 +532,30 @@ class UserController extends BaseController {
         C('TOKEN_ON',false);
         $this->display();
     }
+
+    //==============门店地址管理
+    /**
+     * 门店地址列表
+     */
+    public function shop_address(){
+        $uid = I('get.user_id');
+        if(IS_POST){
+            //  门店地址信息编辑
+            $row = M('shop_address')->where(array('user_id'=>$uid))->save($_POST);
+            if($row){
+                $data['shop_status'] = I('post.status');
+                M('users')->where(array('user_id'=>$uid))->save($data);
+                exit($this->success('修改成功'));
+            }
+
+            exit($this->error('未作内容修改或修改失败'));
+        }
+
+
+        $shop_address = D('shop_address')->where(array('user_id'=>$uid))->find();
+        $this->assign('shop_address',$shop_address);
+        $this->display();
+    }
+
+
 }

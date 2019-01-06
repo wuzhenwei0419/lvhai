@@ -78,7 +78,9 @@
 
             $(document).ready(function(){
                 var uname= getCookie('user_id');
-                if(uname == ''){
+                var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+
+                if(uname == '' || show_price == 0){
                     $('.islogin').remove();
                     $('.nologin').show();
                     $('body').addClass('not-login');
@@ -111,12 +113,51 @@
         </script>
         <form name="buy_goods_form" method="post" id="buy_goods_form" >
             <div class="product_info">
-                <div class="info_dottm" style="float: left;" >
-                    <h3 class="name" style="float:left;padding-left: 10%">{$goods.goods_name}</h3>
+                <div class="info_dottm" style="width: 90%;float: left;border-bottom:1px solid #ddd;" >
+                    <h3 class="name" style="float:left;">{$goods.goods_name}</h3>
                 </div>
                 <div class="info_dottm" onclick="Birth($(this))" style="float: right;padding-right: 2.5%">
                     <img width="auto" height="auto" src="__STATIC__/images/fen.png" alt=""  >
                 </div>
+                <dl class="goods_price">
+                    <script type="text/javascript" src="__STATIC__/js/lefttime.js"></script>
+                    <dt>
+                        <if condition="$goods.shop_price_jin gt 0">
+                            <span class="islogin" style="font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</span>
+                        </if>&nbsp;
+                        <span id="goods_price" class="islogin" style="padding-left:10px;font-size:18px;">
+                            <if condition="$goods.shop_price_jin gt 0">约</if>
+                            ￥{$goods.shop_price}
+                        </span><span class="islogin" style="font-size:18px;">/箱</span>
+                        <a href="{:U('User/index')}" class="nologin">登录查看最新价格</a>
+                        <if condition="$goods.shop_price_about_jin gt 0">
+                        <span class="islogin" style="font-size: 12px;color: #333; padding-left: 10px;">约￥{$goods.shop_price_about_jin}元/斤</span>
+                        </if>
+                    </dt>
+                    <dd style="font-size: 12px; line-height: 1; margin-bottom: 5px;" class="disappear">
+                        <i class="onlylost">仅剩
+                            <em>
+                                <strong id="countdown" style="color:#db384c">
+                                    <script type="text/javascript">
+                                        function GetRTime2(){
+                                            $("#countdown").text(GetRTime('{$goods['flash_sale']['end_time']|date="Y/m/d H:i:s",###}'));
+                                        }
+                                        setInterval(GetRTime2,999);
+                                        if (document.referrer === 'http://localhost/index.php/Mobile/Index/promoteList.html') {
+                                            $('.disappear').css("display","block")
+                                        }
+                                    </script>
+                                </strong></em></i></dd>
+                </dl>
+                <!--<ul class="price_dottm">-->
+                    <!--<li style=" text-align:left">折扣：{$goods.discount}折</li>-->
+                    <!--<li>{$commentStatistics.c0}人评价</li>-->
+                    <!--&lt;!&ndash;<li style=" text-align:right">{$goods.sale_num}人已付款</li>&ndash;&gt;-->
+                <!--</ul>-->
+
+                <section id="search_ka" class="huodong">
+                    <p class="goods-remark">{$goods.goods_remark}</p>
+                </section>
                 <!-------商品属性-------->
                 <if condition="$filter_spec neq ''">
                     <section id="search_ka">
@@ -142,37 +183,10 @@
                         </div>
                     </section>
                 </if>
-                <dl class="goods_price">
-                    <script type="text/javascript" src="__STATIC__/js/lefttime.js"></script>
-                    <dt>
-                        <if condition="$goods.shop_price_jin gt 0">
-                            <span class="islogin" style="font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</span>
-                        </if>&nbsp;
-                        <span id="goods_price" class="islogin" style="padding-left:10px;font-size:18px;">约￥{$goods.shop_price}元/箱</span>
-                        <a href="{:U('User/index')}" class="nologin">登录查看最新价格</a><font>价格：￥{$goods.market_price}元</font> </dt>
-                    <dd style="font-size: 12px; line-height: 1; margin-bottom: 5px;" class="disappear">
-                        <i class="onlylost">仅剩
-                            <em>
-                                <strong id="countdown" style="color:#db384c">
-                                    <script type="text/javascript">
-                                        function GetRTime2(){
-                                            $("#countdown").text(GetRTime('{$goods['flash_sale']['end_time']|date="Y/m/d H:i:s",###}'));
-                                        }
-                                        setInterval(GetRTime2,999);
-                                        if (document.referrer === 'http://localhost/index.php/Mobile/Index/promoteList.html') {
-                                            $('.disappear').css("display","block")
-                                        }
-                                    </script>
-                                </strong></em></i></dd>
-                </dl>
-                <ul class="price_dottm">
-                    <li style=" text-align:left">折扣：{$goods.discount}折</li>
-                    <li>{$commentStatistics.c0}人评价</li>
-                    <!--<li style=" text-align:right">{$goods.sale_num}人已付款</li>-->
-                </ul>
+
             </div>
             <if condition="($prom_goods neq null) OR ($prom_order neq null)">
-                <section id="search_ka" class="huodong">
+                <section id="search_ka" class="huodong" style="display: none;">
                     <div class="subNav">
                         <div class="att_title"> <span>惠</span>
                             <p>促销活动</p>
@@ -196,7 +210,7 @@
                     </div>
                 </section>
             </if>
-            <section id="search_ka">
+            <section id="search_ka" style="display: none;">
                 <div class="ui-sx bian1">
                     <div class="subNavBox">
                         <div class="subNav on"><strong>优惠活动</strong></div>
@@ -255,8 +269,7 @@
                 </div>
             </section>
 
-            <section class="index_floor" style=" border-bottom:1px solid #ddd ">
-                <h2 style=" border-bottom:1px solid #ddd ">  </h2>
+            <section class="index_floor" style=" border-bottom:1px solid #ddd; ">
                 <ul class="xiangq">
                     <li>
                         <p>品牌：</p>
@@ -271,8 +284,9 @@
                     </foreach>
                 </ul>
             </section>
-
-            <p class="goods-remark">{$goods.goods_remark}</p>
+            <section style="padding:0px 5px;">
+            {$goods.goods_content|htmlspecialchars_decode}
+            </section>
             <!--<section id="search_ka">-->
             <!--<div class="ui-sx bian1">-->
             <!--<div class="subNavBox" >-->

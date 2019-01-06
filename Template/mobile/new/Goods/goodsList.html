@@ -40,7 +40,7 @@
                  <!--echo $goodsattr[0]['attr_value'];-->
            <!--?></span>-->
 							<div class="price_box islogin">
-								<span class="new_price">约￥{$vo.shop_price}元/箱</span>
+								<span class="new_price"><if condition="$vo.shop_price_jin gt 0">约</if>￥{$vo.shop_price}元/箱</span>
 							</div>
 							<div class="price_box nologin">
 								<span class="new_price">登录查看价格</span>
@@ -53,6 +53,11 @@
 							<if condition="$vo.shop_price_jin gt 0">
 								<div class="price_box islogin" style="margin-top: 8px;">
 									<span class="new_price" style="color: #0bb20c;">￥{$vo.shop_price_jin}元/斤</span>
+								</div>
+							</if>
+							<if condition="$vo.shop_price_about_jin gt 0">
+								<div class="price_box islogin" style="margin-top: 10px;">
+									<span class="new_price" style="font-size: 12px;color: #333;color: #0bb20c;">约￥{$vo.shop_price_about_jin}元/斤</span>
 								</div>
 							</if>
 							<!--<div class="comment_box islogin">已售{$vo.sales_sum}件</div>-->
@@ -81,7 +86,6 @@
 //			data : $('#filter_form').serialize(),// 你的formid 搜索表单 序列化提交
             success: function(data)
             {
-                console.log(data);
                 if($.trim(data) == '')
                     $('#getmore').hide();
                 else
@@ -97,8 +101,9 @@
         });
 
         var uname= getCookie('user_id');
-//        console.log(uname);
-        if(uname == ''){
+        var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+
+        if(uname == '' || show_price == 0){
             $('.islogin').remove();
             $('.nologin').show();
 //            $('.item').attr("data-url","/index.php/Mobile/User/index.html");

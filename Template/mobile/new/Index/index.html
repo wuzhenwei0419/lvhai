@@ -111,7 +111,7 @@
                                             <div class="goods_name">{$v.goods_name}</div>
                                             <div class="price">
                                                 <!--<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">+</a>-->
-                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
+                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
                                             </div>
                                         </div>
                                     </a>
@@ -153,7 +153,7 @@
                                             <div class="goods_name">{$v.goods_name}</div>
                                             <div class="price">
                                                 <!--<a href="javascript:AjaxAddCart({$v[goods_id]},1,0);" class="btns">+</a>-->
-                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
+                                                <span href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" class="price_pro price_pro_login islogin">￥{$v.shop_price}元</span><a href="/index.php/Mobile/User/index.html" class="nologin">登录查看价格</a>
                                             </div>
                                         </div>
                                     </a>

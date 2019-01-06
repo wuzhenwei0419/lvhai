@@ -16,7 +16,8 @@ class CartController extends BaseController {
     
     public $cartLogic; // 购物车逻辑操作类
     public $user_id = 0;
-    public $user = array();    
+    public $user = array();
+    public $shop_status = 0;
     /**
      * 初始化函数
      */
@@ -31,12 +32,18 @@ class CartController extends BaseController {
                 session('user',$user);  //覆盖session 中的 user
         	$this->user = $user;
         	$this->user_id = $user['user_id'];
+            $this->shop_status = $user['shop_status'];
         	$this->assign('user',$user); //存储用户信息
                 // 给用户计算会员价 登录前后不一样
                 if($user){
                     $user[discount] = (empty($user[discount])) ? 1 : $user[discount];
                     M('Cart')->execute("update `__PREFIX__cart` set member_goods_price = goods_price * {$user[discount]} where (user_id ={$user[user_id]} or session_id = '{$this->session_id}') and prom_type = 0");
-                }                    
+                }
+
+            if ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3){
+                header("location:" . U('Mobile/User/shop_address'));
+                exit;
+            }
         }                        
     }
 

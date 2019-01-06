@@ -288,8 +288,10 @@
 <script>
     $(function(){
         var uname= getCookie('user_id');
+        var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+
 //        console.log(uname);
-        if(uname == ''){
+        if(uname == '' || show_price == 0){
             $('.islogin').remove();
             $('.nologin').show();
             $('.item').attr("data-url","/index.php/Mobile/User/index.html");

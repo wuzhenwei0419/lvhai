@@ -19,6 +19,7 @@ class UserController extends BaseController {
 
 	public $user_id = 0;
 	public $user = array();
+    public $shop_status = 0;
 	
     public function _initialize() {      
         parent::_initialize();
@@ -29,8 +30,18 @@ class UserController extends BaseController {
             session('user',$user);  //覆盖session 中的 user               
         	$this->user = $user;
         	$this->user_id = $user['user_id'];
+            $this->shop_status = $user['shop_status'];
         	$this->assign('user',$user); //存储用户信息
         	$this->assign('user_id',$this->user_id);
+
+            if ( ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3)
+                && ACTION_NAME != 'add_shop_address'){
+                $this->shop_address();
+                exit;
+            }elseif ($this->shop_status == 2){
+                setcookie('show_price', 1, null, '/');
+            };
+
         }else{
         	$nologin = array(
         			'login','pop_login','do_login','logout','verify','set_pwd','finished',
@@ -65,11 +76,13 @@ class UserController extends BaseController {
 
 
     public function logout(){
-    	setcookie('uname','',time()-3600,'/');
-    	setcookie('cn','',time()-3600,'/');
-    	setcookie('user_id','',time()-3600,'/');
         session_unset();
         session_destroy();
+    	setcookie('uname','',time()-3600,'/');
+    	setcookie('cn','',time()-3600,'/');
+        setcookie('user_id','',time()-3600,'/');
+        setcookie('show_price','',time()-3600,'/');
+
         //$this->success("退出成功",U('Home/Index/index'));
         header("location:".U('Home/Index/index'));
         exit;
@@ -144,6 +157,10 @@ class UserController extends BaseController {
     	if($res['status'] == 1){
     		$res['url'] =  urldecode(I('post.referurl'));
     		session('user',$res['result']);
+            if ($res['result']['shop_status'] == 0 || $res['result']['shop_status'] == 1 || $res['result']['shop_status'] == 3 ){
+                $res['status'] = 99;
+                setcookie('show_price', 0, null, '/');
+            }
     		setcookie('user_id',$res['result']['user_id'],null,'/');
     		setcookie('is_distribut',$res['result']['is_distribut'],null,'/');
     		$nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
@@ -1199,6 +1216,92 @@ class UserController extends BaseController {
         $imgname = time().'-3.png';
         $tmp = $_FILES['business_licence']['tmp_name'];
         $filepath = 'Public/upload/suppliers';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+
+    //=================================门店地址
+    public function shop_address(){
+        $shop_address=M('shop_address')->where('user_id ='.$this->user_id)->find();
+        $is_check = 0;
+        if ($shop_address){
+            $is_check = $shop_address['status'];
+        }
+        $this->assign('is_check',$is_check);
+        $this->assign('shop_address',$shop_address);
+        $this->display("shop_address");
+    }
+
+    public function add_shop_address(){
+        $model=M('shop_address');
+        $data=I('post.');
+        $data['user_id']=$this->user_id;
+        $data['add_time']=time();
+        $verify_code = $data['verify_code'];
+//        $verify = new Verify();
+//        if (!$verify->check($verify_code,'add_shop_address'))
+//        {
+//            $res = array('status'=>-1);
+//            exit(json_encode($res));
+//        }
+        if($data['id']){
+            $list=$model->save($data);
+        }else{
+            $list=$model->add($data);
+        }
+
+        if($list){
+            $this->success('上传成功',U('Mobile/User/shop_address'));
+
+        }else{
+            $this->error('上传失败',U('Mobile/User/shop_address'));
+        }
+
+        $this->display();
+
+    }
+
+    public function shop_address_verify()
+    {
+        //验证码类型
+        $type = I('get.type') ? I('get.type') : 'add_shop_address';
+        $config = array(
+            'fontSize' => 40,
+            'length' => 4,
+            'useCurve' => true,
+            'useNoise' => false,
+        );
+        $Verify = new Verify($config);
+        $Verify->entry($type);
+    }
+
+    public function shop_address_img1(){
+        $imgname = time().'-1.png';
+        $tmp = $_FILES['shop_logo']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+    public function shop_address_img2(){
+        $imgname = time().'-2.png';
+        $tmp = $_FILES['certificate']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
+        if(move_uploaded_file($tmp,$filepath.$imgname)){
+            $this->ajaxReturn($filepath.$imgname);
+        }else{
+            echo "上传失败";
+        }
+    }
+    public function shop_address_img3(){
+        $imgname = time().'-3.png';
+        $tmp = $_FILES['hygiene_licence']['tmp_name'];
+        $filepath = 'Public/upload/shop_address';
         if(move_uploaded_file($tmp,$filepath.$imgname)){
             $this->ajaxReturn($filepath.$imgname);
         }else{

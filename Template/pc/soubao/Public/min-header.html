@@ -39,7 +39,7 @@
                         </dl>
                     </div>
                 </li>
-                <li class="fl" style="color:red;">友情提醒：绿海商城目前测试阶段，请勿购买！</li>
+                <li class="fl" style="color:red;">本商城下单购物时间为：{$tpshop_config['shopping_begin_time']}:00-{$tpshop_config['shopping_end_time']}:00，请广大用户注意本商城开市时间。</li>
                 <!--
                 <li class="fl select-city dropdown">
                   <span class="menu-item">
@@ -305,10 +305,17 @@
 
         get_cart_num();
         var uname= getCookie('uname');
-        if(uname == ''){
-            $('.islogin').remove();
-            $('.nologin').show();
+        var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+        if(uname == '' || show_price == 0){
             $('body').addClass('not-login');
+            if (uname) {
+                $('.islogin').show();
+                $('.nologin').remove();
+                $('.userinfo').html(decodeURIComponent(uname));
+            }else {
+                $('.islogin').remove();
+                $('.nologin').show();
+            }
         }else{
             $('.islogin').show();
             $('.nologin').remove();

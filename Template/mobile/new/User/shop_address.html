@@ -115,7 +115,7 @@
 <include file="Public/menu"/>
 <div id="tbh5v0">
     <div class="user_com">
-        <if condition="$is_check eq ''">
+        <if condition="($is_check eq '') || ($is_check eq 3)">
             <div class="Wallet withdrawals">
                 <div class="cash_num bb1">
 
@@ -123,6 +123,10 @@
                     <!-- <input type="file" name="myFile"  accept="image/jpeg,image/gif,image/png"/><br /> -->
 
                     <form action="" method="post" enctype="multipart/form-data" name="distribut_form" id="distribut_form">
+                        <if condition="$is_check eq 3">
+                            <span style="font-size: 14px;color: #ee0000;">资料被驳回，请重新提交</span>
+                            <input type="hidden" name="id"  value="{$shop_address.id}"/>
+                        </if>
                         <p class="tx_cash"><span>门店名称：</span><input type="text" id="shop_name" name="shop_name" placeholder="请输入门店名称" value="{$shop_address.shop_name}"/></p>
                         <p class="tx_cash"><span>联系人：</span><input type="text" id="contacts" name="contacts" placeholder="请输入联系人" value="{$shop_address.contacts}"/></p>
                         <p class="tx_cash"><span>地址：</span><input type="text" id="shop_address" name="shop_address" placeholder="请输入地址" value="{$shop_address.shop_address}"/></p>
@@ -150,10 +154,10 @@
                             <span>备注：</span>
                             <input type="textfile" id="remark" name="remark"  class="phone_num vam" value="{$shop_address.remark}" style="width: 70%;height:45px;border: 1px solid #dedede;" />
                         </p>
-                        <p class="tx_cash"><span>验证码：</span>
-                            <input type="text" name="verify_code" id="verify_code" placeholder="请输入下面的验证码" />
-                            <img class="po-ab to0" id="verify_code_img" width="100" height="30" src="{:U('User/shop_address_verify',array('type'=>'add_shop_address'))}"  onclick="verify(this)" />
-                        </p>
+                        <!--<p class="tx_cash"><span>验证码：</span>-->
+                            <!--<input type="text" name="verify_code" id="verify_code" placeholder="请输入下面的验证码" />-->
+                            <!--<img class="po-ab to0" id="verify_code_img" width="100" height="30" src="{:U('User/shop_address_verify',array('type'=>'add_shop_address'))}"  onclick="verify(this)" />-->
+                        <!--</p>-->
                         <div class="cha"><a id="cash_submit"  onClick="checkSubmit();"  href="javascript:void(0);">确定提交</a></div>
                     </form>
                 </div>
@@ -341,7 +345,7 @@
         var mobile = $.trim($('#mobile').val());
         var email = $.trim($('#email').val());
 //        var remark = $.trim($('#remark').val());
-        var verify_code = $.trim($('#verify_code').val());
+//         var verify_code = $.trim($('#verify_code').val());
         if(shop_name == '')
         {
             alert('请填写门店名称');
@@ -359,19 +363,29 @@
         }
         if(mobile == '')
         {
-            alert('手机必填');
+            alert('手机号码必填');
             return false;
+        }else {
+            if(!checkMobile(mobile)){
+                alert('手机号码填写有误');
+            }
         }
+
+        if(email && !checkEmail(email)){
+            alert('邮箱地址有误');
+        }
+
+
 //        if(remark == '')
 //        {
 //            alert('备注必填');
 //            return false;
 //        }
-        if(verify_code == '')
-        {
-            alert('验证码必填');
-            return false;
-        }
+//         if(verify_code == '')
+//         {
+//             alert('验证码必填');
+//             return false;
+//         }
         $('#distribut_form').submit(
             $.ajax({
                 type: "POST",
@@ -382,7 +396,7 @@
                     // var dataJSON = JSON.parse(result);
                     // console.log(dataJSON)
                     if(result.status !== 1){
-                        alert("验证码错误");
+                        alert("资料提交失败");
                     }else{
                         location.reload();
                         alert("操作成功");
@@ -403,7 +417,7 @@
     }
     function del_pass() {
         $.ajax({
-            url:"{:U('User/del_shop_address')}",
+            url:"{:U('User/shop_address')}",
             type:"post",
             success: function (result) {
                 location.reload();

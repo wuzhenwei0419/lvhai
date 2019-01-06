@@ -179,15 +179,22 @@
 $(document).ready(function(){
 	get_cart_num();
 	var uname= getCookie('uname');
-	if(uname == ''){
-		$('.islogin').remove();
-		$('.nologin').show();
-    $('body').addClass('not-login');
+    var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+    if(uname == '' || show_price == 0){
+        $('body').addClass('not-login');
+        if (uname) {
+            $('.islogin').show();
+            $('.nologin').remove();
+            $('.userinfo').html(decodeURIComponent(uname));
+        }else {
+            $('.islogin').remove();
+            $('.nologin').show();
+        }
 	}else{
-    $('.islogin').show();
-    $('.nologin').remove();
+        $('.islogin').show();
+        $('.nologin').remove();
 		$('.userinfo').html(decodeURIComponent(uname));
-    $('body').addClass('login');
+        $('body').addClass('login');
 	}
 });
 

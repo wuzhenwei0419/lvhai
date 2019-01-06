@@ -94,7 +94,9 @@ function checkSubmit()
 		success : function(res){
 			if(res.status == 1){
 				top.location.href = res.url;
-			}else{
+			}else if(res.status == 99){
+                window.location.href = '/index.php?m=Mobile&c=User&a=shop_address';
+            }else{
 				showErrorMsg(res.msg);
 			}
 		},
@@ -106,7 +108,7 @@ function checkSubmit()
 
 
     function checkMobile(tel) {
-        var reg = /(^1[3|4|5|7|8|9][0-9]{9}$)/;
+        var reg = /(^1[3|4|5|6|7|8|9][0-9]{9}$)/;
         if (reg.test(tel)) {
             return true;
         }else{

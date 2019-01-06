@@ -18,7 +18,18 @@ class BaseController extends Controller {
     /*
      * 初始化操作
      */
-    public function _initialize() {  
+    public function _initialize() {
+        //检查价格是否可见
+        if ($_COOKIE['show_price'] == 0){
+            $user = session('user');
+            if ($user){
+                $user = M('users')->where("user_id = {$user['user_id']}")->find();
+                if ($user['shop_status'] == 2){
+                    setcookie('show_price', 1, null, '/');
+                }
+            }
+        }
+
     	$this->session_id = session_id(); // 当前的 session_id
         define('SESSION_ID',$this->session_id); //将当前的session_id保存为常量，供其它方法调用
         // 判断当前用户是否手机                

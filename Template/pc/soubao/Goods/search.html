@@ -221,10 +221,11 @@
         return "";
     }
     var name = getCookie("uname");
+    var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
     var a=document.querySelectorAll(".new")
     var Obtain=document.querySelectorAll(".Obtain")
 
-    if(name==""){
+    if(name=="" || show_price == 0){
         for(var i=0;i<a.length;i++) {
             a[i].style.display="none"
         }

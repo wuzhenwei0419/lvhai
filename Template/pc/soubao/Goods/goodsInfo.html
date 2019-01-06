@@ -110,11 +110,14 @@
                           <strong id="second">0</strong>秒
                         </i>
                         <else/>
-                        <strong class="fn-rmb-num" id="goods_price"> 约{$goods.shop_price}元/箱 </strong>
+                        <strong class="fn-rmb-num" style="padding: 0px;"><if condition="$goods.shop_price_jin gt 0">约</if></strong><strong class="fn-rmb-num look-price" id="goods_price"> {$goods.shop_price} </strong><strong class="fn-rmb-num" style="margin-left: -9px;">元/箱</strong>
                         <if condition="$goods.shop_price_jin gt 0">
-                          <span class="fn-rmb-num" style="padding-left:10px;font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</span>
+                          <i class="fn-rmb-num look-price" style="padding-left:10px;font-size:14px;color: #0bb20c;">￥{$goods.shop_price_jin}元/斤</i>
                         </if>
-                        <i class="login-get-price">（<a href="{:U('Home/user/login')}" class="Obtain">登录获取最新价格</a>）</i>
+                        <if condition="$goods.shop_price_about_jin gt 0">
+                          <i class="fn-rmb-num look-price" style="padding-left:10px;font-size:14px;color: #333;">约￥{$goods.shop_price_about_jin}元/斤</i>
+                        </if>
+                        <i class="login-get-price Obtain">（<a href="{:U('Home/user/login')}">登录获取最新价格</a>）</i>
                       </if>
 
                     </div>
@@ -618,22 +621,25 @@
         return "";
     }
     var name = getCookie("uname");
+    var show_price = getCookie("show_price") ? getCookie("show_price") : 0;
     var addCart_f=document.querySelector("#addCart_f")
     var price=document.querySelectorAll(".look-price")
     var Obtain=document.querySelectorAll(".Obtain")
-    if(name==""){
+    if(name=="" || show_price == 0){
         for(var i=0;i<price.length;i++){
-            price[i].style="display:none"
+            price[i].style="display:none";
+        }
+        for(var q=0;q<price.length;q++){
+            Obtain[q].style="display:block";
         }
         addCart_f.setAttribute("href","/index.php/Home/User/login.html")
     }else {
         for(var i=0;i<price.length;i++){
-            price[i].style="display:block"
+            price[i].style="display:block";
         }
         for(var q=0;q<price.length;q++){
-            Obtain[q].style="display:none"
+            Obtain[q].style="display:none";
         }
-        Obtain.style="display:none"
         addCart_f.setAttribute("href","javascript:;")
     }
     var numMin = parseInt($("#numMin").text());

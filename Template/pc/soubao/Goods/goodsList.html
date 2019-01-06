@@ -152,9 +152,9 @@
             <p class="itemprice">
               <span class="new" rehot="90101748934_201480" style="display: block; float: left;"><i class="fn-rmb">¥</i>{$v[market_price]}</span>
               <a href="{:U('Home/user/login')}" class="Obtain">登录获取最新价格</a>
-              <span class="old"><i class="fn-rmb">¥</i>约{$v[shop_price]}/箱</span>
+              <span class="new"><i class="fn-rmb">¥</i>约{$v[shop_price]}/箱</span>
               <if condition="$v.shop_price_jin gt 0">
-                <span class="old" style="padding-left:10px;font-size:14px;color: #0bb20c;">约<i class="fn-rmb">¥</i>{$v.shop_price_jin}元/斤</span>
+                <span class="new" style="padding-left:10px;font-size:14px;color: #0bb20c;">约<i class="fn-rmb">¥</i>{$v.shop_price_jin}元/斤</span>
               </if>
             </p>
           </div>
@@ -234,12 +234,13 @@
 
           <!-- 价格 -->
           <div class="discountPrice">
-            <div class="price-cash">
-              <span class="text13 colf22e01">¥</span>
-              <span class="text18 colf22e01 fontT" id="itemPrice_201510CM130003397">{$v[shop_price]}</span>
+            <div class="price-cash new">
+              <span class="text13 colf22e01"><if condition="$v.shop_price_jin gt 0">约</if>¥</span>
+              <span class="text18 colf22e01 fontT" id="itemPrice_201510CM130003397">{$v[shop_price]}元/箱</span>
               <del></del>
-              <span class="text12" style="float: right;color: gray;position: relative;top:3px">{$v[sales_sum]}人付款</span>
+              <!--<span class="text12" style="float: right;color: gray;position: relative;top:3px">{$v[sales_sum]}人付款</span>-->
             </div>
+            <a href="{:U('Home/user/login')}" class="Obtain">登录获取最新价格</a>
           </div>
           <!-- 价格 end-->
           <!-- 品名 -->
@@ -247,10 +248,11 @@
             <span><?php
 
                  $goodsattr=D()->query("select attr_name ,attr_value from tp_goods_attr as a,tp_goods_attribute as b where a.goods_id=$v[goods_id] and a.attr_id=b.attr_id and attr_name='含糖量'");
-                 echo $goodsattr[0]['attr_name'];
-                 echo "：";
-                 echo $goodsattr[0]['attr_value'];
-                 
+                if($goodsattr){
+                   echo $goodsattr[0]['attr_name'];
+                   echo "：";
+                   echo $goodsattr[0]['attr_value'];
+                }
 
            ?></span>
           </div>
@@ -290,11 +292,11 @@
         return "";
     }
     var name = getCookie("uname");
+    var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
     var a=document.querySelectorAll(".new")
     var Obtain=document.querySelectorAll(".Obtain")
-    console.log(Obtain)
 
-    if(name==""){
+    if(name=="" || show_price == 0){
         for(var i=0;i<a.length;i++) {
             a[i].style.display="none"
         }

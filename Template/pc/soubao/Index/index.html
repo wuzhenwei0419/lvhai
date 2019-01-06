@@ -271,9 +271,15 @@
                    ?></span>
                                             </dd>
                                             <dd class="price">
-                                                <span class="curr">¥<font class="p_price" id="100826791_-1081777">{$vg.shop_price}</font></span>
+                                                <span class="curr" style="font-size: 14px;"><if condition="$v.shop_price_jin gt 0">约</if>¥<font class="p_price" id="100826791_-1081777">{$vg.shop_price}元/箱</font></span>
                                                 <i class="login-get-price"><a href="{:U('Home/user/login')}">登录获取最新价格</a></i>
-                                                <del class="prev">¥<font>{$vg.market_price}</font></del></dd>
+                                                <if condition="$vg.shop_price_jin gt 0">
+                                                    <i class="prev" style="color: #0bb20c;">¥{$vg.shop_price_jin}元/斤</i>
+                                                </if>
+                                                <if condition="$vg.shop_price_about_jin gt 0">
+                                                    <i class="prev" style="font-size: 12px;color: #333;">¥{$vg.shop_price_about_jin}元/斤</i>
+                                                </if>
+                                            </dd>
                                         </dl>
                                     </foreach>
                                 </div>
@@ -304,7 +310,13 @@
                             <div class="item <if condition="$k eq 0">item-big<else/>item-small</if> ">
                             <div class="pic"><a href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}" target="_blank"><img class="img100 prod" src="__STATIC__/images/lazy_loading.jpg" data-original="{$v.goods_id|goods_thum_images=400,400}"></a></div>
                             <a class="title" href="{:U('Home/Goods/goodsInfo',array('id'=>$v[goods_id]))}">{$v.goods_name}</a>
-                            <p class="num curr" >¥<font class="p_price" id="100395552_-1081039">{$v.shop_price}</font></p>
+                            <p class="num curr" style="font-size: 12px;" ><if condition="$v.shop_price_jin gt 0">约</if>¥<font class="p_price" id="100395552_-1081039">{$v.shop_price}元/箱</font></p>
+                            <if condition="$v.shop_price_jin gt 0">
+                                <p class="curr" style="color: #0bb20c;">¥{$v.shop_price_jin}元/斤</p>
+                            </if>
+                            <if condition="$v.shop_price_about_jin gt 0">
+                                <p class="curr" style="color: #333;">¥{$v.shop_price_about_jin}元/斤</p>
+                            </if>
                             <i class="login-get-price"><a href="{:U('Home/user/login')}">登录获取最新价格</a></i>
                     </div>
                     </tpshop>
