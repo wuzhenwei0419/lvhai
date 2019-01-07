@@ -1248,12 +1248,15 @@ class UserController extends BaseController {
 //            exit(json_encode($res));
 //        }
         if($data['id']){
+            $data['status'] = 1;
             $list=$model->save($data);
         }else{
             $list=$model->add($data);
         }
 
         if($list){
+            $data1['shop_status'] = 1;
+            M('users')->where(array('user_id'=>$this->user_id))->save($data1);
             $this->success('上传成功',U('Mobile/User/shop_address'));
 
         }else{
