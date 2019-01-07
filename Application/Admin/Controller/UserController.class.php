@@ -32,6 +32,7 @@ class UserController extends BaseController {
         $condition = array();
         I('mobile') ? $condition['mobile'] = I('mobile') : false;
         I('email') ? $condition['email'] = I('email') : false;
+        I('nickname') ? $condition['nickname'] = I('nickname') : false;
         $sort_order = I('order_by','user_id').' '.I('sort','desc');
                
         $model = M('users');

@@ -36,6 +36,7 @@ class UserController extends BaseController {
 
             if ( ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3)
                 && ACTION_NAME != 'add_shop_address'){
+                setcookie('show_price', 0, null, '/');
                 $this->shop_address();
                 exit;
             }elseif ($this->shop_status == 2){
