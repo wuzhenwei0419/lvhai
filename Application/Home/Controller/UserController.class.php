@@ -36,11 +36,11 @@ class UserController extends BaseController {
 
             if ( ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3)
                 && ACTION_NAME != 'add_shop_address'){
-                setcookie('show_price', 0, null, '/');
+                setcookie('show_price', 0, time() + $this->loginCookieTime, '/');
                 $this->shop_address();
                 exit;
             }elseif ($this->shop_status == 2){
-                setcookie('show_price', 1, null, '/');
+                setcookie('show_price', 1, time() + $this->loginCookieTime, '/');
             };
 
         }else{
@@ -160,12 +160,12 @@ class UserController extends BaseController {
     		session('user',$res['result']);
             if ($res['result']['shop_status'] == 0 || $res['result']['shop_status'] == 1 || $res['result']['shop_status'] == 3 ){
                 $res['status'] = 99;
-                setcookie('show_price', 0, null, '/');
+                setcookie('show_price', 0, time() + $this->loginCookieTime, '/');
             }
-    		setcookie('user_id',$res['result']['user_id'],null,'/');
-    		setcookie('is_distribut',$res['result']['is_distribut'],null,'/');
+    		setcookie('user_id',$res['result']['user_id'],time() + $this->loginCookieTime,'/');
+    		setcookie('is_distribut',$res['result']['is_distribut'],time() + $this->loginCookieTime,'/');
     		$nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
-            setcookie('uname',urlencode($nickname),null,'/');
+            setcookie('uname',urlencode($nickname),time() + $this->loginCookieTime,'/');
             setcookie('cn',0,time()-3600,'/');
     		$cartLogic = new \Home\Logic\CartLogic();
     		$cartLogic->login_cart_handle($this->session_id,$res['result']['user_id']);  //用户登录后 需要对购物车 一些操作
@@ -209,10 +209,10 @@ class UserController extends BaseController {
             if($data['status'] != 1)
                 $this->error($data['msg']);
             session('user',$data['result']);
-    		setcookie('user_id',$data['result']['user_id'],null,'/');
-    		setcookie('is_distribut',$data['result']['is_distribut'],null,'/');
+    		setcookie('user_id',$data['result']['user_id'],time() + $this->loginCookieTime,'/');
+    		setcookie('is_distribut',$data['result']['is_distribut'],time() + $this->loginCookieTime,'/');
             $nickname = empty($data['result']['nickname']) ? $username : $data['result']['nickname'];
-            setcookie('uname',$nickname,null,'/');
+            setcookie('uname',$nickname,time() + $this->loginCookieTime,'/');
             $cartLogic = new \Home\Logic\CartLogic();
             $cartLogic->login_cart_handle($this->session_id,$data['result']['user_id']);  //用户登录后 需要对购物车 一些操作
             

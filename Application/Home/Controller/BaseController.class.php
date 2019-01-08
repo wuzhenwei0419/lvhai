@@ -15,6 +15,8 @@ use Think\Controller;
 class BaseController extends Controller {
     public $session_id;
     public $cateTrre = array();
+
+    public $loginCookieTime = 1296000;
     /*
      * 初始化操作
      */
@@ -25,7 +27,7 @@ class BaseController extends Controller {
             if ($user){
                 $user = M('users')->where("user_id = {$user['user_id']}")->find();
                 if ($user['shop_status'] == 2){
-                    setcookie('show_price', 1, null, '/');
+                    setcookie('show_price', 1, time() + $this->loginCookieTime, '/');
                 }
             }
         }
