@@ -138,7 +138,8 @@ class OrderLogic extends RelationModel
         //  订单总金额查询语句       
         $order = M('total_order')->where("order_id = $order_id")->find();
         $order['address2'] = $this->getAddressName($order['province'],$order['city'],$order['district']);
-        $order['address2'] = $order['address2'].$order['address'];      
+        $order['address2'] = $order['address2'].$order['address'];
+        $order['shop_name'] = M('shop_address')->where(array('user_id'=>$order['user_id']))->getField('shop_name');
         return $order;
     }
 
@@ -150,7 +151,8 @@ class OrderLogic extends RelationModel
         //  订单总金额查询语句		
         $order = M('order')->where("order_id = $order_id")->find();
         $order['address2'] = $this->getAddressName($order['province'],$order['city'],$order['district']);
-        $order['address2'] = $order['address2'].$order['address'];		
+        $order['address2'] = $order['address2'].$order['address'];
+        $order['shop_name'] = M('shop_address')->where(array('user_id'=>$order['user_id']))->getField('shop_name');
         return $order;
     }
 

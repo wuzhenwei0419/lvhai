@@ -76,7 +76,8 @@
                     <tbody><tr>
 					<td>收货人:</td>
 					<td>联系方式:</td>
-					<td>地址:</td>
+                    <td>地址:</td>
+                    <td>门店名:</td>
 					<td>邮编:</td>
 					<td>配送方式:</td>
 			 
@@ -85,6 +86,7 @@
                         <td>{$order.consignee}</td>
                         <td>{$order.mobile}</td>
                         <td>{$order.address2}</td>
+                        <td>{$order.shop_name}</td>
                         <td>
                             <if condition="$order.zipcode neq ''">
                                 {$order.zipcode}
