@@ -146,10 +146,14 @@ class UserController extends WechatBaseController{
         if ($res['status'] == 1) {
             $res['url'] = urldecode(I('post.referurl'));
             session('user', $res['result']);
-            setcookie('user_id', $res['result']['user_id'], null, '/');
-            setcookie('is_distribut', $res['result']['is_distribut'], null, '/');
+            if ($res['result']['shop_status'] == 0 || $res['result']['shop_status'] == 1 || $res['result']['shop_status'] == 3 ){
+                $res['status'] = 99;
+                setcookie('show_price', 0, time() + $this->loginCookieTime, '/');
+            }
+            setcookie('user_id', $res['result']['user_id'], time() + $this->loginCookieTime, '/');
+            setcookie('is_distribut', $res['result']['is_distribut'], time() + $this->loginCookieTime, '/');
             $nickname = empty($res['result']['nickname']) ? $username : $res['result']['nickname'];
-            setcookie('uname', $nickname, null, '/');
+            setcookie('uname', $nickname, time() + $this->loginCookieTime, '/');
             setcookie('cn', 0, time() - 3600, '/');
             $cartLogic = new \Home\Logic\CartLogic();
             $cartLogic->login_cart_handle($this->session_id, $res['result']['user_id']);  //用户登录后 需要对购物车 一些操作
@@ -187,8 +191,8 @@ class UserController extends WechatBaseController{
             if ($data['status'] != 1)
                 $this->error($data['msg']);
             session('user', $data['result']);
-            setcookie('user_id', $data['result']['user_id'], null, '/');
-            setcookie('is_distribut', $data['result']['is_distribut'], null, '/');
+            setcookie('user_id', $data['result']['user_id'], time() + $this->loginCookieTime, '/');
+            setcookie('is_distribut', $data['result']['is_distribut'], time() + $this->loginCookieTime, '/');
             $cartLogic = new \Home\Logic\CartLogic();
             $cartLogic->login_cart_handle($this->session_id, $data['result']['user_id']);  //用户登录后 需要对购物车 一些操作
             $this->success($data['msg'], U('Mobile/User/index'));

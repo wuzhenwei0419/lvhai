@@ -34,6 +34,11 @@ class CartController extends WechatBaseController {
                 if($user){
                     $user[discount] = (empty($user[discount])) ? 1 : $user[discount];
                     M('Cart')->execute("update `__PREFIX__cart` set member_goods_price = goods_price * {$user[discount]} where (user_id ={$user[user_id]} or session_id = '{$this->session_id}') and prom_type = 0");
+
+                    if ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3){
+                        header("location:" . U('Mobile/User/shop_address'));
+                        exit;
+                    };
                 }                 
          }            
     }
