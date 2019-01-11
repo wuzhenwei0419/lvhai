@@ -13,7 +13,8 @@
 namespace Mobile\Controller;
 class IndexController extends MobileBaseController {
 
-    public function index(){                
+    public function index(){
+        parent::_initialize();
         /*
             //获取微信配置
             $wechat_list = M('wx_user')->select();

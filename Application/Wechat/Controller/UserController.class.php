@@ -34,18 +34,35 @@ class UserController extends WechatBaseController{
             $this->user = $user;
             $this->user_id = $user['user_id'];
             $this->assign('user', $user); //存储用户信息
-        }
-        $nologin = array(
-            'login', 'pop_login', 'do_login', 'logout', 'verify', 'set_pwd', 'finished',
-            'verifyHandle', 'reg', 'send_sms_reg_code', 'find_pwd', 'check_validate_code',
-            'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code', 'express',
-        );
-        if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
-            header("location:" . U('Mobile/User/login'));
-            exit;
+
+            if ( ($this->shop_status == 0 || $this->shop_status == 1 || $this->shop_status == 3)
+                && ACTION_NAME != 'add_shop_address' && ACTION_NAME != 'shop_address_img1'
+                && ACTION_NAME != 'shop_address_img2' && ACTION_NAME != 'shop_address_img3'){
+                setcookie('show_price', 0, time() + $this->loginCookieTime, '/');
+                $this->shop_address();
+                exit;
+            }elseif ($this->shop_status == 2){
+                setcookie('show_price', 1, time() + $this->loginCookieTime, '/');
+            };
+        }else{
+            $nologin = array(
+                'login', 'pop_login', 'do_login', 'logout', 'verify', 'set_pwd', 'finished',
+                'verifyHandle', 'reg', 'send_sms_reg_code', 'find_pwd', 'check_validate_code',
+                'forget_pwd', 'check_captcha', 'check_username', 'send_validate_code',
+                'express', 'shop_address_img1', 'shop_address_img2', 'shop_address_img3'
+            );
+
+            if (!$this->user_id && !in_array(ACTION_NAME, $nologin)) {
+                header("location:" . U('Mobile/User/login'));
+                exit;
+            };
         }
 
+        //TODO 添加 待审核、已审核两种审核状态
         $order_status_coment = array(
+            'WAITAUDITING' => '待审核',
+            'AUDITED' => '已审核',
+
             'WAITPAY' => '待付款 ', //订单查询状态 待支付
             'WAITSEND' => '待发货', //订单查询状态 待发货
             'WAITRECEIVE' => '待收货', //订单查询状态 待收货
