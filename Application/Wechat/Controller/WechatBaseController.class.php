@@ -28,7 +28,7 @@ class WechatBaseController extends RestController{
       */
      public function _initialize() {
          //检查价格是否可见
-         if (isset($_COOKIE['show_price']) && $_COOKIE['show_price'] == 0){
+         if (!isset($_COOKIE['show_price']) || $_COOKIE['show_price'] == 0){
              if (isset($_COOKIE['user_id'])){
                  $user = M('users')->where("user_id = {$_COOKIE['user_id']}")->find();
                  session('user', $user);  //覆盖session 中的 user
