@@ -130,7 +130,7 @@ class OrderController extends BaseController {
         // $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
 
         $orderList = M('order')->field('mobile,order_id,order_sn,user_id,order_status,shipping_status,pay_status,consignee,sum(total_amount) as total_amount,
-            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time')->where($condition)->group("user_id")->order('add_time DESC')->select();
+            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time')->where($condition)->group("user_id, address_id")->order('add_time DESC')->select();
 
         //TODO 统计已审核及未审核的订单数
         $orderAudit = array();
@@ -138,6 +138,7 @@ class OrderController extends BaseController {
             // 未审核的订单数
             $condition['user_id'] = $val['user_id'];
             $condition['order_status'] = 0;
+            $condition['address_id'] = $val['address_id'];
             $waitAuditCount = M('order')->where($condition)->count();
 
             $orderAudit[$val['user_id']]['waitAuditCount'] = $waitAuditCount;
@@ -145,13 +146,14 @@ class OrderController extends BaseController {
 
             //已审核的订单数
             $condition['user_id'] = $val['user_id'];
-            $condition['order_status'] = 1;
+            $condition['user_id'] = $val['user_id'];
+            $condition['address_id'] = $val['address_id'];
             $auditedCount = M('order')->where($condition)->count();
 
             $orderAudit[$val['user_id']]['auditedCount'] = $auditedCount;
 
             //校验是否已经合并了总订单
-            $where = "where user_id = ". $val['user_id'] ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";    
+            $where = "where user_id = ". $val['user_id'] ."  and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
             $sql = "select * from __PREFIX__total_order $where";
             $totalOrderInfo = D()->query($sql);
             if ($totalOrderInfo) {

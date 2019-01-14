@@ -23,10 +23,10 @@ class UserController extends BaseController {
 	
     public function _initialize() {      
         parent::_initialize();
-        if(session('?user'))
+        if(isset($_COOKIE['user_id']))
         {
-        	$user = session('user');
-            $user = M('users')->where("user_id = {$user['user_id']}")->find();
+//        	$user = session('user');
+            $user = M('users')->where("user_id = {$_COOKIE['user_id']}")->find();
             session('user',$user);  //覆盖session 中的 user               
         	$this->user = $user;
         	$this->user_id = $user['user_id'];

@@ -28,10 +28,11 @@ class MobileBaseController extends Controller {
      */
     public function _initialize() {
         //检查价格是否可见
-        if ($_COOKIE['show_price'] == 0){
-            $user = session('user');
-            if ($user){
-                $user = M('users')->where("user_id = {$user['user_id']}")->find();
+        if (isset($_COOKIE['show_price']) && $_COOKIE['show_price'] == 0){
+//            $user = session('user');
+            if (isset($_COOKIE['user_id'])){
+                $user = M('users')->where("user_id = {$_COOKIE['user_id']}")->find();
+                session('user', $user);  //覆盖session 中的 user
                 if ($user['shop_status'] == 2){
                     setcookie('show_price', 1, time() + $this->loginCookieTime, '/');
                 }

@@ -339,6 +339,7 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
         $data = array(
                 'order_sn'         => date('YmdHis').rand(1000,9999), // 订单编号
                 'user_id'          =>$user_id, // 用户id
+                'address_id'        =>$address_id, // 收货地址ID
                 'consignee'        =>$address['consignee'], // 收货人
                 'province'         =>$address['province'],//'省份id',
                 'city'             =>$address['city'],//'城市id',
