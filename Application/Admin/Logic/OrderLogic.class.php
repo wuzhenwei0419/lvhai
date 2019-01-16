@@ -55,6 +55,9 @@ class OrderLogic extends RelationModel
            if($condition['order_status']!=''){
             $sql.=" and order_status =".$condition['order_status'];
            }
+            if($condition['address_id']!=''){
+                $sql.=" and order_status =".$condition['address_id'];
+            }
            if($condition['add_time']!=''){
             $s=str_replace("between"," between ",$condition['add_time'][0]);
             $l=str_replace(","," and ",$condition['add_time'][1]);

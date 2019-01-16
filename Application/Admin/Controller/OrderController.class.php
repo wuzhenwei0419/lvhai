@@ -67,6 +67,8 @@ class OrderController extends BaseController {
         I('pay_code') != '' ? $condition['pay_code'] = I('pay_code') : false;
         I('shipping_status') != '' ? $condition['shipping_status'] = I('shipping_status') : false;
         I('user_id') ? $condition['user_id'] = trim(I('user_id')) : false;
+        I('address_id') ? $condition['address_id'] = trim(I('address_id')) : false;
+
         $sort_order = I('order_by','DESC').' '.I('sort');
         $order_triage=I('order_triage');
         $count = M('order')->where($condition)->count();
@@ -120,7 +122,7 @@ class OrderController extends BaseController {
         //var_dump(print_r($condition['admin_id']));
         $sort_order = I('order_by','DESC').' '.I('sort');
         $count = M('order')->where($condition)->group("user_id")->count();
-        $Page  = new AjaxPage($count,100);
+        $Page  = new AjaxPage($count,1000);
         //  搜索条件下 分页赋值
         foreach($condition as $key=>$val) {
             $Page->parameter[$key]   =  urlencode($val);
@@ -130,36 +132,37 @@ class OrderController extends BaseController {
         // $orderList = $orderLogic->getOrderList($condition,$sort_order,$Page->firstRow,$Page->listRows);
 
         $orderList = M('order')->field('mobile,order_id,order_sn,user_id,order_status,shipping_status,pay_status,consignee,sum(total_amount) as total_amount,
-            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time')->where($condition)->group("user_id, address_id")->order('add_time DESC')->select();
+            sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time, address_id')->where($condition)->group("user_id, address_id")->order('add_time DESC')->select();
 
         //TODO 统计已审核及未审核的订单数
         $orderAudit = array();
         foreach($orderList as $key=>$val){
             // 未审核的订单数
+            $condition = array();
             $condition['user_id'] = $val['user_id'];
             $condition['order_status'] = 0;
             $condition['address_id'] = $val['address_id'];
             $waitAuditCount = M('order')->where($condition)->count();
 
-            $orderAudit[$val['user_id']]['waitAuditCount'] = $waitAuditCount;
+            $orderAudit[$val['address_id']]['waitAuditCount'] = $waitAuditCount;
 
 
             //已审核的订单数
             $condition['user_id'] = $val['user_id'];
-            $condition['user_id'] = $val['user_id'];
+            $condition['order_status'] = 1;
             $condition['address_id'] = $val['address_id'];
             $auditedCount = M('order')->where($condition)->count();
 
-            $orderAudit[$val['user_id']]['auditedCount'] = $auditedCount;
+            $orderAudit[$val['address_id']]['auditedCount'] = $auditedCount;
 
             //校验是否已经合并了总订单
-            $where = "where user_id = ". $val['user_id'] ."  and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
+            $where = "where user_id = ". $val['user_id'] ." and address_id =" . $val['address_id']."  and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
             $sql = "select * from __PREFIX__total_order $where";
             $totalOrderInfo = D()->query($sql);
             if ($totalOrderInfo) {
-                $orderAudit[$val['user_id']]['mergeStatus'] = '已合并';
+                $orderAudit[$val['address_id']]['mergeStatus'] = '已合并';
             } else{
-                $orderAudit[$val['user_id']]['mergeStatus'] = '未合并';
+                $orderAudit[$val['address_id']]['mergeStatus'] = '未合并';
             }
 
         }
@@ -174,13 +177,14 @@ class OrderController extends BaseController {
     //TODO 合并生成总订单
     public function mergeOrder(){
         $user_id = I('user_id');
-        if(!$user_id){
+        $address_id = I('address_id');
+        if(!$user_id || !$address_id){
             $this->error('用户id参数缺失~');
             exit;
         }
 
         //校验是否已经合并了总订单
-        $where = "where user_id = ". $user_id ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";    
+        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
         $sql = "select * from __PREFIX__total_order $where";
         $totalOrderInfo = D()->query($sql);
         if ($totalOrderInfo) {
@@ -189,13 +193,13 @@ class OrderController extends BaseController {
         }    
 
 
-        $where = "where user_id = ". $user_id ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1 limit 1";    
+        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1 limit 1";
         $sql = "select * from __PREFIX__order $where";
         $orderInfo = D()->query($sql); 
 
         if ($orderInfo) {
             //对订单的金额进行求和
-            $where = "where user_id = ". $user_id ." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1";    
+            $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1";
             $sql = "select sum(goods_price) as goods_price, sum(shipping_price) as shipping_price, sum(user_money) as user_money, 
             sum(coupon_price) as coupon_price, sum(integral) as integral
             , sum(integral_money) as integral_money, sum(order_amount) as order_amount, sum(total_amount) as total_amount
@@ -213,19 +217,20 @@ class OrderController extends BaseController {
             $orderInfo[0]['order_amount'] = $sumOrderInfo[0]['order_amount']; 
             $orderInfo[0]['total_amount'] = $sumOrderInfo[0]['total_amount']; 
             $orderInfo[0]['order_prom_amount'] = $sumOrderInfo[0]['order_prom_amount']; 
-            $orderInfo[0]['discount'] = $sumOrderInfo[0]['discount']; 
+            $orderInfo[0]['discount'] = $sumOrderInfo[0]['discount'];
             $orderInfo[0]['order_id'] = "";
+            $orderInfo[0]['address_id'] = $address_id;
             $orderInfo[0]['order_sn'] = date('YmdHis').mt_rand(1000,9999);
 
 
             $total_order_id = M('total_order')->add($orderInfo[0]);//插入订单总表
 
             //更新子订单相关信息
-            $sql = "update __PREFIX__order set total_order_id = ".$total_order_id." where user_id = ".$user_id." and order_status = 1
+            $sql = "update __PREFIX__order set total_order_id = ".$total_order_id." where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1
             and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE()";
             $row = D()->query($sql);
 
-            $sql = "update __PREFIX__order_goods set total_order_id = ".$total_order_id." where order_id in (select order_id from __PREFIX__order where user_id = ".$user_id." and order_status = 1 and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() ) ";
+            $sql = "update __PREFIX__order_goods set total_order_id = ".$total_order_id." where order_id in (select order_id from __PREFIX__order where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1 and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() ) ";
             $row = D()->query($sql);
 
 
