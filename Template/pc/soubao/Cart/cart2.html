@@ -363,22 +363,22 @@ function swidth_address(obj)
 	if (typeof($(obj).attr('data-province-id')) != 'undefined') {
 		ajax_pickup(province_id,city_id,district_id,0);
 	}
-	if(city_id != 13280){	
-		var input = $(".order-invoice-list").find("input:radio");
-		input.each(function(){
-			 if($(this).val()=='lvhaiflash'){
-				$(this).attr("disabled","disabled");
-			 }    
-		});
-	//alert(jxqumf);
-	}else{
-		var input = $(".order-invoice-list").find("input:radio");
-		input.each(function(){
-			 if($(this).val()=='lvhaiflash'){
-				$(this).attr("disabled",false);
-			 }    
-		});
-	}
+//	if(city_id != 13280){
+//		var input = $(".order-invoice-list").find("input:radio");
+//		input.each(function(){
+//			 if($(this).val()=='lvhaiflash'){
+//				$(this).attr("disabled","disabled");
+//			 }
+//		});
+//	//alert(jxqumf);
+//	}else{
+//		var input = $(".order-invoice-list").find("input:radio");
+//		input.each(function(){
+//			 if($(this).val()=='lvhaiflash'){
+//				$(this).attr("disabled",false);
+//			 }
+//		});
+//	}
 	$(".order-address-list").removeClass('address_current');
 	$(obj).parent().parent().parent().parent().parent().addClass('address_current');
 	
