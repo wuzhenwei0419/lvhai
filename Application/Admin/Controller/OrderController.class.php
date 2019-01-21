@@ -55,6 +55,10 @@ class OrderController extends BaseController {
         	$begin = strtotime($gap[0]);
         	$end = strtotime($gap[1]);
         }
+        if (I('collect') == 1){
+            $begin = strtotime(date('Y-m-d'));
+            $end = strtotime(date('Y-m-d').' 23:59:59');
+        }
         // 搜索条件
         $condition = array();
         I('consignee') ? $condition['consignee'] = trim(I('consignee')) : false;
@@ -142,6 +146,10 @@ class OrderController extends BaseController {
             $condition['user_id'] = $val['user_id'];
             $condition['order_status'] = 0;
             $condition['address_id'] = $val['address_id'];
+
+            $begin = strtotime(date('Y-m-d'));
+            $end = strtotime(date('Y-m-d').' 23:59:59');
+            $condition['add_time'] = array('between',"$begin,$end");
             $waitAuditCount = M('order')->where($condition)->count();
 
             $orderAudit[$val['address_id']]['waitAuditCount'] = $waitAuditCount;
