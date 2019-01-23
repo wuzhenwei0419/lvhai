@@ -327,6 +327,16 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
      */
     public function addOrder($user_id,$address_id,$shipping_code,$invoice_title,$coupon_id = 0,$car_price)
     {
+
+        $cartList = M('Cart')->where("user_id = $user_id and selected = 1")->select();
+        foreach($cartList as $key => $val)
+        {
+            $goods = M('goods')->where("goods_id = {$val['goods_id']} ")->find();
+            //校验库存是否充足
+            if ($goods['store_count'] < $val['goods_num']){
+                return array('status'=>-4,'msg'=>$val['goods_name'].'库存不足，剩余库存'.$goods['store_count'].'件','result'=>NULL);
+            }
+        }
         
         // 仿制灌水 1天只能下 50 单  // select * from `tp_order` where user_id = 1  and order_sn like '20151217%' 
         $order_count = M('Order')->where("user_id= $user_id and order_sn like '".date('Ymd')."%'")->count(); // 查找购物车商品总数量

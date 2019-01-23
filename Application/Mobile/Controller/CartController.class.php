@@ -88,6 +88,10 @@ class CartController extends MobileBaseController {
             exit(json_encode(array('status'=>-2,'msg'=>'平台下单时间：'.$begin_time.'点至'.$end_time.'点，谢谢配合！','result'=>'')));
         }
 
+        if($this->user_id == 0){
+            exit(json_encode(array('status'=>-2,'msg'=>"请先登录",'result'=>null)));
+        }
+
         $goods_id = I("goods_id"); // 商品id
         $goods_num = I("goods_num");// 商品数量
         $goods_spec = I("goods_spec"); // 商品规格
@@ -279,7 +283,7 @@ class CartController extends MobileBaseController {
     {
         $post_goods_num = I("goods_num"); // goods_num 购物车商品数量
         $post_cart_select = I("cart_select"); // 购物车选中状态
-        $where = " session_id = '$this->session_id' "; // 默认按照 session_id 查询
+//        $where = " session_id = '$this->session_id' "; // 默认按照 session_id 查询
         $this->user_id && $where = " user_id = ".$this->user_id; // 如果这个用户已经等了则按照用户id查询
 
         $cartList = M('Cart')->where($where)->getField("id,goods_num,selected,prom_type,prom_id,goods_id");
