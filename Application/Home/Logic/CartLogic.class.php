@@ -504,7 +504,7 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
 	   if(empty($session_id) || empty($user_id))
 	     return false;
         // 登录后将购物车的商品的 user_id 改为当前登录的id            
-        M('cart')->where("session_id = '$session_id'")->save(array('user_id'=>$user_id));                    
+//        M('cart')->where("session_id = '$session_id'")->save(array('user_id'=>$user_id));
         
         $Model = new \Think\Model();
         // 查找购物车两件完全相同的商品
