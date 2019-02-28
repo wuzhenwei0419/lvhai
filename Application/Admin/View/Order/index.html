@@ -16,6 +16,7 @@
                     <div class="navbar navbar-default">
                             <form action="{:U('Admin/order/export_order')}" id="search-form2" class="navbar-form form-inline" method="post">
                                 <input type="hidden" name="address_id" value="{$_GET[address_id]}">
+                                <input type="hidden" name="order_time" value="{$_GET[order_time]}">
                                 <input type="hidden" name="collect" value="{$_GET[collect]}">
                                 <div class="form-group">
                                     <label class="control-label" for="input-order-id">收货人</label>

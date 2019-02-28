@@ -52,10 +52,10 @@
                     <td class="text-center">{$orderAudit[$list[address_id]][mergeStatus]}</td>
                     <td class="text-center">{$list.add_time|date='Y-m-d H:i',###}</td>
                     <td class="text-center">
-                        <a href="{:U('Admin/order/index',array('user_id'=>$list['user_id'],'collect'=>1,'address_id'=>$list['address_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-eye"></i></a>
+                        <a href="{:U('Admin/order/index',array('user_id'=>$list['user_id'],'collect'=>1,'address_id'=>$list['address_id'],'order_time'=>$order_time))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="查看详情"><i class="fa fa-eye"></i></a>
 
-                        <!--TODO 合并生成总订单-->
-                        <a href="{:U('Admin/order/mergeOrder',array('user_id'=>$list['user_id'],'address_id'=>$list['address_id']))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="合并生成总订单">合并生成总订单</i></a>
+                        <!--合并生成总订单-->
+                        <a href="{:U('Admin/order/mergeOrder',array('user_id'=>$list['user_id'],'address_id'=>$list['address_id'],'order_time'=>$order_time))}" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="合并生成总订单">合并生成总订单</i></a>
 
                         <!--<if condition="($list['order_status'] eq 3) or ($list['order_status'] eq 5)">-->
                             <!--<a href="{:U('Admin/order/delete_order',array('order_id'=>$list['order_id']))}"  data-toggle="tooltip" class="btn btn-danger" title="删除"><i class="fa fa-trash-o"></i></a>-->

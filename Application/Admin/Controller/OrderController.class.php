@@ -56,8 +56,24 @@ class OrderController extends BaseController {
         	$end = strtotime($gap[1]);
         }
         if (I('collect') == 1){
-            $begin = strtotime(date('Y-m-d'));
-            $end = strtotime(date('Y-m-d').' 23:59:59');
+            //如果操作时间为0点到4点时 显示前一天的订单
+//            if (time() < strtotime(date('Y-m-d').' 04:00:00') ){
+//                $begin = strtotime("-1 day", date('Y-m-d'));
+//                $end = strtotime("-1 day",date('Y-m-d').' 23:59:59');
+//            }else{
+//                $begin = strtotime(date('Y-m-d'));
+//                $end = strtotime(date('Y-m-d').' 23:59:59');
+//            }
+
+            //后台选定日期进行查看该天的用户订单
+            $order_time = I('order_time');
+            if ($order_time){
+                $begin = strtotime($order_time);
+                $end = strtotime($order_time.' 23:59:59');
+            }else{
+                $begin = strtotime(date('Y-m-d'));
+                $end = strtotime(date('Y-m-d').' 23:59:59');
+            }
         }
         // 搜索条件
         $condition = array();
@@ -112,8 +128,26 @@ class OrderController extends BaseController {
         // if($begin && $end){
         //     $condition['add_time'] = array('between',"$begin,$end");
         // }
-        $begin = strtotime(date('Y-m-d'));
-        $end = strtotime(date('Y-m-d').' 23:59:59');
+        //如果操作时间为0点到4点时 显示前一天的订单
+//        if (time() < strtotime(date('Y-m-d').' 04:00:00') ){
+//            $begin = strtotime("-1 day", date('Y-m-d'));
+//            $end = strtotime("-1 day",date('Y-m-d').' 23:59:59');
+//        }else{
+//            $begin = strtotime(date('Y-m-d'));
+//            $end = strtotime(date('Y-m-d').' 23:59:59');
+//        }
+
+
+        //后台选定日期进行查看该天的用户订单
+        $order_time = I('order_time');
+        if ($order_time){
+            $begin = strtotime($order_time);
+            $end = strtotime($order_time.' 23:59:59');
+        }else{
+            $begin = strtotime(date('Y-m-d'));
+            $end = strtotime(date('Y-m-d').' 23:59:59');
+            $order_time = date('Y-m-d');
+        }
 
         $condition['add_time'] = array('between',"$begin,$end");
         I('order_sn') ? $condition['order_sn'] = trim(I('order_sn')) : false;
@@ -138,17 +172,18 @@ class OrderController extends BaseController {
         $orderList = M('order')->field('mobile,order_id,order_sn,user_id,order_status,shipping_status,pay_status,consignee,sum(total_amount) as total_amount,
             sum(goods_price) as goods_price, sum(order_amount) as order_amount, add_time, address_id')->where($condition)->group("user_id, address_id")->order('add_time DESC')->select();
 
-        //TODO 统计已审核及未审核的订单数
+        //统计已审核及未审核的订单数
         $orderAudit = array();
         foreach($orderList as $key=>$val){
             // 未审核的订单数
             $condition = array();
             $condition['user_id'] = $val['user_id'];
             $condition['order_status'] = 0;
+//            if (empty($val['address_id'])) continue;
             $condition['address_id'] = $val['address_id'];
 
-            $begin = strtotime(date('Y-m-d'));
-            $end = strtotime(date('Y-m-d').' 23:59:59');
+//            $begin = strtotime(date('Y-m-d'));
+//            $end = strtotime(date('Y-m-d').' 23:59:59');
             $condition['add_time'] = array('between',"$begin,$end");
             $waitAuditCount = M('order')->where($condition)->count();
 
@@ -164,7 +199,8 @@ class OrderController extends BaseController {
             $orderAudit[$val['address_id']]['auditedCount'] = $auditedCount;
 
             //校验是否已经合并了总订单
-            $where = "where user_id = ". $val['user_id'] ." and address_id =" . $val['address_id']."  and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
+            $trueDay = date('Y-m-d', $begin); //实际操作日期
+            $where = "where user_id = ". $val['user_id'] ." and address_id =" . $val['address_id']."  and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' limit 1";
             $sql = "select * from __PREFIX__total_order $where";
             $totalOrderInfo = D()->query($sql);
             if ($totalOrderInfo) {
@@ -177,6 +213,7 @@ class OrderController extends BaseController {
         $this->assign('orderAudit',$orderAudit);        
         $this->assign('orderList',$orderList);
         $this->assign('timegap',$timegap);
+        $this->assign('order_time',$order_time);
         $this->assign('page',$show);// 赋值分页输出
         $this->display();
 
@@ -190,9 +227,23 @@ class OrderController extends BaseController {
             $this->error('用户id参数缺失~');
             exit;
         }
+//        if (time() < strtotime(date('Y-m-d').' 04:00:00') ){
+//            $begin = strtotime("-1 day");
+//        }else{
+//            $begin = time();
+//        }
+        //后台选定日期进行查看该天的用户订单
+        $order_time = I('order_time');
+        if ($order_time){
+            $trueDay = $order_time; //实际操作日期
+        }else{
+            $trueDay = date('Y-m-d'); //实际操作日期
+        }
+
 
         //校验是否已经合并了总订单
-        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() limit 1";
+
+        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' limit 1";
         $sql = "select * from __PREFIX__total_order $where";
         $totalOrderInfo = D()->query($sql);
         if ($totalOrderInfo) {
@@ -201,13 +252,13 @@ class OrderController extends BaseController {
         }    
 
 
-        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1 limit 1";
+        $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' and order_status = 1 limit 1";
         $sql = "select * from __PREFIX__order $where";
         $orderInfo = D()->query($sql); 
 
         if ($orderInfo) {
             //对订单的金额进行求和
-            $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() and order_status = 1";
+            $where = "where user_id = ". $user_id ." and address_id =" . $address_id." and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' and order_status = 1";
             $sql = "select sum(goods_price) as goods_price, sum(shipping_price) as shipping_price, sum(user_money) as user_money, 
             sum(coupon_price) as coupon_price, sum(integral) as integral
             , sum(integral_money) as integral_money, sum(order_amount) as order_amount, sum(total_amount) as total_amount
@@ -235,10 +286,10 @@ class OrderController extends BaseController {
 
             //更新子订单相关信息
             $sql = "update __PREFIX__order set total_order_id = ".$total_order_id." where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1
-            and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE()";
+            and FROM_UNIXTIME(add_time, '%Y-%m-%d') = ".$trueDay;
             $row = D()->query($sql);
 
-            $sql = "update __PREFIX__order_goods set total_order_id = ".$total_order_id." where order_id in (select order_id from __PREFIX__order where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1 and FROM_UNIXTIME(add_time, '%y-%m-%d') = CURDATE() ) ";
+            $sql = "update __PREFIX__order_goods set total_order_id = ".$total_order_id." where order_id in (select order_id from __PREFIX__order where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1 and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' ) ";
             $row = D()->query($sql);
 
 
