@@ -108,7 +108,7 @@ class OrderController extends BaseController {
 
     public function userindex(){
         $begin = date('Y/m/d',(time()));
-        $end = date('Y/m/d',strtotime('+1 days'));  
+        $end = date('Y/m/d',strtotime('+1 days'));
         $this->assign('timegap',$begin.'-'.$end);
         $this->display();
     }
@@ -1062,14 +1062,25 @@ class OrderController extends BaseController {
 			$where .= " AND order_status = ".I('order_status');
 		}
 		
-		$timegap = I('timegap');
-		if($timegap){
-			$gap = explode('-', $timegap);
-			$begin = strtotime($gap[0]);
-			$end = strtotime($gap[1]);
-			$where .= " AND add_time>$begin and add_time<$end ";
-		}
-		    
+//		$timegap = I('timegap');
+//		if($timegap){
+//			$gap = explode('-', $timegap);
+//			$begin = strtotime($gap[0]);
+//			$end = strtotime($gap[1]);
+//			$where .= " AND add_time>$begin and add_time<$end ";
+//		}
+
+        $order_time = I('order_time');
+        if ($order_time){
+            $begin = strtotime($order_time);
+            $end = strtotime('+1 days',strtotime($order_time));
+        }else{
+            $begin = time();
+            $end = strtotime('+1 days');
+            $order_time = date('Y-m-d');
+        }
+        $where .= " AND add_time>$begin and add_time<$end ";
+
 		$sql = "select *,FROM_UNIXTIME(add_time,'%Y-%m-%d') as create_time from __PREFIX__order $where order by order_id";
     	$orderList = D()->query($sql);
     	$strTable ='<table width="500" border="1">';
@@ -1104,7 +1115,8 @@ class OrderController extends BaseController {
 	    		$strGoods="";
 	    		foreach($orderGoods as $goods){
 	    			$strGoods .= "商品编号：".$goods['goods_sn']." 商品名称：".$goods['goods_name'];
-	    			if ($goods['spec_key_name'] != '') $strGoods .= " 规格：".$goods['spec_key_name'];
+                    if ($goods['spec_key_name'] != '') $strGoods .= " 规格：".$goods['spec_key_name'];
+                    $strGoods .= " 数量：".$goods['goods_num']." 单价：".$goods['goods_price'];
 	    			$strGoods .= "<br />";
 	    		}
 	    		unset($orderGoods);
@@ -1114,7 +1126,7 @@ class OrderController extends BaseController {
 	    }
     	$strTable .='</table>';
     	unset($orderList);
-    	downloadExcel($strTable,'order');
+        downloadExcelByDate($strTable,'order',$order_time);
     	exit();
     }
 
