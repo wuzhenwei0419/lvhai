@@ -1075,8 +1075,8 @@ class OrderController extends BaseController {
             $begin = strtotime($order_time);
             $end = strtotime('+1 days',strtotime($order_time));
         }else{
-            $begin = time();
-            $end = strtotime('+1 days');
+            $begin = strtotime(date('Y-m-d'));
+            $end = strtotime('+1 days',$begin);
             $order_time = date('Y-m-d');
         }
         $where .= " AND add_time>$begin and add_time<$end ";
