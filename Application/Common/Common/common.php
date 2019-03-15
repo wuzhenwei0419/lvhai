@@ -1241,8 +1241,8 @@ function calculate_price($user_id=0,$order_goods,$shipping_code='',$shipping_pri
             
 
 
-				
-            $order_goods[$key]['goods_fee'] = $val['goods_num'] * $val['member_goods_price'];    // 小计            
+			//如果有商品重量，则商品价格=重量*价格
+            $order_goods[$key]['goods_fee'] = $val['goods_weight'] ? $val['goods_weight'] * $val['member_goods_price'] : $val['goods_num']  * $val['member_goods_price'];    // 小计
             $order_goods[$key]['store_count']  = getGoodNum($val['goods_id'],$val['spec_key']); // 最多可购买的库存数量
             if($order_goods[$key]['store_count'] <= 0) 
                 return array('status'=>-10,'msg'=>$order_goods[$key]['goods_name']."库存不足,请重新下单",'result'=>''); 

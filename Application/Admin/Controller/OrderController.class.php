@@ -484,9 +484,9 @@ class OrderController extends BaseController {
             //TODO 更新因修改商品数量而影响的子订单
             foreach($subOrderIds as $val){
                 $where = "where order_id = ". $val;    
-                $sql = "update __PREFIX__order set goods_price = (select sum(goods_num * goods_price) from __PREFIX__order_goods where order_id = ".$val."
-                    ),order_amount = (select sum(goods_num * goods_price) from __PREFIX__order_goods where order_id = ".$val."
-                    ),total_amount = (select sum(goods_num * goods_price) from __PREFIX__order_goods where order_id = ".$val.") $where";
+                $sql = "update __PREFIX__order set goods_price = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
+                    ),order_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
+                    ),total_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val.") $where";
 // print_r($sql); die();
                 D()->query($sql);
                 $orderLogic->OrderActionLog($val,'edit','修改订单');//操作日志

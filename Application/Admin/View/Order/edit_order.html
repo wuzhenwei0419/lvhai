@@ -162,10 +162,10 @@
 									                <td class="text-left">{$vo.goods_price}</td>
 									                <td class="text-left">
 									                <input type="hidden" name="spec[]" rel="{$vo.goods_id}" value="{$vo.spec_key}">
-									                <input type="text" class="input-sm" name="old_goods[{$vo.rec_id}]" value="{$vo.goods_num}" onkeyup="this.value=this.value.replace(/[^\d.]/g,'')" onpaste="this.value=this.value.replace(/[^\d.]/g,'')"></td>
+									                <input type="text" class="input-sm" name="old_goods[{$vo.rec_id}]" value="{$vo.goods_num}" onkeyup="this.value=this.value.replace(/[^\d]/g,'')" onpaste="this.value=this.value.replace(/[^\d]/g,'')"></td>
 
                                                         <td class="text-left">
-                                                        <input type="text" class="input-sm" name="old_goods_weight[{$vo.rec_id}]" value="{$vo.goods_weight}" onkeyup="this.value=this.value.replace(/[^\d+(?:\.\d{1,4})?$]/g,'')" onpaste="this.value=this.value.replace(/[^\d+(?:\.\d{1,4})?$]/g,'')"></td>
+                                                        <input type="text" class="input-sm" name="old_goods_weight[{$vo.rec_id}]" value="{$vo.goods_weight}" onkeyup="this.value=this.value.replace(/^(\d*\.?\d{0,2}).*/,'$1')" onpaste="this.value=this.value.replace(/^(\d*\.?\d{0,2}).*/,'$1')"></td>
 
 									                <td class="text-left"><a href="javascript:void(0)" onclick="javascript:$(this).parent().parent().remove();">删除</a></td>
 									           		</tr>
