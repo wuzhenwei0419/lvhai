@@ -1116,7 +1116,7 @@ class OrderController extends BaseController {
 	    		foreach($orderGoods as $goods){
 	    			$strGoods .= "商品编号：".$goods['goods_sn']." 商品名称：".$goods['goods_name'];
                     if ($goods['spec_key_name'] != '') $strGoods .= " 规格：".$goods['spec_key_name'];
-                    $strGoods .= " 数量：".$goods['goods_num']." 单价：".$goods['goods_price'];
+                    //$strGoods .= " 数量：".$goods['goods_num']." 单价：".$goods['goods_price'];
 	    			$strGoods .= "<br />";
 	    		}
 	    		unset($orderGoods);

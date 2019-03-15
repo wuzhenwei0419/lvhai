@@ -41,16 +41,16 @@ class CartLogic extends RelationModel
         $user_id = $user_id ? $user_id : 0;
 		if($user_id)
 		 $where .= "  or user_id= $user_id ";
-        $catr_count = M('Cart')->where($where)->count(); // 查找购物车商品总数量
-        if($catr_count >= 20) 
-            return array('status'=>-9,'msg'=>'购物车最多只能放20种商品','result'=>'');            
+        //$catr_count = M('Cart')->where($where)->count(); // 查找购物车商品总数量
+        //if($catr_count >= 20)
+            //return array('status'=>-9,'msg'=>'购物车最多只能放20种商品','result'=>'');
         
         if(!empty($specGoodsPriceList) && empty($goods_spec)) // 有商品规格 但是前台没有传递过来
             return array('status'=>-1,'msg'=>'必须传递商品规格','result'=>'');                        
         if($goods_num <= 0) 
             return array('status'=>-2,'msg'=>'购买商品数量不能为0','result'=>'');            
         if(empty($goods))
-            return array('status'=>-3,'msg'=>'购买商品不存在','result'=>'');            
+            return array('status'=>-3,'msg'=>'购买商品不存在','result'=>'');
         if(($goods['store_count'] < $goods_num))
             return array('status'=>-4,'msg'=>'商品库存不足','result'=>'');        
         if($goods['prom_type'] > 0 && $user_id == 0)
