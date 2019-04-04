@@ -16,7 +16,7 @@
     <script type="text/javascript" src="__STATIC__/js/touchslider.dev.js"></script>
     <script type="text/javascript" src="__STATIC__/js/layer.js" ></script>
     <script src="__PUBLIC__/js/global.js"></script>
-    <script src="__PUBLIC__/js/mobile_common.js"></script>
+    <script src="__PUBLIC__/js/mobile_common.js?v=1"></script>
     <script src="__STATIC__/js/common.js"></script>
 </head>
 <style>
@@ -321,7 +321,12 @@
                     var number = parseInt($this.val());
                     if(number < numMin){
                         $this.val(numMin);
+                    }else {
+                        if(checkGoodNum({$goods.goods_id},number)){
+                            $this.val(numMin);
+                        };
                     }
+
                 });
             </script>
             <script type="text/javascript">
@@ -367,13 +372,18 @@ function changeAtt1(t) {
   		var new_num=num_val.value;
   		var Num = parseInt(new_num);
   		if(Num>{$goods.quantity})Num=Num-1;
-  		num_val.value=Num;
+        if (checkGoodNum({$goods.goods_id},Num)){
+            num_val.value=Num;
+        };
   	}
   	function goods_add(){
   		var num_val=document.getElementById('number');
   		var new_num=num_val.value;
   		var Num = parseInt(new_num);
-  		Num=Num+1;  num_val.value=Num;
+  		Num=Num+1;
+        if (checkGoodNum({$goods.goods_id},Num)){
+            num_val.value=Num;
+        }
   	}
 
 </script>

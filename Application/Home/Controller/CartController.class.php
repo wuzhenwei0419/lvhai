@@ -379,4 +379,21 @@ class CartController extends BaseController {
         $template = I('template','header_cart_list');    	 
         $this->display($template);		 
     }
+
+    /**
+     * ajax 校验商品库存
+     */
+    function checkGoodNum()
+    {
+        if($this->user_id == 0){
+            exit(json_encode(array('status'=>-2,'msg'=>"请先登录",'result'=>null)));
+        }
+
+        $goods_id = I("goods_id"); // 商品id
+        $goods_num = I("goods_num");// 商品数量
+        $goods_spec = I("goods_spec"); // 商品规格
+        $act_id = I("id");
+        $result = $this->cartLogic->checkGoodNum($goods_id, $goods_num, $goods_spec,$act_id,$this->session_id,$this->user_id);
+        exit(json_encode($result));
+    }
 }

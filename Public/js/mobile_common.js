@@ -85,3 +85,23 @@ function AjaxAddCart(goods_id,num,to_catr,collage)
         }
     }
 }
+
+function checkGoodNum(goods_id,num)
+{
+    $.ajax({
+        type: "POST",
+        url: "/index.php?m=Home&c=Cart&a=checkGoodNum",
+        async:false,
+        data: {goods_id: goods_id, goods_num: num},
+        dataType: 'json',
+        success: function (data) {
+            // 加入购物车后再跳转到 购物车页面
+            if (data.status < 0) {
+                layer.open({content: data.msg, time: 2});
+                return false;
+            }
+
+        }
+    });
+    return true;
+}
