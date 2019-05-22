@@ -1,0 +1,103 @@
+/* 顶部 */
+.max-header{
+	border: 0;
+	background-color: #00e000!important;
+	height: 1.1rem;
+	line-height: 1.1rem!important;
+}
+.max-header .mui-title{
+	height: 1.1rem;
+	line-height: 1.1rem!important;
+	color: #fff!important;
+	font-size: 0.42rem;
+}
+/* 列表 */
+.max-list{
+	margin-top: 1.1rem;
+}
+
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item{
+	font-size: 0.24rem;
+	color: #666;
+	font-weight: bold;
+	border-bottom:1px solid #e3e3e3!important;
+	border-left: 0.05rem solid rgba(0,0,0,0);
+}
+.mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active{
+	color: #666;
+	border-left: 0.05rem solid #00e000;
+	background-color: #f9f9f9!important;
+}
+#segmentedControlContents{
+	background-color: #f9f9f9;
+}
+#segmentedControlContents .msx-title{
+	height: 0.7rem;
+	line-height: 0.7rem;
+	text-align: center;
+	font-size: 0.25rem;
+	color: #666666;
+	font-weight: bold;
+}
+#segmentedControlContents .msx-title span i{
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	border: 1px solid #333;
+	display: inline-block;
+	vertical-align: middle;
+	margin: 0 0.05rem;
+}
+#segmentedControlContents .mui-table-view .mui-media-object{
+	width: 100%;
+	max-width: 2rem;
+	max-height: 2rem;
+	line-height: auto;
+	min-width: 1rem;
+	min-height: 2rem;
+	
+}
+#segmentedControlContents .mui-table-view-cell:after{
+	display: none;
+}
+#segmentedControlContents .mui-table-view .mui-media-object img{
+	width: 100%;
+	border-radius: 0.09rem;
+}
+#segmentedControlContents .mui-media-body .mui-ellipsis-2{
+	font-size: 0.28rem;
+	color: #333;
+}
+.mui-table-view .mui-media-object.mui-pull-left{
+	margin-right: 0.3rem;
+}
+#segmentedControlContents .mui-media-body .mui-ellipsis{
+	text-align: center;
+	width: 1.5rem;
+	height: 0.36rem!important;
+	line-height: 0.33rem!important;
+	margin-top: 0.1rem!important;
+	font-size: 0.2rem!important;
+	color: #5bc25b!important;
+	border: 1px solid #5bc25b;
+	border-radius: 0.05rem;
+}
+#segmentedControlContents .mui-media-body .msx-add{
+	height: 0.4rem;
+	margin-top: 0.4rem;
+	position: relative;
+	font-size: 0.3rem;
+	color: #ff0000;
+}
+#segmentedControlContents .mui-media-body .msx-add img{
+	width: 0.5rem;
+	height: 0.5rem;
+	vertical-align: middle;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 10;
+}
+.mui-table-view{
+	background-color: #f9f9f9;
+}

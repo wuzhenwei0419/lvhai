@@ -1,0 +1,113 @@
+body{
+	background-color: #f5f5f5;
+}
+.msx-set{
+	background: url(../img/wode_01.jpg) no-repeat;
+	background-position: center top;
+	background-size: 100%;
+	border-bottom: 1px solid #e2e0e0;
+	padding-bottom: 0.18rem;
+}
+.mui-content > .mui-table-view:first-child{
+	margin-top: 0;
+}
+
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+	margin-top: 0;
+}
+.msx-set .msx-setting{
+	width: 1.15rem!important;
+	height: 0.68rem!important;
+	line-height: 0.68rem!important;
+	font-size: 0.3rem!important;
+	border-radius: 0.68rem;
+	background-color: rgba(0,0,0,0.4)!important;
+	color: #fff!important;
+	float: right!important;
+	margin-right: 0.24rem;
+}
+.msx-set  .msx-tel{
+	font-size: 0.34rem!important;
+	color: #fff!important;
+	font-weight: bold!important;
+	margin-bottom: 0.1rem;
+}
+.msx-set .msx-vip{
+	font-size: 0.26rem!important;
+	color: #dff8aa!important;
+}
+
+.msx-set .msx-tx img{
+	width: 80%;
+	border-radius: 50%;
+	max-width: 1.85rem;
+	max-height: 1.85rem;
+	float: left;
+}
+
+.msx-set .msx-dd{
+	margin-top: 0.8rem;
+	margin-right: 0.8rem;
+	border-right: 1px solid #eaeaea;
+	
+}
+.msx-set .msx-dd a{
+	height: 0.9rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.mui-table-view-cell:after{
+	left: 0;
+}
+
+.mui-table-view .mui-navigate-right{
+	color: #666!important;
+	font-size: 0.3rem;
+}
+.msx-gery{
+	color: #9a9a9a;
+	font-size: 0.24rem;
+	float: right;
+	margin-right: 0.5rem;
+}
+
+.mui-table-view .mui-navigate-right img{
+	max-width: 0.45rem;
+	max-height: 0.45rem;
+	vertical-align: middle;
+	margin-right: 0.35rem;
+}
+.msx-status{
+	padding-right:0.4rem;
+	display: flex!important;
+	flex-direction: row!important;
+	justify-content: space-between!important;
+	margin: 0.3rem 0;
+}
+.msx-status .msx-staus-icon{
+	position: relative;
+}
+.msx-status .msx-staus-icon img{
+	width: 0.45rem;
+	height: auto;
+}
+
+.msx-status .msx-staus-icon .mui-badge{
+	position: absolute;
+	top: -0.1rem;
+	right: 0;
+	padding: 0.03rem 0.08rem;
+}
+
+.msx-status .mui-media-body{
+	color: #a6a6a6!important;
+	font-size: 0.25rem!important;;
+}
+
+.msx-fw{
+	font-size: 0.25rem;
+	color: #999;
+	background-color: #f5f5f5;
+	padding-top: 1.2rem;
+}
