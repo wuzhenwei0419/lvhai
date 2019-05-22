@@ -1,174 +1,488 @@
 <!DOCTYPE html >
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <title>所有分类-{$tpshop_config['shop_info_store_title']}</title>
-  <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
-  <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
-  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-  <link rel="stylesheet" type="text/css" href="__STATIC__/css/public.css"/>
-  <link rel="stylesheet" type="text/css" href="__STATIC__/css/catalog.css"/>
-  <link rel="stylesheet" type="text/css" href="__STATIC__/css/layer.css"/>
-  <link rel="stylesheet" href="__STATIC__/css/lvhai.css">
-  <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
-  <script type="text/javascript" src="__STATIC__/js/layui.js"></script>
-  <script src="__PUBLIC__/js/global.js"></script>
-  <style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>分类</title>
 
-    .left{
-      width: 20%;
-      height: 91%;
-      background:	#F0F0F0;
-      float: left;
-      position: fixed; //TODO
+  <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
+  <link href="__STATIC__/css/v1/list.css" rel="stylesheet" />
+
+  <style>
+    .mui-row.mui-fullscreen>[class*="mui-col-"] {
+      height: 100%;
     }
-    .left li{
+
+    .mui-col-xs-3,
+    .mui-control-content {
+      overflow-y: auto;
+      height: 100%;
+    }
+
+    .mui-segmented-control .mui-control-item {
+      line-height: 50px;
       width: 100%;
-      height: 30px;
-      border-bottom:1px solid #BEBEBE ;
-      font-size: 16px;
-      color: black;
-      text-align: center;
-      padding-top: 10px;
-      padding-bottom: 10px;
     }
-    .left ul {
-      overflow-y: scroll;
-      /*height: 600px;*/
-      /*margin-top: 40px;*/
-    }
-    .left li h5{
-      color: #7B7B7B;
-      font-weight: 300;
-    }
-    .right{
-      float: right;
-      width: 80%;
-      min-height: 600px;
-      height:100% !important;
-      /*overflow: hidden;*/
-    }
-    #leftframe{
-      -webkit-overflow-scrolling:touch; overflow: scroll;
-    }
-    .top{
-      width: 100%;
-      height: 10%;
+
+    .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+      background-color: #fff;
     }
   </style>
 </head>
-<body class="page-cate">
-<div class="container top">
-  <div class="category-box">
-    <div class="category1" style="outline: none;" tabindex="5000">
-      <ul class="clearfix" >
-        <assign name="m" value="0"/>
-        <foreach name="goods_category_tree" item="vo" key="k">
-          <if condition="$vo[level] eq 1">
-            <li style=" background:#F0F0F0;
-" <if condition="$m eq 0">class='cur'</if> data-id="{$m++}">{$vo['mobile_name']|getSubstr=0,12}</li>
-          </if>
-        </foreach>
-      </ul>
+<body>
+<header class="mui-bar mui-bar-nav max-header">
+  <h1 class="mui-title">梦时鲜</h1>
+</header>
+
+<!-- 列表 -->
+<div class="mui-content mui-row mui-fullscreen max-list">
+  <div class="mui-col-xs-3">
+    <div id="segmentedControls" class="mui-segmented-control mui-segmented-control-inverted mui-segmented-control-vertical">
+      <a class="mui-control-item mui-active" href="#content1">罐头专场</a>
+      <a class="mui-control-item" href="#content2">精心挑选</a>
+      <a class="mui-control-item" href="#content3">时时上新</a>
     </div>
-    <div class="left"  style=" outline: none;" tabindex="5001" >
-  <assign name="j" value="0"/>
-  <foreach name="goods_category_tree" key="kk" item="vo">
-  <ul style="<if condition='$j eq 0'>display:block;<else/>display:none;</if>" data-id="{$j++}">
-  <foreach name="vo.tmenu" item="v2" key="k2">
-  <li>
-  <a data-url="{:U('Mobile/Goods/goodsList',array('id'=>$v2[id]))}" >
-  <h5>{$v2['name']}</h5>
+  </div>
+  <div id="segmentedControlContents" class="mui-col-xs-9">
+
+    <div id="content1" class="mui-control-content mui-active">
+      <div class="msx-title"><span><i></i>罐头专场<i></i></span></div>
+
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="sky-box"></div>
+    </div>
+    <div id="content2" class="mui-control-content">
+      <div class="msx-title"><span><i></i>精心挑选<i></i></span></div>
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="sky-box"></div>
+    </div>
+
+    <div id="content3" class="mui-control-content">
+      <div class="msx-title"><span><i></i>时时上新<i></i></span></div>
+      <ul class="mui-table-view">
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+        <li class="mui-table-view-cell mui-media">
+          <a href="javascript:;">
+            <div class="mui-media-object mui-pull-left"><img  src="__STATIC__/images/v1/list_07.jpg"></div>
+            <div class="mui-media-body">
+              <p class="mui-ellipsis-2">梦时鲜精选手工黄桃罐头</p>
+              <p class="mui-ellipsis">登陆查看价格</p>
+              <p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p>
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div class="sky-box"></div>
+    </div>
+
+
+  </div>
+</div>
+
+<!-- 占位 -->
+<div class="sky-box"></div>
+
+<nav class="mui-bar mui-bar-tab">
+  <a class="mui-tab-item mui-active" href="{:U('Index/index')}">
+    <span class="mui-icon"><img src="__STATIC__/images/v1/shouye1.jpg" /></span>
+    <span class="mui-tab-label">首页</span>
   </a>
-  </li>
-  </foreach>
-  </ul>
-  </foreach>
-</div>
-<div class="right">
-  <iframe align="center" id="leftframe" width="100%" height="100%" src="/index.php/Mobile/Goods/goodsList/id/0.html" frameborder="no" border="0" marginwidth="0"
-          marginheight="0" scrolling="yes" style="-webkit-overflow-scrolling:touch; overflow: scroll; min-height:600px;"></iframe>
-</div>
-<include file="Public/footer_nav"/>
-<script>
-    $(function () {
-        //iframe更换链接
-        $(".left a").click(function () {
-            var url = $(this).data("url");
-            console.log($(this).css)
-            $("#leftframe").attr("src", url);
-        });
+  <a class="mui-tab-item" href="{:U('Goods/categoryList')}">
+    <span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
+    <span class="mui-tab-label">分类</span>
+  </a>
+  <a class="mui-tab-item" href="{:U('Cart/cart')}">
+				<span class="mui-icon">
+					<img src="__STATIC__/images/v1/gouwuche.jpg" />
+					<span class="mui-badge mui-badge-warning">3</span></span>
+    <span class="mui-tab-label">购物车</span>
+  </a>
+  <a class="mui-tab-item" href="{:U('User/index')}">
+    <span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
+    <span class="mui-tab-label">我的</span>
+  </a>
+</nav>
+
+<script src="__STATIC__/js/v1/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    mui.init({
+        swipeBack: true //启用右滑关闭功能
     });
-    $(function () {
-        //滚动条
-        $(".category1,.left").niceScroll({ cursorwidth: 0,cursorborder:0 });
-        //点击切换2 3级分类
-        var array=new Array();
-        $('.category1 li').each(function(){
-            array.push($(this).position().top-0);
-        });
-
-        $('.category1 li').click(function() {
-            var index=$(this).index();
-            $('.category1').delay(200).animate({scrollTop:array[index]},300);
-            $(this).addClass('cur').siblings().removeClass();
-            $('.left ul').eq(index).show().siblings().hide();
-            $('.left').scrollTop(0);
-        });
-
-
-        var page = 2;
-
-        //下拉加载
-        //获取滚动条当前的位置
-        function getScrollTop() {
-            var scrollTop = 0;
-            if(document.documentElement && document.documentElement.scrollTop) {
-                scrollTop = document.documentElement.scrollTop;
-            } else if(document.body) {
-                scrollTop = document.body.scrollTop;
-            }
-            return scrollTop;
-        }
-        //获取当前可视范围的高度
-        function getClientHeight() {
-            var innerHeight =  window.innerHeight; //window的高度，即手机的高度
-            return innerHeight
-        }
-        //获取文档完整的高度
-        function getScrollHeight() {
-            return $("body").height()
-        }
-        //滚动事件触发
-        window.onscroll = function() {
-//	console.log(11);
-//            alert(1);
-            if(getScrollTop() + getClientHeight() ===getScrollHeight()) {
-                $.ajax({
-                    type : "get",
-                    url:"/index.php?m=Mobile&c=Goods&a=goodsList&id={$cat_id}&p=" +page,
-                    dataType:'html',
-                    success: function(data)
-                    {
-                        if(data){
-                            $("#goods_list").append(data);
-                            page++
-                            $('.get_more').hide();
-                        }else{
-                            $('.get_more').hide();
-                            $('#getmore').remove();
-                        }
-                    }
-                });
-
-
-            }
-        }
-
-    });
-
+    var controls = document.getElementById("segmentedControls");
+    var contents = document.getElementById("segmentedControlContents");
+    var html = [];
+    var i = 1,
+        j = 1,
+        /*  */
+        m = 16, //左侧选项卡数量+1
+        n = 21; //每个选项卡列表数量+1
+    // 			for (; i < m; i++) {
+    // 				html.push('<a class="mui-control-item" href="#content' + i + '">选项' + i + '</a>');
+    // 			}
+    // controls.innerHTML = html.join('');
+    // html = [];
+    // 			for (i = 1; i < m; i++) {
+    // 				html.push('<div id="content' + i + '" class="mui-control-content"><ul class="mui-table-view">');
+    // 				for (j = 1; j < n; j++) {
+    // 					html.push('<li class="mui-table-view-cell">第' + i + '个选项卡子项-' + j + '</li>');
+    // 				}
+    // 				html.push('</ul></div>');
+    // 			}
+    // contents.innerHTML = html.join('');
+    //默认选中第一个
+    controls.querySelector('.mui-control-item').classList.add('mui-active');
+    contents.querySelector('.mui-control-content').classList.add('mui-active');
 </script>
-<script src="__STATIC__/js/jquery.nicescroll.min.js"></script>
 </body>
 </html>

@@ -1,47 +1,148 @@
-<include file="Public/header"/>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>我的</title>
+	<link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
+	<link href="__STATIC__/css/v1/set.css" rel="stylesheet" />
+</head>
 <body>
-<div id="tbh5v0">
-<div class="user_com">
-
-<include file="Public/uer_topnav"/>
-
-<div class="Wallet">
-	<ul>
-	<li class="bain1"><strong>￥{$user['user_money']}元</strong><span>余额</span></li>
-	<li class="bain1"><strong>{$coupon_count}</strong><span>优惠券</span></li>
-	<li><strong>{$user['pay_points']}</strong><span>积分</span></li>
+<div class="mui-content">
+	<!-- 设置顶部 -->
+	<ul class="mui-table-view mui-grid-view mui-grid-12 msx-set">
+		<li class="mui-table-view-cell mui-media mui-col-xs-9 mui-col-sm-9">
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
+			<a href="#">
+				<div class="mui-media-body msx-setting">设置</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-12 mui-col-sm-12">
+			<a href="#">
+				<div class="mui-media-body msx-tel">15900818515</div>
+				<div class="mui-media-body msx-vip">超级VIP</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 msx-tx">
+			<a href="#">
+				<img src="__STATIC__/images/v1/tx.png">
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 msx-dd">
+			<a href="#">
+				<div class="mui-media-body">43</div>
+				<div class="mui-media-body">我的订单</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 msx-dd">
+			<a href="#">
+				<div class="mui-media-body">0</div>
+				<div class="mui-media-body">我的收藏</div>
+			</a>
+		</li>
+		<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+			<a href="#">
+				<div class="mui-media-body"></div>
+				<div class="mui-media-body"></div>
+			</a>
+		</li>
 	</ul>
-	<a href="{:U('Mobile/User/account')}"><em class="Icon Icon1"></em><dl><dt>我的钱包</dt><dd style="color:#aaaaaa;">查看我的钱包</dd></dl></a>
-</div>
 
 
-<div class="Wallet">
-	<a href="{:U('Mobile/User/order_list')}" ><em class="Icon Icon2"></em><dl class="b"><dt>全部订单</dt><dd>查看订单</dd></dl></a>
-	<a href="{:U('Mobile/User/coupon')}"><em class="Icon Icon3"></em><dl class="b"><dt>我的优惠券</dt><dd>&nbsp;</dd></dl></a>
-	<!-- <a href="{:U('Mobile/User/comment')}"><em class="Icon Icon4"></em><dl class="b"><dt>我的评价</dt><dd>查看评价</dd></dl></a>
-	<a href="{:U('Mobile/User/collect_list')}"><em class="Icon Icon10"></em><dl class="b"><dt>我的收藏</dt><dd>&nbsp;</dd></dl></a>
-	<a href="{:U('Mobile/User/withdrawals')}" style="border-bottom: 1px solid #eeeeee"><em class="Icon Icon1"></em><dl><dt>申请提现</dt><dd>&nbsp;</dd></dl></a> -->
-	<a href="{:U('Mobile/User/pass')}" ><em class="Icon Icon9"></em><dl><dt>代理商</dt><dd>&nbsp;</dd></dl></a>
-	<!-- <a href="{:U('Mobile/User/supplier')}" style="border-bottom: 1px solid #eeeeee"><em class="Icon Icon6"></em><dl><dt>供应商</dt><dd>&nbsp;</dd></dl></a> -->
+	<ul class="mui-table-view">
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<span><img src="__STATIC__/images/v1/icon_03.jpg">我的钱包</span>
+				<span class="msx-gery">查看我的钱包</span>
+			</a>
+		</li>
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<span><img src="__STATIC__/images/v1/icon_10.jpg">全部订单</span>
+				<span  class="msx-gery">查看订单</span>
+			</a>
+		</li>
+		<ul class="mui-table-view mui-grid-view mui-grid-12 msx-status">
+			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+				<a href="#">
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_13.jpg" ><span class="mui-badge mui-badge-warning">3</span></div>
+					<div class="mui-media-body">待审核</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+				<a href="#">
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_15.jpg" ></div>
+					<div class="mui-media-body">已审核</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+				<a href="#">
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_17.jpg" ></div>
+					<div class="mui-media-body">贷发货</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+				<a href="#">
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_19.jpg" ></div>
+					<div class="mui-media-body">已发货</div>
+				</a>
+			</li>
+			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
+				<a href="#">
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_21.jpg" ></div>
+					<div class="mui-media-body">已取消</div>
+				</a>
+			</li>
+		</ul>
+
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<span><img src="__STATIC__/images/v1/icon_28.jpg">我的资料</span>
+			</a>
+		</li>
+
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<span><img src="__STATIC__/images/v1/icon_31.jpg">地址管理</span>
+			</a>
+		</li>
+
+		<li class="mui-table-view-cell">
+			<a class="mui-navigate-right">
+				<span><img src="__STATIC__/images/v1/icon_33.jpg">注销登录</span>
+			</a>
+		</li>
+	</ul>
+	<div class="mui-text-center msx-fw">售后服务：18017945725</div>
 </div>
-<div class="Wallet">
-	<a href="{:U('User/address_list')}"><em class="Icon Icon5"></em><dl class="b"><dt>地址管理</dt><dd>&nbsp;</dd></dl></a>
-	<a href="{:U('User/points')}"><em class="Icon Icon6"></em><dl class="b"><dt>积分余额</dt><dd>&nbsp;</dd></dl></a>
-<!-- 	<a href="{:U('User/message_list')}"><em class="Icon Icon7"></em><dl class="b"><dt>我的留言</dt><dd>&nbsp;</dd></dl></a>
-	<a href="{:U('User/return_goods_list')}"><em class="Icon Icon11"></em><dl class="<if condition="$tpshop_config['distribut_switch'] eq 1">b</if>"><dt>售后服务</dt><dd>&nbsp;</dd></dl></a>
- -->
-    <if condition="$tpshop_config['distribut_switch'] eq 1">
-	<!--
-	<a href="{:U('Distribut/index')}"><em class="Icon Icon1"></em><dl><dt>我发展收益</dt><dd>&nbsp;</dd></dl></a>
-	-->
-    </if>
-</div>
-<div class="Wallet">
-	<a href="{:U('User/logout')}"><em class="Icon Icon8"></em><dl><dt>注销登录</dt></dl></a>
-</div>
-</div>
-<include file="Public/footer"/>
-</div>
-<include file="Public/footer_nav"/>
+
+<!-- 占位 -->
+<div class="sky-box"></div>
+
+<nav class="mui-bar mui-bar-tab">
+	<a class="mui-tab-item mui-active" href="index.html">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/shouye1.jpg" /></span>
+		<span class="mui-tab-label">首页</span>
+	</a>
+	<a class="mui-tab-item" href="list.html">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
+		<span class="mui-tab-label">分类</span>
+	</a>
+	<a class="mui-tab-item">
+				<span class="mui-icon">
+					<img src="__STATIC__/images/v1/gouwuche.jpg" />
+					<span class="mui-badge mui-badge-warning">3</span></span>
+		<span class="mui-tab-label">购物车</span>
+	</a>
+	<a class="mui-tab-item" href="set.html">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
+		<span class="mui-tab-label">我的</span>
+	</a>
+</nav>
+
+<script src="__STATIC__/js/v1/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+    mui.init();
+</script>
 </body>
 </html>
