@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>梦时鲜</title>
+    <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
+    <link href="__STATIC__/css/v1/about.css" rel="stylesheet" />
+    <link href="__STATIC__/css/v1/upload.css" rel="stylesheet" />
+
+    <style>
+        .mui-row.mui-fullscreen>[class*="mui-col-"] {
+            height: 100%;
+        }
+
+        .mui-col-xs-3,
+        .mui-control-content {
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        .mui-segmented-control .mui-control-item {
+            line-height: 50px;
+            width: 100%;
+        }
+
+        .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header class="mui-bar mui-bar-nav max-header">
+    <h1 class="mui-title">梦时鲜</h1>
+</header>
+
+<!-- 关于我们 -->
+<div class="mui-content max-list">
+    <h3 class="msx-about-title">企业信息</h3>
+
+    <div class="about-item">
+        <h5>企业名称</h5>
+        <h4>{$shop_address.shop_name}</h4>
+    </div>
+
+    <div class="about-item">
+        <h5>开户地址</h5>
+        <h4>{$shop_address.shop_address}</h4>
+    </div>
+
+    <!--图片上传 -->
+    <div class="img-box full">
+        <section class="img-section">
+            <div class="z_photo upimg-div clear">
+
+                    <if condition="$shop_address.shop_logo != ''">
+                        <section class="z_file fl">
+                        <img src="/{$shop_address.shop_logo}" class="add-img">
+                        </section>
+                    </if>
+                    <if condition="$shop_address.certificate != ''">
+                        <section class="z_file fl">
+                        <img src="/{$shop_address.certificate}" class="add-img">
+                        </section>
+                    </if>
+                    <if condition="$shop_address.hygiene_licence != ''">
+                        <section class="z_file fl">
+                        <img src="/{$shop_address.hygiene_licence}" class="add-img">
+                        </section>
+                    </if>
+                    <!--<input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp"-->
+                           <!--multiple="">-->
+            </div>
+        </section>
+    </div>
+    <aside class="mask works-mask">
+        <div class="mask-content">
+            <p class="del-p">您确定要删除作品图片吗？</p>
+            <p class="check-p"><span class="del-com wsdel-ok">确定</span><span class="wsdel-no">取消</span></p>
+        </div>
+    </aside>
+
+
+    <a type="button" class="mui-btn mui-btn-primary" href="{:U('User/address_list')}">退出登录</a>
+
+
+    <div class="mui-text-center msx-fw">
+        如需修改信息  请联系客服<br>
+        售后服务：18017945725
+    </div>
+</div>
+
+<!-- 占位 -->
+<div class="sky-box"></div>
+
+<nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item" href="{:U('Index/index')}">
+        <span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
+        <span class="mui-tab-label">首页</span>
+    </a>
+    <a class="mui-tab-item" href="{:U('Goods/categoryList')}">
+        <span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
+        <span class="mui-tab-label">分类</span>
+    </a>
+    <a class="mui-tab-item" href="{:U('Cart/cart')}">
+				<span class="mui-icon">
+					<img src="__STATIC__/images/v1/gouwuche.jpg" />
+					<span class="mui-badge mui-badge-warning">3</span></span>
+        <span class="mui-tab-label">购物车</span>
+    </a>
+    <a class="mui-tab-item mui-active" href="{:U('User/index')}">
+        <span class="mui-icon"><img src="__STATIC__/images/v1/wode1.jpg" /></span>
+        <span class="mui-tab-label">我的</span>
+    </a>
+</nav>
+
+<script src="__STATIC__/js/v1/mui.min.js"></script>
+<script src="__STATIC__/js/v1/jquery-1.10.2.js"></script>
+<script src="__STATIC__/js/v1/jquery.min.js"></script>
+<script src="__STATIC__/js/v1/imgUp.js"></script>
+<script type="text/javascript" charset="utf-8">
+    mui.init();
+    //处理点击事件，需要打开原生浏览器
+    mui('body').on('tap', 'a', function(e) {
+        var href = this.getAttribute('href');
+        if (href) {
+            if (window.plus) {
+                plus.runtime.openURL(href);
+            } else {
+                location.href = href;
+            }
+        }
+
+    });
+</script>
+</body>
+</html>

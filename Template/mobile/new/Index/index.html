@@ -255,7 +255,7 @@
         </span>
         <span class="mui-tab-label">购物车</span>
     </a>
-    <a class="mui-tab-item" href="{:U('User/index')}">
+    <a class="mui-tab-item " href="{:U('User/index')}">
         <span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
         <span class="mui-tab-label">我的</span>
     </a>
@@ -264,6 +264,19 @@
 <script src="__STATIC__/js/v1/mui.min.js"></script>
 <script type="text/javascript" charset="utf-8">
     mui.init();
+
+    //处理点击事件，需要打开原生浏览器
+    mui('body').on('tap', 'a', function(e) {
+        var href = this.getAttribute('href');
+        if (href) {
+            if (window.plus) {
+                plus.runtime.openURL(href);
+            } else {
+                location.href = href;
+            }
+        }
+
+    });
 </script>
 </body>
 </html>

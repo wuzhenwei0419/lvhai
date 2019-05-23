@@ -1268,8 +1268,27 @@ class UserController extends MobileBaseController
         }
         $this->assign('is_check',$is_check);
         $this->assign('shop_address',$shop_address);
-        $this->display("shop_address");
+        if ($is_check == 2){
+            $this->display("shop_detail");
+        }else if ($is_check == 1){
+            $this->display("shop_checking");
+        }else{
+            $this->display("shop_address");
+        }
+
     }
+
+    public function shop_checking(){
+        $shop_address=M('shop_address')->where('user_id ='.$this->user_id)->find();
+        $is_check = 0;
+        if ($shop_address){
+            $is_check = $shop_address['status'];
+        }
+        $this->assign('is_check',$is_check);
+        $this->assign('shop_address',$shop_address);
+        $this->display("shop_checking");
+    }
+
 
     public function add_shop_address(){
         $model=M('shop_address');

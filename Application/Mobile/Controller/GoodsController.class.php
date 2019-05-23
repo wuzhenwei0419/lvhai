@@ -23,6 +23,8 @@ class GoodsController extends MobileBaseController {
      * 分类列表显示
      */
     public function categoryList(){
+        $id = I('get.id',1); // 当前分类id
+        $this->assign('cat_id',$id);
         $this->display();
     }
 
@@ -109,7 +111,7 @@ class GoodsController extends MobileBaseController {
     	$this->assign('page',$page);// 赋值分页输出
     	$this->assign('sort_asc', $sort_asc == 'asc' ? 'desc' : 'asc');
     	C('TOKEN_ON',false);
-        
+
         if($_GET['is_ajax'])
             $this->display('ajaxGoodsList');
         else
@@ -142,6 +144,29 @@ class GoodsController extends MobileBaseController {
         $html = $this->fetch('ajaxGoodsList'); //$this->display('ajax_goods_list');
        exit($html);
     }
+
+    public function ajaxGoodsPage() {
+        $where ='';
+        $cat_id  = I("id",0); // 所选择的商品分类id
+        if($cat_id > 0)
+        {
+            $grandson_ids = getCatGrandson($cat_id);
+            $where .= " WHERE cat_id in(".  implode(',', $grandson_ids).") "; // 初始化搜索条件
+        }
+
+        $Model  = new \Think\Model();
+        $result = $Model->query("select count(1) as count from __PREFIX__goods $where ");
+        $count = $result[0]['count'];
+        $page = new AjaxPage($count,10);
+
+        $order = " order by goods_id desc"; // 排序
+        $limit = " limit ".$page->firstRow.','.$page->listRows;
+        $list = $Model->query("select *  from __PREFIX__goods $where $order $limit");
+
+        $return_arr = array('status'=>1,'msg'=>'计算成功','result'=>$list); // 返回结果状态
+        exit(json_encode($return_arr));
+    }
+
 
     /**
      * 商品详情页
