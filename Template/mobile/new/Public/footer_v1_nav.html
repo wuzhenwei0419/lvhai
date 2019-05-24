@@ -1,0 +1,65 @@
+<nav class="mui-bar mui-bar-tab">
+	<a class="mui-tab-item" href="{:U('Index/index')}">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
+		<span class="mui-tab-label">首页</span>
+	</a>
+	<a class="mui-tab-item mui-active" href="{:U('Goods/categoryList')}">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/fenlei1.jpg" /></span>
+		<span class="mui-tab-label">分类</span>
+	</a>
+	<a class="mui-tab-item" href="{:U('Cart/cart')}">
+				<span class="mui-icon">
+					<img src="__STATIC__/images/v1/gouwuche.jpg" />
+					<span class="mui-badge mui-badge-warning" id="cart_quantity">0</span></span>
+		<span class="mui-tab-label">购物车</span>
+	</a>
+	<a class="mui-tab-item" href="{:U('User/index')}">
+		<span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
+		<span class="mui-tab-label">我的</span>
+	</a>
+</nav>
+<script type="text/javascript">
+//处理点击事件，需要打开原生浏览器
+mui('body').on('tap', 'a', function(e) {
+	var href = this.getAttribute('href');
+	if (href) {
+		if (window.plus) {
+			plus.runtime.openURL(href);
+		} else {
+			location.href = href;
+		}
+	}
+});
+
+$(document).ready(function(){
+	  var cart_cn = getCookie('cn');
+	  var uname= getCookie('user_id');
+    var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+    if(uname == '' || show_price == 0){
+        $('.islogin').remove();
+        $('.nologin').show();
+        $('body').addClass('not-login');
+    }else {
+        $('.islogin').show();
+        $('.nologin').remove();
+        $('body').addClass('login');
+    }
+
+	  if(cart_cn == ''){
+		$.ajax({
+			type : "GET",
+			url:"/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
+			success: function(data){								 
+				cart_cn = getCookie('cn');
+				$('#cart_quantity').html(cart_cn);						
+			}
+		});	
+	  }
+	  $('#cart_quantity').html(cart_cn);
+});
+</script>
+<!-- 微信浏览器 调用微信 分享js-->
+<if condition="$signPackage neq null">
+	<include file="Public/wx_share"/>
+</if>
+<!-- 微信浏览器 调用微信 分享js  end-->

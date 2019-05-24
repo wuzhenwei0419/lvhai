@@ -7,7 +7,10 @@
 
   <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
   <link href="__STATIC__/css/v1/list.css" rel="stylesheet" />
-
+  <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/v1/mui.min.js"></script>
+  <script src="__PUBLIC__/js/global.js"></script>
+  <script src="__PUBLIC__/js/mobile_common.js?v=20181213"></script>
   <style>
     .mui-row.mui-fullscreen>[class*="mui-col-"] {
       height: 100%;
@@ -69,32 +72,9 @@
 
 <!-- 占位 -->
 <div class="sky-box"></div>
+<include file="Public/footer_v1_nav"/>
 
-<nav class="mui-bar mui-bar-tab">
-  <a class="mui-tab-item" href="{:U('Index/index')}">
-    <span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
-    <span class="mui-tab-label">首页</span>
-  </a>
-  <a class="mui-tab-item mui-active" href="{:U('Goods/categoryList')}">
-    <span class="mui-icon"><img src="__STATIC__/images/v1/fenlei1.jpg" /></span>
-    <span class="mui-tab-label">分类</span>
-  </a>
-  <a class="mui-tab-item" href="{:U('Cart/cart')}">
-				<span class="mui-icon">
-					<img src="__STATIC__/images/v1/gouwuche.jpg" />
-					<span class="mui-badge mui-badge-warning">3</span></span>
-    <span class="mui-tab-label">购物车</span>
-  </a>
-  <a class="mui-tab-item" href="{:U('User/index')}">
-    <span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
-    <span class="mui-tab-label">我的</span>
-  </a>
-</nav>
-
-<script src="__STATIC__/js/v1/mui.min.js"></script>
 <script type="text/javascript" charset="utf-8">
-    var lastId = '',
-        minId = ''; //最新新闻的id
     var page = 1;
 
     mui.init({
@@ -114,18 +94,10 @@
         }
     });
 
-    //处理点击事件，需要打开原生浏览器
-    mui('body').on('tap', 'a', function(e) {
-        var href = this.getAttribute('href');
-        if (href) {
-            if (window.plus) {
-                plus.runtime.openURL(href);
-            } else {
-                location.href = href;
-            }
-        }
-
-    });
+    mui('body').on('tap', '.addCart', function(e) {
+        var id = this.getAttribute("data-id");
+        AjaxAddCart(id,1,0);
+    })
 
     var data_name = document.querySelector('.mui-active').innerText;
     var msxTitle = document.querySelector('.msx-title span');
@@ -161,7 +133,7 @@
                         var li = document.createElement('li');
                         li.className = 'mui-table-view-cell mui-media';
 
-                        li.innerHTML = '<a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><div class="mui-media-object mui-pull-left"><img  src="'+result[i].original_img+'"></div><div class="mui-media-body"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p></div></a>';
+                        li.innerHTML = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p></div>';
 
                         //下拉刷新，新纪录插到最前面；
                         table.insertBefore(li, table.firstChild);
@@ -194,7 +166,7 @@
                         var li = document.createElement('li');
                         li.className = 'mui-table-view-cell mui-media';
 
-                        li.innerHTML = '<a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><div class="mui-media-object mui-pull-left"><img  src="'+result[i].original_img+'"></div><div class="mui-media-body"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" ></p></div></a>';
+                        li.innerHTML = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p></div>';
 
                         table.appendChild(li);
                     }
@@ -207,6 +179,35 @@
         });
 
     }
+
+
+
+    $(document).ready(function(){
+        var cart_cn = getCookie('cn');
+        var uname= getCookie('user_id');
+        var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
+        if(uname == '' || show_price == 0){
+            $('.islogin').remove();
+            $('.nologin').show();
+            $('body').addClass('not-login');
+        }else {
+            $('.islogin').show();
+            $('.nologin').remove();
+            $('body').addClass('login');
+        }
+
+        if(cart_cn == ''){
+            $.ajax({
+                type : "GET",
+                url:"/index.php?m=Home&c=Cart&a=header_cart_list",//+tab,
+                success: function(data){
+                    cart_cn = getCookie('cn');
+                    $('#cart_quantity').html(cart_cn);
+                }
+            });
+        }
+        $('#cart_quantity').html(cart_cn);
+    });
 </script>
 </body>
 </html>

@@ -30,13 +30,13 @@
 		</li>
 		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 msx-dd">
 			<a href="{:U('Mobile/User/order_list')}">
-				<div class="mui-media-body">43</div>
+				<div class="mui-media-body">{$order_count}</div>
 				<div class="mui-media-body">我的订单</div>
 			</a>
 		</li>
 		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 msx-dd">
 			<a href="{:U('Mobile/User/collect_list')}">
-				<div class="mui-media-body">0</div>
+				<div class="mui-media-body">{$goods_collect_count}</div>
 				<div class="mui-media-body">我的收藏</div>
 			</a>
 		</li>
@@ -65,7 +65,7 @@
 		<ul class="mui-table-view mui-grid-view mui-grid-12 msx-status">
 			<li class="mui-table-view-cell mui-media mui-col-xs-2 mui-col-sm-2">
 				<a href="{:U('Mobile/User//order_list/type/WAITAUDITING.html')}">
-					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_13.jpg" ><span class="mui-badge mui-badge-warning">3</span></div>
+					<div class="msx-staus-icon"><img src="__STATIC__/images/v1/icon_13.jpg" ><span class="mui-badge mui-badge-warning">{$waitAuditing_count}</span></div>
 					<div class="mui-media-body">待审核</div>
 				</a>
 			</li>

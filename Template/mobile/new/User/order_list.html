@@ -60,7 +60,7 @@
                     <div class="pic">共{$list.goods_list|count}件商品<span>实付：</span><strong>￥{$list['order_amount']}元</strong></div>
                     <div class="anniu" style="width:95%">
                         <if condition="$list.cancel_btn eq 1"><span onClick="cancel_order({$list.order_id})">取消订单</span></if>
-                        <if condition="$list.pay_btn eq 1"><a href="{:U('Mobile/Cart/cart4',array('order_id'=>$list['order_id']))}">立即付款</a></if>
+                        <!--<if condition="$list.pay_btn eq 1"><a href="{:U('Mobile/Cart/cart4',array('order_id'=>$list['order_id']))}">立即付款</a></if>-->
                         <if condition="$list.receive_btn eq 1"><a href="{:U('Mobile/User/order_confirm',array('id'=>$list['order_id']))}">收货确认</a></if>
                         <if condition="$list.comment_btn eq 1"><a href="{:U('/Mobile/User/comment')}">评价</a></if>
                         <if condition="$list.shipping_btn eq 1"><a href="{:U('User/express',array('order_id'=>$list['order_id']))}">查看物流</a></if>

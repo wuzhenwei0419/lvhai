@@ -39,25 +39,35 @@
 
     <div class="about-item">
         <h5>企业信息</h5>
-        <h4>梦时鲜果品批发行</h4>
-        <h5>上海市青浦区凤星路1731号</h5>
+        <h4>{$shop_address.shop_name}</h4>
+        <h5>{$shop_address.shop_address}</h5>
     </div>
 
     <div class="about-item">
         <h5>收货信息</h5>
-        <h4>朱先生 15900818515</h4>
-        <h5>上海市青浦区凤星路1731号6临</h5>
+        <h4>{$shop_address.contacts} {$shop_address.mobile}</h4>
+        <h5>{$shop_address.shop_address}</h5>
     </div>
 
     <!--图片上传 -->
     <div class="img-box full">
         <section class="img-section">
             <div class="z_photo upimg-div clear">
-                <section class="z_file fl">
-                    <img src="__STATIC__/images/v1/upload.jpg" class="add-img">
-                    <input type="file" name="file" id="file" class="file" value="" accept="image/jpg,image/jpeg,image/png,image/bmp"
-                           multiple="">
-                </section>
+                <if condition="$shop_address.shop_logo != ''">
+                    <section class="z_file fl">
+                        <img src="/{$shop_address.shop_logo}" class="add-img">
+                    </section>
+                </if>
+                <if condition="$shop_address.certificate != ''">
+                    <section class="z_file fl">
+                        <img src="/{$shop_address.certificate}" class="add-img">
+                    </section>
+                </if>
+                <if condition="$shop_address.hygiene_licence != ''">
+                    <section class="z_file fl">
+                        <img src="/{$shop_address.hygiene_licence}" class="add-img">
+                    </section>
+                </if>
             </div>
         </section>
     </div>
@@ -69,7 +79,7 @@
     </aside>
 
 
-    <button type="button" class="mui-btn mui-btn-primary">修改资质审核信息</button>
+    <!--<button type="button" class="mui-btn mui-btn-primary">修改资质审核信息</button>-->
 
 
     <div class="mui-text-center msx-fw">售后服务：18017945725</div>
