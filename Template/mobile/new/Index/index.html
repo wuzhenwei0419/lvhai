@@ -6,11 +6,13 @@
     <title>首页-{$tpshop_config['shop_info_store_title']}</title>
     <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+    <meta name="baidu-site-verification" content="3HwKFSIamS" />
     <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
     <link href="__STATIC__/css/v1/index.css" rel="stylesheet" />
-
+    <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__STATIC__/js/v1/mui.min.js"></script>
     <script src="__PUBLIC__/js/mobile_common.js"></script>
-    <meta name="baidu-site-verification" content="3HwKFSIamS" />
 </head>
 <body>
 <header class="mui-bar mui-bar-nav msx-header">
@@ -23,11 +25,14 @@
     <!--  搜索 -->
     <div class="mui-row msx-search">
         <div class="mui-col-xs-12 mui-col-sm-12">
-            <div class="search-box"><input class="search-input" type="text" value="" name="keywords"><img class="search-button" src="__STATIC__/images/v1/search.jpg"></div>
+            <form class="set_ip"name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
+            <div class="search-box"><input class="search-input" type="text" value="" name="q" id="q"><img class="search-button" src="__STATIC__/images/v1/search.jpg" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"></div>
+            </form>
             <div class="search-hint"><img src="__STATIC__/images/v1/car.jpg"><span>补货中：每天下单时间<b>{$tpshop_config['shopping_begin_time']}:00-{$tpshop_config['shopping_end_time']}:00</b></span></div>
         </div>
     </div>
 </header>
+<assign name="footer_nav_menu" value="index"/>
 <!-- 主体 -->
 <div class="mui-content">
 
@@ -106,23 +111,26 @@
     </ul>
 
 
-    <!-- 罐头专场 -->
+    <!-- 精品推荐 -->
     <div class="msx-list">
         <div class="msx-list-header">
-            <div class="header-text text-green">罐头专场</div>
+            <div class="header-text text-green">精品推荐</div>
         </div>
         <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
             <div class="mui-scroll">
 
 
                 <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
-                    <a class="mui-control-item mui-active" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                    <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
                         </div>
                         <div class="mui-media-body mt18">{$v.goods_name}</div>
-                        <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
-                        <div class="mui-media-body mt10">登陆查看价格</div>
+                        <if condition="$Think.cookie.user_id gt 0">
+                            <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
+                            <else/>
+                            <div class="mui-media-body mt10 no-login" >登陆查看价格</div>
+                        </if>
                     </a>
                 </tpshop>
 
@@ -132,22 +140,25 @@
 
     </div>
 
-    <!-- 时时上新 -->
+    <!-- 新品上市 -->
     <div class="msx-list">
         <div class="msx-list-header">
-            <div class="header-text  text-green">时时上新</div>
+            <div class="header-text  text-green">新品上市</div>
         </div>
         <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
             <div class="mui-scroll">
 
                 <tpshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
-                    <a class="mui-control-item mui-active" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                    <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
                         </div>
                         <div class="mui-media-body mt18">{$v.goods_name}</div>
-                        <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
-                        <div class="mui-media-body mt10">登陆查看价格</div>
+                        <if condition="$Think.cookie.user_id gt 0">
+                            <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
+                        <else/>
+                            <div class="mui-media-body mt10 no-login" >登陆查看价格</div>
+                        </if>
                     </a>
                 </tpshop>
 
@@ -156,23 +167,26 @@
 
     </div>
 
-    <!-- 精心挑选 -->
+    <!-- 热销商品 -->
     <div class="msx-list">
         <div class="msx-list-header">
-            <div class="header-text text-lightBlue">精心挑选</div>
+            <div class="header-text text-lightBlue">热销商品</div>
         </div>
         <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
             <div class="mui-scroll">
 
 
-                <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
-                    <a class="mui-control-item mui-active" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                <tpshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+                    <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
                         </div>
                         <div class="mui-media-body mt18">{$v.goods_name}</div>
-                        <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
-                        <div class="mui-media-body mt10">登陆查看价格</div>
+                        <if condition="$Think.cookie.user_id gt 0">
+                            <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
+                            <else/>
+                            <div class="mui-media-body mt10 no-login" >登陆查看价格</div>
+                        </if>
                     </a>
                 </tpshop>
 
@@ -192,13 +206,16 @@
 
 
                 <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
-                    <a class="mui-control-item mui-active" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                    <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
                         </div>
                         <div class="mui-media-body mt18">{$v.goods_name}</div>
-                        <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
-                        <div class="mui-media-body mt10">登陆查看价格</div>
+                        <if condition="$Think.cookie.user_id gt 0">
+                            <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
+                            <else/>
+                            <div class="mui-media-body mt10 no-login" >登陆查看价格</div>
+                        </if>
                     </a>
                 </tpshop>
 
@@ -218,13 +235,16 @@
 
 
                 <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
-                    <a class="mui-control-item mui-active" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
+                    <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
                         </div>
                         <div class="mui-media-body mt18">{$v.goods_name}</div>
-                        <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
-                        <div class="mui-media-body mt10">登陆查看价格</div>
+                        <if condition="$Think.cookie.user_id gt 0">
+                            <div class="mui-media-body mt12"><if condition="$v.shop_price_jin gt 0">约</if>￥{$v.shop_price}元/箱</div>
+                            <else/>
+                            <div class="mui-media-body mt10 no-login" >登陆查看价格</div>
+                        </if>
                     </a>
                 </tpshop>
 
@@ -238,45 +258,9 @@
 
 <!-- 占位 -->
 <div class="sky-box"></div>
-
-<nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item mui-active" href="{:U('Index/index')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/shouye1.jpg" /></span>
-        <span class="mui-tab-label">首页</span>
-    </a>
-    <a class="mui-tab-item" href="{:U('Goods/categoryList')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
-        <span class="mui-tab-label">分类</span>
-    </a>
-    <a class="mui-tab-item" href="{:U('Cart/cart')}">
-        <span class="mui-icon">
-            <img src="__STATIC__/images/v1/gouwuche.jpg" />
-            <span class="mui-badge mui-badge-warning">3</span>
-        </span>
-        <span class="mui-tab-label">购物车</span>
-    </a>
-    <a class="mui-tab-item " href="{:U('User/index')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
-        <span class="mui-tab-label">我的</span>
-    </a>
-</nav>
-
-<script src="__STATIC__/js/v1/mui.min.js"></script>
+<include file="Public/footer_v1_nav"/>
 <script type="text/javascript" charset="utf-8">
     mui.init();
-
-    //处理点击事件，需要打开原生浏览器
-    mui('body').on('tap', 'a', function(e) {
-        var href = this.getAttribute('href');
-        if (href) {
-            if (window.plus) {
-                plus.runtime.openURL(href);
-            } else {
-                location.href = href;
-            }
-        }
-
-    });
 </script>
 </body>
 </html>

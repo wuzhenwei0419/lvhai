@@ -1,22 +1,60 @@
 <nav class="mui-bar mui-bar-tab">
-	<a class="mui-tab-item" href="{:U('Index/index')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
+	<if condition="$footer_nav_menu eq 'index'">
+		<a class="mui-tab-item mui-active" href="{:U('Index/index')}">
+			<span class="mui-icon">
+				<img src="__STATIC__/images/v1/shouye1.jpg" />
+			</span>
+			<span class="mui-tab-label">首页</span>
+		</a>
+	<else />
+		<a class="mui-tab-item" href="{:U('Index/index')}">
+		<span class="mui-icon">
+			<img src="__STATIC__/images/v1/shouye.jpg" />
+		</span>
 		<span class="mui-tab-label">首页</span>
-	</a>
-	<a class="mui-tab-item mui-active" href="{:U('Goods/categoryList')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/fenlei1.jpg" /></span>
+		</a>
+	</if>
+
+	<if condition="$footer_nav_menu eq 'cateforyList'">
+		<a class="mui-tab-item mui-active" href="{:U('Goods/categoryList')}">
+		<span class="mui-icon">
+			<img src="__STATIC__/images/v1/fenlei1.jpg" />
+		</span>
 		<span class="mui-tab-label">分类</span>
-	</a>
+		</a>
+	<else />
+		<a class="mui-tab-item" href="{:U('Goods/categoryList')}">
+		<span class="mui-icon">
+			<img src="__STATIC__/images/v1/fenlei.jpg" />
+		</span>
+		<span class="mui-tab-label">分类</span>
+		</a>
+	</if>
+
+
 	<a class="mui-tab-item" href="{:U('Cart/cart')}">
 				<span class="mui-icon">
 					<img src="__STATIC__/images/v1/gouwuche.jpg" />
 					<span class="mui-badge mui-badge-warning" id="cart_quantity">0</span></span>
 		<span class="mui-tab-label">购物车</span>
 	</a>
-	<a class="mui-tab-item" href="{:U('User/index')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/wode.jpg" /></span>
+
+	<if condition="$footer_nav_menu eq 'user'">
+		<a class="mui-tab-item mui-active" href="{:U('User/index')}">
+		<span class="mui-icon">
+			<img src="__STATIC__/images/v1/wode1.jpg" />
+		</span>
 		<span class="mui-tab-label">我的</span>
-	</a>
+		</a>
+	<else />
+		<a class="mui-tab-item" href="{:U('User/index')}">
+		<span class="mui-icon">
+			<img src="__STATIC__/images/v1/wode.jpg" />
+		</span>
+		<span class="mui-tab-label">我的</span>
+		</a>
+	</if>
+
 </nav>
 <script type="text/javascript">
 //处理点击事件，需要打开原生浏览器
@@ -31,20 +69,13 @@ mui('body').on('tap', 'a', function(e) {
 	}
 });
 
+mui('body').on('tap', '.no-login', function(e) {
+    location.href = "/index.php/Mobile/User/index.html";
+});
+
+
 $(document).ready(function(){
 	  var cart_cn = getCookie('cn');
-	  var uname= getCookie('user_id');
-    var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
-    if(uname == '' || show_price == 0){
-        $('.islogin').remove();
-        $('.nologin').show();
-        $('body').addClass('not-login');
-    }else {
-        $('.islogin').show();
-        $('.nologin').remove();
-        $('body').addClass('login');
-    }
-
 	  if(cart_cn == ''){
 		$.ajax({
 			type : "GET",

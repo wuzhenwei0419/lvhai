@@ -2,11 +2,17 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-	<title>我的</title>
-	<link href="__STATIC__/css/v1/mui.css?v=1" rel="stylesheet" />
-	<link href="__STATIC__/css/v1/set.css?v=1" rel="stylesheet" />
+	<title>我的-{$tpshop_config['shop_info_store_title']}</title>
+	<meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+	<meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
+	<link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
+	<link href="__STATIC__/css/v1/set.css" rel="stylesheet" />
+	<script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
+	<script src="__PUBLIC__/js/global.js"></script>
+	<script src="__STATIC__/js/v1/mui.min.js"></script>
 </head>
 <body>
+<assign name="footer_nav_menu" value="user"/>
 <div class="mui-content">
 	<!-- 设置顶部 -->
 	<ul class="mui-table-view mui-grid-view mui-grid-12 msx-set">
@@ -118,43 +124,10 @@
 
 <!-- 占位 -->
 <div class="sky-box"></div>
+<include file="Public/footer_v1_nav"/>
 
-<nav class="mui-bar mui-bar-tab">
-	<a class="mui-tab-item" href="{:U('Index/index')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
-		<span class="mui-tab-label">首页</span>
-	</a>
-	<a class="mui-tab-item" href="{:U('Goods/categoryList')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
-		<span class="mui-tab-label">分类</span>
-	</a>
-	<a class="mui-tab-item" href="{:U('Cart/cart')}">
-				<span class="mui-icon">
-					<img src="__STATIC__/images/v1/gouwuche.jpg" />
-					<span class="mui-badge mui-badge-warning">3</span></span>
-		<span class="mui-tab-label">购物车</span>
-	</a>
-	<a class="mui-tab-item mui-active" href="{:U('User/index')}">
-		<span class="mui-icon"><img src="__STATIC__/images/v1/wode1.jpg" /></span>
-		<span class="mui-tab-label">我的</span>
-	</a>
-</nav>
-
-<script src="__STATIC__/js/v1/mui.min.js"></script>
 <script type="text/javascript" charset="utf-8">
     mui.init();
-    //处理点击事件，需要打开原生浏览器
-    mui('body').on('tap', 'a', function(e) {
-        var href = this.getAttribute('href');
-        if (href) {
-            if (window.plus) {
-                plus.runtime.openURL(href);
-            } else {
-                location.href = href;
-            }
-        }
-
-    });
 </script>
 </body>
 </html>

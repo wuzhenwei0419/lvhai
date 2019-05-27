@@ -3,8 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>分类</title>
-
+  <title>分类-{$tpshop_config['shop_info_store_title']}</title>
+  <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+  <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
   <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
   <link href="__STATIC__/css/v1/list.css" rel="stylesheet" />
   <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
@@ -36,7 +37,7 @@
 <header class="mui-bar mui-bar-nav max-header">
   <h1 class="mui-title">梦时鲜</h1>
 </header>
-
+<assign name="footer_nav_menu" value="cateforyList"/>
 <!-- 列表 -->
 <div class="mui-content mui-row mui-fullscreen max-list">
   <div class="mui-col-xs-3">
@@ -56,7 +57,7 @@
       <!--下拉刷新容器-->
       <div id="pullrefresh" class="mui-content mui-scroll-wrapper ">
         <div class="mui-scroll">
-          <div class="msx-title"><span></span></div>
+          <div class="msx-title"><span>全部商品</span></div>
           <!--数据列表-->
           <ul class="mui-table-view">
 
@@ -110,12 +111,6 @@
      * 下拉刷新具体业务实现
      */
     function pulldownRefresh() {
-        if(window.plus && plus.networkinfo.getCurrentType() === plus.networkinfo.CONNECTION_NONE) {
-            plus.nativeUI.toast('似乎已断开与互联网的连接', {
-                verticalAlign: 'top'
-            });
-            return;
-        }
 
         //请求最新列表信息流
         mui.getJSON("/index.php?m=Mobile&c=Goods&a=ajaxGoodsPage", {
@@ -123,7 +118,6 @@
             "p": page
         }, function(rsp) {
 
-            console.log(rsp);
             if(rsp.status == 1){
                 var result = rsp.result;
                 if(result && result.length > 0) {
@@ -133,8 +127,20 @@
                         var li = document.createElement('li');
                         li.className = 'mui-table-view-cell mui-media';
 
-                        li.innerHTML = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p></div>';
-
+                        var goodStr = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a>';
+                        if (!getCookie('user_id')){
+                            goodStr +='<p class="mui-ellipsis">登陆查看价格</p>';
+                        }else {
+                            if (result[i].shop_price_jin > 0){
+                                goodStr +='<p class="mui-ellipsis">约￥'+result[i].shop_price+'/箱</p>';
+                                goodStr +='<p class="msx-add">￥<span>'+result[i].shop_price_jin+'</span>元/斤 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p>';
+                            }else {
+                                goodStr +='<p class="mui-ellipsis">'+result[i].shop_price+'/箱</p>';
+                                goodStr +='<p class="msx-add">约￥<span>'+result[i].shop_price_about_jin+'</span>元/斤 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p>';
+                            }
+                        }
+                        goodStr +='</div>';
+                        li.innerHTML = goodStr;
                         //下拉刷新，新纪录插到最前面；
                         table.insertBefore(li, table.firstChild);
                     }
@@ -156,7 +162,6 @@
             "id": {$cat_id},
             "p": page
         }, function(rsp) {
-            console.log(rsp);
             if(rsp.status == 1){
                 var result = rsp.result;
                 if(result && result.length > 0) {
@@ -166,7 +171,20 @@
                         var li = document.createElement('li');
                         li.className = 'mui-table-view-cell mui-media';
 
-                        li.innerHTML = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a><p class="mui-ellipsis">登陆查看价格</p><p class="msx-add">￥<span>:-)</span>/箱 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p></div>';
+                        var goodStr = '<div class="mui-media-object mui-pull-left"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><img  src="'+result[i].original_img+'"></a></div><div class="mui-media-body"><a href="/Mobile/Goods/goodsInfo/id/'+result[i].goods_id+'.html"><p class="mui-ellipsis-2">'+result[i].goods_name+'</p></a>';
+                        if (!getCookie('user_id')){
+                            goodStr +='<p class="mui-ellipsis">登陆查看价格</p>';
+                        }else {
+                            if (result[i].shop_price_jin > 0){
+                                goodStr +='<p class="mui-ellipsis">约￥'+result[i].shop_price+'/箱</p>';
+                                goodStr +='<p class="msx-add">￥<span>'+result[i].shop_price_jin+'</span>元/斤 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p>';
+                            }else {
+                                goodStr +='<p class="mui-ellipsis">'+result[i].shop_price+'/箱</p>';
+                                goodStr +='<p class="msx-add">约￥<span>'+result[i].shop_price_about_jin+'</span>元/斤 <img src="__STATIC__/images/v1/list_03.jpg" data-id="'+result[i].goods_id+'" class="addCart"></p>';
+                            }
+                        }
+                        goodStr +='</div>';
+                        li.innerHTML = goodStr;
 
                         table.appendChild(li);
                     }
@@ -181,21 +199,8 @@
     }
 
 
-
     $(document).ready(function(){
         var cart_cn = getCookie('cn');
-        var uname= getCookie('user_id');
-        var show_price= getCookie('show_price') ? getCookie('show_price') : 0;
-        if(uname == '' || show_price == 0){
-            $('.islogin').remove();
-            $('.nologin').show();
-            $('body').addClass('not-login');
-        }else {
-            $('.islogin').show();
-            $('.nologin').remove();
-            $('body').addClass('login');
-        }
-
         if(cart_cn == ''){
             $.ajax({
                 type : "GET",
