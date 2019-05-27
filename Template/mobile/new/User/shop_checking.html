@@ -3,11 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <title>梦时鲜</title>
+    <title>梦时鲜-{$tpshop_config['shop_info_store_title']}</title>
+    <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
+    <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
     <link href="__STATIC__/css/v1/mui.css" rel="stylesheet" />
     <link href="__STATIC__/css/v1/about.css" rel="stylesheet" />
-    <link href="__STATIC__/css/v1/upload.css" rel="stylesheet" />
-
+    <script src="__STATIC__/js/v1/mui.min.js"></script>
+    <script src="__PUBLIC__/js/global.js"></script>
+    <script src="__STATIC__/js/v1/jquery-1.10.2.js"></script>
+    <script src="__STATIC__/js/v1/jquery.min.js"></script>
+    <script src="__STATIC__/js/v1/imgUp.js"></script>
     <style>
         .mui-row.mui-fullscreen>[class*="mui-col-"] {
             height: 100%;
@@ -33,6 +38,7 @@
 <header class="mui-bar mui-bar-nav max-header">
     <h1 class="mui-title">资质审核</h1>
 </header>
+<assign name="footer_nav_menu" value="user"/>
 <!-- 关于我们 -->
 <div class="mui-content max-list">
     <h3 class="msx-about-title">资质审核中(预计2~3个工作日)</h3>
@@ -40,13 +46,13 @@
     <div class="about-item">
         <h5>企业信息</h5>
         <h4>{$shop_address.shop_name}</h4>
-        <h5>{$shop_address.shop_address}</h5>
     </div>
 
     <div class="about-item">
         <h5>收货信息</h5>
-        <h4>{$shop_address.contacts} {$shop_address.mobile}</h4>
-        <h5>{$shop_address.shop_address}</h5>
+        <h4>地址:{$shop_address.shop_address}</h4>
+        <h4>联系人:{$shop_address.contacts}</h4>
+        <h4>手机:{$shop_address.mobile}</h4>
     </div>
 
     <!--图片上传 -->
@@ -87,46 +93,9 @@
 
 <!-- 占位 -->
 <div class="sky-box"></div>
-
-<nav class="mui-bar mui-bar-tab">
-    <a class="mui-tab-item" href="{:U('Index/index')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/shouye.jpg" /></span>
-        <span class="mui-tab-label">首页</span>
-    </a>
-    <a class="mui-tab-item" href="{:U('Goods/categoryList')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/fenlei.jpg" /></span>
-        <span class="mui-tab-label">分类</span>
-    </a>
-    <a class="mui-tab-item" href="{:U('Cart/cart')}">
-				<span class="mui-icon">
-					<img src="__STATIC__/images/v1/gouwuche.jpg" />
-					<span class="mui-badge mui-badge-warning">3</span></span>
-        <span class="mui-tab-label">购物车</span>
-    </a>
-    <a class="mui-tab-item mui-active" href="{:U('User/index')}">
-        <span class="mui-icon"><img src="__STATIC__/images/v1/wode1.jpg" /></span>
-        <span class="mui-tab-label">我的</span>
-    </a>
-</nav>
-
-<script src="__STATIC__/js/v1/mui.min.js"></script>
-<script src="__STATIC__/js/v1/jquery-1.10.2.js"></script>
-<script src="__STATIC__/js/v1/jquery.min.js"></script>
-<script src="__STATIC__/js/v1/imgUp.js"></script>
+<include file="Public/footer_v1_nav"/>
 <script type="text/javascript" charset="utf-8">
     mui.init();
-    //处理点击事件，需要打开原生浏览器
-    mui('body').on('tap', 'a', function(e) {
-        var href = this.getAttribute('href');
-        if (href) {
-            if (window.plus) {
-                plus.runtime.openURL(href);
-            } else {
-                location.href = href;
-            }
-        }
-
-    });
 </script>
 </body>
 </html>
