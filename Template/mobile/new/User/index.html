@@ -24,15 +24,15 @@
 			</a>
 		</li>
 		<li class="mui-table-view-cell mui-media mui-col-xs-12 mui-col-sm-12">
-			<a href="#">
-				<div class="mui-media-body msx-tel">15900818515</div>
-				<div class="mui-media-body msx-vip">超级VIP</div>
-			</a>
+			<div class="mui-media-body msx-tel">{$user.mobile}</div>
+			<div class="mui-media-body msx-vip">{$level_name}</div>
 		</li>
 		<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4 msx-tx">
-			<a href="#">
-				<img src="__STATIC__/images/v1/tx.png">
-			</a>
+		<if condition="$user.head_pic eq ''">
+			<img src="__STATIC__/images/v1/tx.png">
+		<else />
+			<img src="{$user.head_pic}">
+		</if>
 		</li>
 		<li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3 msx-dd">
 			<a href="{:U('Mobile/User/order_list')}">
