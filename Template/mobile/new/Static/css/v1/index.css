@@ -110,7 +110,7 @@ input[type='text']{
 .msx-list-header{
 	height: 0.7rem;
 	line-height: 0.7rem;
-	background: url(../img/index_36.jpg) no-repeat;
+	background: url(../../images/v1/index_36.jpg) no-repeat;
 	background-size: 4.4rem 0.23rem;
 	background-position: center center;
 }
@@ -174,7 +174,9 @@ input[type='text']{
 	font-size: 0.23rem;
 }
 .mt18{
-	margin-top: 0.18rem;
+	padding-top: 0.1rem!important;
+	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	width: 1.9rem;
 }
 .mt12{
 	margin-top: 0.12rem!important;

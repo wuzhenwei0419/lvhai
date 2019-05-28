@@ -128,7 +128,7 @@ body{
 
 .loading {
 	border: 1px solid #d1d1d1;
-	background: url(../img/loading.jpg) no-repeat center;
+	background: url(../../images/v1/loading.jpg) no-repeat center;
 	display: none;
 }
 
