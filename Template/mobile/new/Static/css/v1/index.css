@@ -66,6 +66,7 @@ input[type='text']{
 /* slider */
 .mui-slider{
 	height: 3.08rem;
+	margin-bottom: 0.2rem;
 }
 .mui-slider img{
 	height: 3.08rem;
@@ -101,7 +102,7 @@ input[type='text']{
 	height: 0.9rem;
 }
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
-	font-size: 0.2rem;
+	/*font-size: 0.2rem;*/
 	color: #666666;
 }
 
@@ -177,6 +178,8 @@ input[type='text']{
 	padding-top: 0.1rem!important;
 	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 	width: 1.9rem;
+	font-size: 14px !important;
+	font-weight: bold;
 }
 .mt12{
 	margin-top: 0.12rem!important;

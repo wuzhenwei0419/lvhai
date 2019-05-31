@@ -8,7 +8,7 @@
     <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
     <meta name="baidu-site-verification" content="3HwKFSIamS" />
     <link href="__STATIC__/css/v1/mui.css?v=1" rel="stylesheet" />
-    <link href="__STATIC__/css/v1/index.css?v=1" rel="stylesheet" />
+    <link href="__STATIC__/css/v1/index.css?v=3" rel="stylesheet" />
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__STATIC__/js/v1/mui.min.js"></script>
@@ -39,22 +39,43 @@
     <!-- 轮播图 -->
     <div id="slider" class="mui-slider">
         <div class="mui-slider-group mui-slider-loop">
-            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+
             <adv pid ="2" limit="5" item="v">
-                <div class="mui-slider-item">
+                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+                <if condition="$k eq 0">
+                    <div class='mui-slider-item'>
+                        <a href="{$v.ad_link}">
+                            <img src="{$v[ad_code]}" title="{$v[title]}">
+                        </a>
+                    </div>
+                </if>
+
+                <div class='mui-slider-item'>
                     <a href="{$v.ad_link}">
                         <img src="{$v[ad_code]}" title="{$v[title]}">
                     </a>
                 </div>
+
+                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+                <if condition="$k eq 4">
+                    <div class='mui-slider-item'>
+                        <a href="{$v.ad_link}">
+                            <img src="{$v[ad_code]}" title="{$v[title]}">
+                        </a>
+                    </div>
+                </if>
             </adv>
 
+
+
         </div>
-        <div class="mui-slider-indicator">
-            <adv pid ="2" limit="5" item="v" key="k">
-                <div class='mui-indicator <if condition="$k gt 0"> mui-active </if>'></div>
-            </adv>
-        </div>
+
     </div>
+    <!--<div class="mui-slider-indicator">-->
+        <!--<adv pid ="2" limit="5" item="v" key="k">-->
+            <!--<div class='mui-indicator <if condition="$k eq 0"> mui-active </if>'></div>-->
+        <!--</adv>-->
+    <!--</div>-->
 
     <!-- 菜单 -->
     <ul class="mui-table-view mui-grid-view mui-grid-12">
@@ -260,7 +281,13 @@
 <div class="sky-box"></div>
 <include file="Public/footer_v1_nav"/>
 <script type="text/javascript" charset="utf-8">
-    mui.init();
+    mui.init({
+        swipeBack:true
+    });
+    var slider = mui("#slider");
+    slider.slider({
+        interval: 5000
+    });
 </script>
 </body>
 </html>
