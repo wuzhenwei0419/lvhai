@@ -146,12 +146,12 @@ class GoodsController extends MobileBaseController {
     }
 
     public function ajaxGoodsPage() {
-        $where ='';
+        $where ='WHERE is_on_sale=1 ';
         $cat_id  = I("id",0); // 所选择的商品分类id
         if($cat_id > 0)
         {
             $grandson_ids = getCatGrandson($cat_id);
-            $where .= " WHERE cat_id in(".  implode(',', $grandson_ids).") "; // 初始化搜索条件
+            $where .= " and cat_id in (".  implode(',', $grandson_ids).") "; // 初始化搜索条件
         }
 
         $Model  = new \Think\Model();
