@@ -30,6 +30,12 @@ class IndexController extends MobileBaseController {
         $this->assign('thems',$thems);
         $this->assign('hot_goods',$hot_goods);
         $favourite_goods = M('goods')->where("is_recommend=1 and is_on_sale=1")->order('goods_id DESC')->limit(20)->cache(true,TPSHOP_CACHE_TIME)->select();//首页推荐商品
+
+        //获取首页广告位
+        $ad_list = M('ad')->where("pid=2 and enabled=1 and ".time()." >= start_time and ".time()." <= end_time ")->order('orderby')->limit(5)->select();
+        $this->assign('ad_list',$ad_list);
+        $this->assign('ad_count',count($ad_list));
+
         $this->assign('favourite_goods',$favourite_goods);
         $article=M('hq_article')->order('article_id desc')->limit(5)->select();
         $this->assign('article',$article);

@@ -39,35 +39,29 @@
     <!-- 轮播图 -->
     <div id="slider" class="mui-slider">
         <div class="mui-slider-group mui-slider-loop">
-
-            <adv pid ="2" limit="5" item="v">
-                <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
-                <if condition="$k eq 0">
-                    <div class='mui-slider-item'>
-                        <a href="{$v.ad_link}">
-                            <img src="{$v[ad_code]}" title="{$v[title]}">
-                        </a>
-                    </div>
-                </if>
-
+            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+            <if condition="$ad_count gt 0">
+                <div class='mui-slider-item'>
+                    <a href="{$ad_list[$ad_count-1].ad_link}">
+                        <img src="{$ad_list[$ad_count-1][ad_code]}" title="{$ad_list[$ad_count-1][title]}">
+                    </a>
+                </div>
+            </if>
+            <foreach name="ad_list" item="v" key="k">
                 <div class='mui-slider-item'>
                     <a href="{$v.ad_link}">
                         <img src="{$v[ad_code]}" title="{$v[title]}">
                     </a>
                 </div>
-
-                <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
-                <if condition="$k eq 4">
-                    <div class='mui-slider-item'>
-                        <a href="{$v.ad_link}">
-                            <img src="{$v[ad_code]}" title="{$v[title]}">
-                        </a>
-                    </div>
-                </if>
-            </adv>
-
-
-
+            </foreach>
+            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+            <if condition="$ad_count gt 0">
+                <div class='mui-slider-item'>
+                    <a href="{$ad_list[0].ad_link}">
+                        <img src="{$ad_list[0][ad_code]}" title="{$ad_list[0][title]}">
+                    </a>
+                </div>
+            </if>
         </div>
 
     </div>
@@ -107,7 +101,7 @@
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
             <a href="{:U('Mobile/Goods/categoryList',array('id'=>915))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_29.jpg"></div>
-                <div class="mui-media-body">罐头专区</div>
+                <div class="mui-media-body">精选食品</div>
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
