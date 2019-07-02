@@ -1308,7 +1308,13 @@ class UserController extends MobileBaseController
             $data['status'] = 1;
            $list=$model->save($data);
         }else{
-            $list=$model->add($data);
+            $shop_address=M('shop_address')->where('user_id ='.$this->user_id)->find();
+            if ($shop_address){
+                $this->error('上传失败',U('Mobile/User/shop_address'));
+            }else{
+                $list=$model->add($data);
+            }
+
         }
 
         if($list){
