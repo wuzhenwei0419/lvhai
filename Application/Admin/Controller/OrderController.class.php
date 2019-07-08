@@ -483,13 +483,38 @@ class OrderController extends BaseController {
 
             //TODO 更新因修改商品数量而影响的子订单
             foreach($subOrderIds as $val){
-                $where = "where order_id = ". $val;    
-                $sql = "update __PREFIX__order set goods_price = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
-                    ),order_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
-                    ),total_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val.") $where";
+                $infect_goods_id = array();
+                $infectOrderGoods = $orderLogic->getOrderGoods($val);
+                foreach($infectOrderGoods as $key => $valGoods)
+                {
+                    $infect_goods_id[] = $valGoods['id'];
+                }
+
+                if ($infect_goods_id){
+                    $infectOrder = $orderLogic->getOrderInfo($val);
+                    $result = calculate_price($infectOrder['user_id'],$infect_goods_id,$infectOrder['shipping_code'],0,$infectOrder['province'],$infectOrder['city'],$infectOrder['district'],0,0,0,0);
+                    if($result['status'] >= 0)
+                    {
+                        //################################修改订单费用
+                        $infectOrder['goods_price']    = $result['result']['goods_price']; // 商品总价
+                        $infectOrder['shipping_price'] = $result['result']['shipping_price'];//物流费
+                        $infectOrder['order_amount']   = $result['result']['order_amount']; // 应付金额
+                        $infectOrder['total_amount']   = $result['result']['total_amount']; // 订单总价
+                        M('order')->where('order_id='.$order_id)->save($infectOrder);
+
+                        $orderLogic->OrderActionLog($val,'edit','修改订单');//操作日志
+                    }
+
+                }
+
+
+//                $where = "where order_id = ". $val;
+//                $sql = "update __PREFIX__order set goods_price = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
+//                    ),order_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val."
+//                    ),total_amount = (select sum(if(goods_weight,goods_weight,goods_num) * goods_price) from __PREFIX__order_goods where order_id = ".$val.") $where";
 // print_r($sql); die();
-                D()->query($sql);
-                $orderLogic->OrderActionLog($val,'edit','修改订单');//操作日志
+//                D()->query($sql);
+//                $orderLogic->OrderActionLog($val,'edit','修改订单');//操作日志
             }
 
             

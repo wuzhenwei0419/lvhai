@@ -111,6 +111,7 @@ class CartLogic extends RelationModel
                     'goods_name'      => $goods['goods_name'],   // 商品名称
                     'market_price'    => $goods['market_price'],   // 市场价
                     'goods_price'     => $price,  // 购买价
+                    'shop_price_jin'  => $goods['shop_price_jin'],  // 本店价-按斤
                     'member_goods_price' => $price,  // 会员折扣价 默认为 购买价
                     'goods_num'       => $goods_num, // 购买数量
                     'spec_key'        => "{$spec_key}", // 规格key
@@ -461,6 +462,7 @@ function cart_freight2($shipping_code,$province,$city,$district,$weight)
            $data2['goods_num']          = $val['goods_num']; // 购买数量
            $data2['market_price']       = $val['market_price']; // 市场价
            $data2['goods_price']        = $val['goods_price']; // 商品价
+           $data2['shop_price_jin']        = $val['shop_price_jin']; // 本店价-按斤
            $data2['spec_key']           = $val['spec_key']; // 商品规格
            $data2['spec_key_name']      = $val['spec_key_name']; // 商品规格名称
            $data2['sku']           		= $val['sku']; // 商品sku

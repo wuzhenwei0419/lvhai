@@ -173,6 +173,7 @@ class OrderLogic extends RelationModel
     			$arr['goods_sn'] = $goods['goods_sn'];
     			$arr['market_price'] = $goods['market_price'];
     			$arr['goods_price'] = $goods['shop_price'];
+                $arr['shop_price_jin'] = $goods['shop_price_jin'];
     			$arr['cost_price'] = $goods['cost_price'];
     			$arr['member_goods_price'] = $goods['shop_price'];
     			foreach($val as $k => $v)
