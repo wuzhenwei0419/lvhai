@@ -481,18 +481,19 @@ class OrderController extends BaseController {
             $o = M('total_order')->where('order_id='.$order_id)->save($order);
 
 
-            //TODO 更新因修改商品数量而影响的子订单
+            //TODO 更新因修改商品数量或重量而影响的子订单
             foreach($subOrderIds as $val){
-                $infect_goods_id = array();
+                $infect_goods_attr = array();
                 $infectOrderGoods = $orderLogic->getOrderGoods($val);
-                foreach($infectOrderGoods as $key => $valGoods)
+                foreach($infectOrderGoods as $valGoods)
                 {
-                    $infect_goods_id[] = $valGoods['id'];
+                    $infect_goods_attr[] = $valGoods;
                 }
 
-                if ($infect_goods_id){
+                if ($infect_goods_attr){
+
                     $infectOrder = $orderLogic->getOrderInfo($val);
-                    $result = calculate_price($infectOrder['user_id'],$infect_goods_id,$infectOrder['shipping_code'],0,$infectOrder['province'],$infectOrder['city'],$infectOrder['district'],0,0,0,0);
+                    $result = calculate_price($infectOrder['user_id'],$infect_goods_attr,$infectOrder['shipping_code'],0,$infectOrder['province'],$infectOrder['city'],$infectOrder['district'],0,0,0,0);
                     if($result['status'] >= 0)
                     {
                         //################################修改订单费用
@@ -500,9 +501,9 @@ class OrderController extends BaseController {
                         $infectOrder['shipping_price'] = $result['result']['shipping_price'];//物流费
                         $infectOrder['order_amount']   = $result['result']['order_amount']; // 应付金额
                         $infectOrder['total_amount']   = $result['result']['total_amount']; // 订单总价
-                        M('order')->where('order_id='.$order_id)->save($infectOrder);
+                        M('order')->where('order_id='.$val)->save($infectOrder);
 
-                        $orderLogic->OrderActionLog($val,'edit','修改订单');//操作日志
+                        $orderLogic->orderActionLog($val,'edit','修改订单');//操作日志
                     }
 
                 }

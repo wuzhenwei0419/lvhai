@@ -1082,6 +1082,7 @@ function get_goods_promotion($goods_id,$user_id=0,$act_id=0){
 	$where = "end_time>$now and start_time<$now and id=".$goods['prom_id'];
 	
 	$prom['price'] = $goods['shop_price'];
+    $prom['price_jin'] = $goods['shop_price_jin'];
 	$prom['prom_type'] = $goods['prom_type'];
 	$prom['prom_id'] = $goods['prom_id'];
 	$prom['is_end'] = 0;
@@ -1098,10 +1099,12 @@ function get_goods_promotion($goods_id,$user_id=0,$act_id=0){
 				if($order_id_arr){
 					$goods_num = M('order_goods')->where("prom_id={$goods['prom_id']} and prom_type={$goods['prom_type']} and order_id in (".implode(',', $order_id_arr).")")->sum('goods_num');
 					if($goods_num < $prominfo['buy_limit']){
-						$prom['price'] = $prominfo['price'];
+                        $prom['price'] = $prominfo['price'];
+//                        $prom['price_jin'] = $prominfo['price_jin']; TODO
 					}
 				}else{
 					$prom['price'] = $prominfo['price'];
+//                    $prom['price_jin'] = $prominfo['price_jin']; TODO
 				}
 			} 				
 		}

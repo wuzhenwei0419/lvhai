@@ -58,9 +58,10 @@
                 <td><b>商品名称</b></td>
                 <td><b>规格属性</b></td>
                 <td><b>数量</b></td>
-                <td><b>重量（KG）</b></td>
                 <td><b>单价</b></td>
-                <td class="text-right"><b>小计</b></td>
+                <td><b>重量（KG）</b></td>
+                <td><b>单价-按斤</b></td>
+                <td class="text-right"><b>单品小计</b></td>
             </tr>
             </thead>
             <tbody>
@@ -69,14 +70,19 @@
                     <td>{$good.goods_name}</td>
                     <td>{$good.spec_key_name}</td>
                     <td>{$good.goods_num}</td>
-                    <td>{$good.goods_weight}</td>
                     <td>{$good.goods_price}</td>
+                    <td>{$good.goods_weight}</td>
+                    <td>{$good.shop_price_jin}</td>
                     <td class="text-right">{$good.goods_total}</td>
                 </tr>
             </volist>
+            <tr>
+                <td colspan="6" class="text-right">小计:</td>
+                <td class="text-right">{$order.goods_price}</td>
+            </tr>
             </tbody>
             <tfoot>
-            <tr><td colspan="6" class="text-center"><input class="btn btn-default noprint" type="submit" onclick="window.print();" value="打印"></td></tr>
+            <tr><td colspan="7" class="text-center"><input class="btn btn-default noprint" type="submit" onclick="window.print();" value="打印"></td></tr>
             </tfoot>
         </table>
     </div>

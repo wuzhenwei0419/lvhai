@@ -127,7 +127,7 @@ class OrderLogic extends RelationModel
      * TODO 获取总订单商品详情
      */
     public function getTotalOrderGoods($order_id){
-        $sql = "SELECT g.*,o.*,(if(o.goods_weight,o.goods_weight,o.goods_num) * o.member_goods_price) AS goods_total FROM __PREFIX__order_goods o ".
+        $sql = "SELECT g.*,o.*,(if(o.goods_weight,o.goods_weight * o.shop_price_jin,o.goods_num * o.member_goods_price)) AS goods_total FROM __PREFIX__order_goods o ".
             "LEFT JOIN __PREFIX__goods g ON o.goods_id = g.goods_id WHERE o.total_order_id = $order_id";
         $res = $this->query($sql);
         return $res;
