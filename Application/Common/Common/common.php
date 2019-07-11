@@ -1018,6 +1018,109 @@ function update_pay_status($order_sn,$pay_status = 1)
         return array('status'=>1,'msg'=>'操作成功');
     }
 
+
+/**
+ * 总订单确认收货
+ * @param $id   订单id
+ */
+function confirm_total_order($id,$user_id = 0){
+
+    $where = "order_id = $id";
+    $user_id && $where .= " and user_id = $user_id ";
+
+    $order = M('total_order')->where($where)->find();
+    if($order['order_status'] != 1)
+        return array('status'=>-1,'msg'=>'该订单不能收货确认');
+
+    //目前没有评价功能，状态改为4
+    $data['order_status'] = 4; // 已收货
+    $data['pay_status'] = 1; // 已付款
+    $data['confirm_time'] = time(); // 收货确认时间
+    if($order['pay_code'] == 'cod'){
+        $data['pay_time'] = time();
+    }
+    $row = M('total_order')->where(array('order_id'=>$id))->save($data);
+    if($row){
+        $user_order=M('order_goods')->where(array('total_order_id'=>$id,'prom_type'=>4))->getField('rec_id,order_id,goods_id,goods_num,member_goods_price,act_id');
+        if($user_order){
+            foreach ($user_order as $key => $value) {
+                $mag[$key]['order_id'] = $value['order_id'];
+                $mag[$key]['goods_id'] = $value['goods_id'];
+                $mag[$key]['goods_num'] = $value['goods_num'];
+                $mag[$key]['act_id'] = $value['act_id'];
+                $mag[$key]['member_goods_price'] = $value['member_goods_price'];
+                $shop_price = M('goods')->where(array('goods_id'=>$mag[$key]['goods_id']))->getField('shop_price');
+                $profit = ($mag[$key]['member_goods_price']-$shop_price)*$mag[$key]['goods_num'];
+                $phone = M('application_buy')->where(array('id'=>$mag[$key]['act_id']))->getField('user_phone');
+                M('users')->where(array('mobile'=>$phone))->setInc('user_money',$profit);
+            }
+        }
+        $mobile=M('users')->where('user_id='.$user_id)->getField('mobile');
+//        $phone_num=M('application')->where('phone_num='.$mobile)->getField('referee_phone_num');
+//        if($phone_num){
+//            //M('application')->where('phone_num = '.$phone_num)->setInc('shopping_num',1);
+//            $phone_sum=M('application')->where('referee_phone_num='.$phone_num)->getField('user_id,phone_num');
+//            // //$count=M('application')->where('referee_phone_num')->count();
+//            $num=0;
+//            foreach ($phone_sum as $k => $v) {
+//                $r=M('users')->where(array('mobile'=>$v,'total_amount > 0'))->select();
+//                if($r){
+//                    $num++;
+//                }
+//            }
+//            M('application')->where('phone_num='.$phone_num)->save(array('shopping_num'=>0));
+//            M('application')->where('phone_num='.$phone_num)->save(array('shopping_num'=>$num));
+//            $referee_num=M('application')->where('phone_num='.$phone_num)->getField('referee_num');
+//            $shopping_num=M('application')->where('phone_num='.$phone_num)->getField('shopping_num');
+//            $uid=M('users')->where('mobile='.$phone_num)->getField('user_id');
+//            $list=M('coupon_list')->where(array('uid'=>$uid,'cid'=>2,'type'=>0))->select();
+//            if(!$list){
+//                if($shopping_num>=5&&$referee_num>=10){
+//                    $info['cid']=2;
+//                    $info['type']=0;
+//                    $info['uid']=$uid;
+//                    $info['send_time']=time();
+//                    M('coupon_list')->add($info);
+//
+//                }
+//            }
+//            $list=M('coupon_list')->where(array('uid'=>$uid,'cid'=>3,'type'=>0))->select();
+//            if(!$list){
+//                if($shopping_num>=15&&$referee_num>=30){
+//                    $info['cid']=3;
+//                    $info['type']=0;
+//                    $info['uid']=$uid;
+//                    $info['send_time']=time();
+//                    M('coupon_list')->add($info);
+//
+//                }
+//            }
+//            $list=M('coupon_list')->where(array('uid'=>$uid,'cid'=>4,'type'=>0))->select();
+//            if(!$list){
+//                if($shopping_num>=25&&$referee_num>=50){
+//                    $info['cid']=4;
+//                    $info['type']=0;
+//                    $info['uid']=$uid;
+//                    $info['send_time']=time();
+//                    M('coupon_list')->add($info);
+//
+//                }
+//            }
+//        }
+
+
+    }
+    if(!$row)
+        return array('status'=>-3,'msg'=>'操作失败');
+
+    order_give($order);// 调用送礼物方法, 给下单这个人赠送相应的礼物
+
+    //分销设置 todo  以后调整
+//    M('rebate_log')->where("order_id = $id")->save(array('status'=>2,'confirm'=>time()));
+
+    return array('status'=>1,'msg'=>'操作成功');
+}
+
 /**
  * 给订单送券送积分 送东西
  */
