@@ -7,8 +7,8 @@
     <meta http-equiv="keywords" content="{$tpshop_config['shop_info_store_keyword']}" />
     <meta name="description" content="{$tpshop_config['shop_info_store_desc']}" />
     <meta name="baidu-site-verification" content="3HwKFSIamS" />
-    <link href="__STATIC__/css/v1/mui.css?v=1" rel="stylesheet" />
-    <link href="__STATIC__/css/v1/index.css?v=3" rel="stylesheet" />
+    <link href="__STATIC__/css/v1/mui.css?v=4" rel="stylesheet" />
+    <link href="__STATIC__/css/v1/index.css?v=6" rel="stylesheet" />
     <script type="text/javascript" src="__STATIC__/js/jquery.js"></script>
     <script src="__PUBLIC__/js/global.js"></script>
     <script src="__STATIC__/js/v1/mui.min.js"></script>
@@ -26,7 +26,7 @@
     <div class="mui-row msx-search">
         <div class="mui-col-xs-12 mui-col-sm-12">
             <form class="set_ip"name="sourch_form" id="sourch_form" method="post" action="{:U('Goods/search')}">
-            <div class="search-box"><input class="search-input" type="text" value="" name="q" id="q"><img class="search-button" src="__STATIC__/images/v1/search.jpg" onclick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"></div>
+            <div class="search-box"><input class="search-input" type="text" value="" name="q" id="q"><img class="search-button" src="__STATIC__/images/v1/search.jpg" onClick="if($.trim($('#q').val()) != '') $('#sourch_form').submit();"></div>
             </form>
             <div class="search-hint"><img src="__STATIC__/images/v1/car.jpg"><span>补货中：每天下单时间<b>{$tpshop_config['shopping_begin_time']}:00-{$tpshop_config['shopping_end_time']}:00</b></span></div>
         </div>
@@ -65,16 +65,11 @@
         </div>
 
     </div>
-    <!--<div class="mui-slider-indicator">-->
-        <!--<adv pid ="2" limit="5" item="v" key="k">-->
-            <!--<div class='mui-indicator <if condition="$k eq 0"> mui-active </if>'></div>-->
-        <!--</adv>-->
-    <!--</div>-->
 
     <!-- 菜单 -->
     <ul class="mui-table-view mui-grid-view mui-grid-12">
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-            <a href="{:U('Mobile/Goods/categoryList',array('id'=>891))}">
+            <a href="{:U('Mobile/Goods/categoryList',array('id'=>929))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_17.jpg"></div>
                 <div class="mui-media-body">精品爆款</div>
             </a>
@@ -86,20 +81,20 @@
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-            <a href="{:U('Mobile/Goods/categoryList',array('id'=>892))}">
+            <a href="{:U('Mobile/Goods/categoryList',array('id'=>1))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_21.jpg"></div>
                 <div class="mui-media-body">必检专区</div>
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-            <a href="{:U('Mobile/Goods/categoryList',array('id'=>915))}">
+            <a href="{:U('Mobile/Goods/categoryList',array('id'=>931))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_23.jpg"></div>
                 <div class="mui-media-body">产地直采</div>
             </a>
         </li>
 
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-            <a href="{:U('Mobile/Goods/categoryList',array('id'=>915))}">
+            <a href="{:U('Mobile/Goods/categoryList',array('id'=>933))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_29.jpg"></div>
                 <div class="mui-media-body">精选食品</div>
             </a>
@@ -111,7 +106,7 @@
             </a>
         </li>
         <li class="mui-table-view-cell mui-media mui-col-xs-3 mui-col-sm-3">
-            <a href="{:U('Mobile/Goods/categoryList',array('id'=>844))}">
+            <a href="{:U('Mobile/Goods/categoryList',array('id'=>861))}">
                 <div class="msx-menu-icon"><img src="__STATIC__/images/v1/index_31.jpg"></div>
                 <div class="mui-media-body">柑橘橙柠</div>
             </a>
@@ -135,7 +130,7 @@
             <div class="mui-scroll">
 
 
-                <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+                <tpshop sql="select * from __PREFIX__goods where is_recommend=1 and is_on_sale=1 order by sort limit 9" item="v" key="k">
                     <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
@@ -163,7 +158,7 @@
         <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
             <div class="mui-scroll">
 
-                <tpshop sql="select * from __PREFIX__goods where is_new=1 order by sort limit 9" item="v" key="k">
+                <tpshop sql="select * from __PREFIX__goods where is_new=1 and is_on_sale=1 order by sort limit 9" item="v" key="k">
                     <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
@@ -191,7 +186,7 @@
             <div class="mui-scroll">
 
 
-                <tpshop sql="select * from __PREFIX__goods where is_hot=1 order by sort limit 9" item="v" key="k">
+                <tpshop sql="select * from __PREFIX__goods where is_hot=1 and is_on_sale=1 order by sort limit 9" item="v" key="k">
                     <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
@@ -220,7 +215,7 @@
             <div class="mui-scroll">
 
 
-                <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+                <tpshop sql="select * from __PREFIX__goods where cat_id=935 and is_on_sale=1 order by sort limit 9" item="v" key="k">
                     <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">
@@ -249,7 +244,7 @@
             <div class="mui-scroll">
 
 
-                <tpshop sql="select * from __PREFIX__goods where is_recommend=1 order by sort limit 9" item="v" key="k">
+                <tpshop sql="select * from __PREFIX__goods where cat_id=931 and is_on_sale=1 order by sort limit 9" item="v" key="k">
                     <a class="mui-control-item" href="{:U('Mobile/Goods/goodsInfo',array('id'=>$v[goods_id]))}" title="{$v.goods_name}">
                         <div class="mui-icon">
                             <img src="{$v.goods_id|goods_thum_images=200,200}" alt="">

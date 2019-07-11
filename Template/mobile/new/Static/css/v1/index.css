@@ -102,7 +102,7 @@ input[type='text']{
 	height: 0.9rem;
 }
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
-	/*font-size: 0.2rem;*/
+	font-size: 0.255rem;
 	color: #666666;
 }
 
@@ -117,7 +117,7 @@ input[type='text']{
 }
 .msx-list-header .header-text{
 	text-align: center;
-	font-size: 0.25rem;
+	font-size: 0.32rem;
 	font-weight: bold;
 }
 .msx-list-header .text-green{
