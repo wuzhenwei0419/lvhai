@@ -150,7 +150,7 @@
 									                <td class="text-left">规格</td>         
 									                <td class="text-left">价格</td>
                                                     <td class="text-left">数量</td>
-                                                    <td class="text-left">重量（KG）</td>
+                                                    <td class="text-left">重量（斤）</td>
                                                     <td class="text-left">价格-按斤</td>
                                                     <td class="text-left">单品小计</td>
 									                <td class="text-left">操作</td>
@@ -169,7 +169,7 @@
                                                         <td class="text-left">
                                                         <input type="text" class="input-sm" name="old_goods_weight[{$vo.rec_id}]" value="{$vo.goods_weight}" onkeyup="this.value=this.value.replace(/^(\d*\.?\d{0,2}).*/,'$1')" onpaste="this.value=this.value.replace(/^(\d*\.?\d{0,2}).*/,'$1')"></td>
                                                         <td class="text-left">{$vo.shop_price_jin}</td>
-                                                        <td class="text-left">{$vo.goods_total}</td>
+                                                        <td class="text-left">{$vo.goods_total|number_format=###,2}</td>
 									                <td class="text-left"><a href="javascript:void(0)" onclick="javascript:$(this).parent().parent().remove();">删除</a></td>
 									           		</tr>
 									           </foreach>

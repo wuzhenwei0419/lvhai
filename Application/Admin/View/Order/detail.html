@@ -118,7 +118,7 @@
                         <td class="text-left">属性</td>
                         <td class="text-right">数量</td>
                         <td class="text-right">单品价格</td>
-                        <td class="text-right">重量（KG）</td>
+                        <td class="text-right">重量（斤）</td>
                         <td class="text-right">单品价格-按斤</td>
                         <td class="text-right">会员折扣价</td>
                         <td class="text-right">单品小计</td>
@@ -135,13 +135,13 @@
                             <td class="text-right">{$good.goods_weight}</td>
                             <td class="text-right">{$good.shop_price_jin}</td>
                             <td class="text-right">{$good.member_goods_price}</td>
-                            <td class="text-right">{$good.goods_total}</td>
+                            <td class="text-right">{$good.goods_total|number_format=###,2}</td>
                         </tr>
                     </volist>
 
                     <tr>
                         <td colspan="7" class="text-right">小计:</td>
-                        <td class="text-right">{$order.goods_price}</td>
+                        <td class="text-right">{$order.goods_price|number_format=###,2}</td>
                     </tr>
                     </tbody>
                 </table>

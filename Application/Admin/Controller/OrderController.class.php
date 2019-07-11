@@ -286,7 +286,7 @@ class OrderController extends BaseController {
 
             //更新子订单相关信息
             $sql = "update __PREFIX__order set total_order_id = ".$total_order_id." where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1
-            and FROM_UNIXTIME(add_time, '%Y-%m-%d') = ".$trueDay;
+            and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."'";
             $row = D()->query($sql);
 
             $sql = "update __PREFIX__order_goods set total_order_id = ".$total_order_id." where order_id in (select order_id from __PREFIX__order where user_id = ".$user_id." and address_id = ".$address_id." and order_status = 1 and FROM_UNIXTIME(add_time, '%Y-%m-%d') = '".$trueDay."' ) ";
